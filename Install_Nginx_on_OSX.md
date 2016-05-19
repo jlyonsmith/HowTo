@@ -3,14 +3,20 @@
 Install `nginx`:
 
 ```bash
-sudo brew install nginx
-sudo nginx -?
+brew install nginx
+nginx -?
+```
+
+Go into super user mode:
+
+```bash
+sudo -s
 ```
 
 Create a `launchctl` file
 
 ```bash
-sudo edit /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 
+edit /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 
 ```
 
 Paste the following into the file:
@@ -38,8 +44,37 @@ Paste the following into the file:
 </plist>
 ```
 
+Create a log file directory:
+
+```bash
+mkdir -p /var/log/nginx
+```
+
+Create a simpler `nginx` configuration:
+
+```
+worker_processes 1;
+error_log  /var/log/nginx/error.log;
+events {
+    worker_connections  1024;
+}
+http {
+    include mime.types;
+    default_typeapplication/octet-stream;
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+      '$status $body_bytes_sent "$http_referer" '
+      '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log/var/log/nginx/access.log  main;
+    sendfile on;
+    keepalive_timeout 65;
+    include /usr/local/etc/nginx/conf.d/*;
+}
+```
+
+Now you can your configurations in the `/usr/local/etc/nginx/conf.d/` directory.
+
 Lastly, restart `nginx` through launchctl to confirm all is working:
 
 ```bash
-sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 
+launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 
 ```
