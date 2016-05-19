@@ -1,15 +1,5 @@
 # Creating an SSL Certificate
 
-### Importing certificates for Mono
-
-First, import and update root certificates on the machine:
-
-    mozroots --import --sync
-
-If you get an error connecting via SSL, try using `certmgr` to pull down the certificates for the site.  For example:
-
-    certmgr --ssl https://www.amazon.com
-
 ### Creating the CSR
 
 Keep all the following files in one directory and zip them up for safekeeping after the certificate is issued.
@@ -56,11 +46,11 @@ Always save the `.csr`, the `.key` and of course the `.crt` file both on your se
 
 Take the `.csr` and `.key` files and order an SSL certificate on [Namecheap](http://namecheap.com).  This will just require email verification.
 
-For certificates ordered through [Comodo Positive SSL](http://positivessl.com) you will receive a collection of several individual certificates.  These need to be concatenated together into a _bundle_ before deployment in reverse order, from your domain to the highest lever CA, e.g.:
+For certificates ordered through [Comodo Positive SSL](http://positivessl.com) you will receive a collection of several individual certificates.  These need to be concatenated together into a _bundle_ before deployment in _reverse order, from your domain to the highest level CA certificate_, e.g.:
 
     cat <file-name>.crt PositiveSSLCA2.crt AddTrustExternalCARoot.crt > <file-name>_chained.crt
 
-or
+or, if you get all the certificates in a `_chained` or `.ca-bundle` file:
 
 	cat <file-name>.crt <file-name>.ca-bundle > <file-name>_chained.crt
 
@@ -104,6 +94,16 @@ If you have a certificate that has been installed on the OS X Keychain applicati
 
 3. You then need to open the files and reverse the certificate ordering in the `<site-name>_chained.crt` file, remove intermediate text and if necessary remove and duplicates of the private key in the `<site-name>.key` file.
 5. Update your SSL config in the `.conf` file and run `nginx -t` to check all is well.
+
+### Importing certificates for Mono
+
+First, import and update root certificates on the machine:
+
+    mozroots --import --sync
+
+If you get an error connecting via SSL, try using `certmgr` to pull down the certificates for the site.  For example:
+
+    certmgr --ssl https://www.amazon.com
 
 ---
 
