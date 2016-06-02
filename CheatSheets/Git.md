@@ -117,7 +117,11 @@ Delete a local branch:
     
 Delete a remote branch:
 
-	git push --delete <remote> <branchName>
+    git push --delete <remote> <branchName>
+
+Show branches which have been merged into this branch:
+
+    git branch --merged	
 
 ## Remotes 
 
