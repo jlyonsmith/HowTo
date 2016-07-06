@@ -1,5 +1,3 @@
-# Installing MongoDB on OS X
-
 To install MongoDB on OS X using `launchd` follow these steps:
 
 Install with Homebrew:
