@@ -50,7 +50,7 @@ Create a log file directory:
 mkdir -p /var/log/nginx
 ```
 
-Create a simpler `nginx` configuration:
+Now you can edit your configurations in the `/usr/local/etc/nginx/conf.d/` directory.  Create a simple configuration, removing all default websites:
 
 ```
 worker_processes 1;
@@ -70,8 +70,6 @@ http {
     include /usr/local/etc/nginx/conf.d/*;
 }
 ```
-
-Now you can your configurations in the `/usr/local/etc/nginx/conf.d/` directory.
 
 Lastly, restart `nginx` through launchctl to confirm all is working:
 
