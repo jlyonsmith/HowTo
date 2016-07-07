@@ -47,14 +47,14 @@ Paste the following into the file:
 Create a log file directory:
 
 ```bash
-mkdir -p /var/log/nginx
+mkdir -p /usr/local/var/log/nginx
 ```
 
 Now you can edit your configurations in the `/usr/local/etc/nginx/conf.d/` directory.  Create a simple configuration, removing all default websites:
 
 ```
 worker_processes 1;
-error_log  /var/log/nginx/error.log;
+error_log  /usr/local/var/log/nginx/error.log;
 events {
     worker_connections  1024;
 }
