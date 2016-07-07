@@ -1,4 +1,4 @@
-# Install `nginx` on OS X
+# Install `nginx` on macOS
 
 Install `nginx`:
 
