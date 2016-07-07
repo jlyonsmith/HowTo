@@ -77,9 +77,9 @@ Lastly, restart `nginx` through launchctl to confirm all is working:
 launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 
 ```
 
-# Checking What Process is Using a Port on OS X El Capitan
+## Debugging Port Usage
 
-To see which process has a port open:
+To check what process is using a port on macOS (after El Capitan) do:
 
 ```
 lsof -i tcp:3000
