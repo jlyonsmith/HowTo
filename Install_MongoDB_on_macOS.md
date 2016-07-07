@@ -56,21 +56,21 @@ dscl . create /Users/_mongodb Password "*"
 Now create the database and log file directories and assign ownership to the `_mongodb` user:
 
 ```bash
-mkdir -p /var/lib/mongodb
-chown _mongodb:_mongodb /var/lib/mongodb
-mkdir -p /var/log/mongodb
-chown _mongodb:_mongodb /var/log/mongodb
+mkdir -p /usr/local/var/lib/mongodb
+chown _mongodb:_mongodb /usr/local/var/lib/mongodb
+mkdir -p /usr/local/var/log/mongodb
+chown _mongodb:_mongodb /usr/local/var/log/mongodb
 ```
 
-Create a `/etc/mongod.conf` file and put the following in it:
+Now `touch /usr/local/etc/mongod.conf` and put the following in it:
 
 ```
 systemLog:
   destination: file
-  path: "/var/log/mongodb/mongodb.log"
+  path: "/usr/local/var/log/mongodb/mongodb.log"
 
 storage:
-  dbPath: "/var/lib/mongodb"
+  dbPath: "/usr/local/var/lib/mongodb"
 
 net:
   bindIp: 127.0.0.1
@@ -79,7 +79,7 @@ security:
   authorization: disabled
 ```
 
-Now create a `/Library/LaunchDaemons/org.mongo.mongod.plist` file and put the following in it:
+Now `touch /Library/LaunchDaemons/org.mongo.mongod.plist` and put the following in it:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -94,7 +94,7 @@ Now create a `/Library/LaunchDaemons/org.mongo.mongod.plist` file and put the fo
     <array>
       <string>/usr/local/bin/mongod</string>
       <string>--config</string>
-      <string>/etc/mongod.conf</string>
+      <string>/usr/local/etc/mongod.conf</string>
     </array>
     <key>UserName</key>
     <string>_mongodb</string>
