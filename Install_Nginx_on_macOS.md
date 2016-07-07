@@ -50,7 +50,9 @@ Create a log file directory:
 mkdir -p /usr/local/var/log/nginx
 ```
 
-Now you can edit your configurations in the `/usr/local/etc/nginx/conf.d/` directory.  Create a simple configuration, removing all default websites:
+Now you can edit your configurations in the `/usr/local/etc/nginx/` directory.  Typically, place your various websites under the `conf.d/` sub-directory, SSL certificates and keys under `ssl/` and saved default files under `saved/`.  
+
+Create a simple `nginx.conf` file in this directory, removing all default websites:
 
 ```
 worker_processes 1;
