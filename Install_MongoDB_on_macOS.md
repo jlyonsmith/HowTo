@@ -8,16 +8,10 @@ Install with Homebrew:
 brew install mongodb
 ```
 
-Switch to super user mode:
-
-```bash
-sudo -s
-```
-
 First we need to create a `_mongodb` user and group:
 
 ```bash
-dscl
+sudo dscl
 cd /Local/Default
 ls Groups gid
 ```
@@ -49,17 +43,17 @@ exit
 Finally, stop the user from showing up on the login screen with:
 
 ```bash
-dscl . delete /Users/_mongodb AuthenticationAuthority
-dscl . create /Users/_mongodb Password "*"
+sudo dscl . delete /Users/_mongodb AuthenticationAuthority
+sudo dscl . create /Users/_mongodb Password "*"
 ```
 
 Now create the database and log file directories and assign ownership to the `_mongodb` user:
 
 ```bash
-mkdir -p /var/lib/mongodb
-chown _mongodb:_mongodb /var/lib/mongodb
-mkdir -p /var/log/mongodb
-chown _mongodb:_mongodb /var/log/mongodb
+sudo mkdir -p /var/lib/mongodb
+sudo chown _mongodb:_mongodb /var/lib/mongodb
+sudo mkdir -p /var/log/mongodb
+sudo chown _mongodb:_mongodb /var/log/mongodb
 ```
 
 Now `touch /usr/local/etc/mongod.conf` and put the following in it:
@@ -79,7 +73,7 @@ security:
   authorization: disabled
 ```
 
-Now `touch /Library/LaunchDaemons/org.mongo.mongod.plist` and put the following in it:
+Now `sudo touch /Library/LaunchDaemons/org.mongo.mongod.plist` and put the following in it:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -121,7 +115,7 @@ Now `touch /Library/LaunchDaemons/org.mongo.mongod.plist` and put the following 
 Finally, start the `mongod` daemon with:
 
 ```bash
-launchctl load /Library/LaunchDaemons/org.mongo.mongod.plist
+sudo launchctl load /Library/LaunchDaemons/org.mongo.mongod.plist
 ```
 
 You can ensure that MongoDB is running by checking the log in the **Console** app and running the `mongo` command line tool.  [RoboMongo](https://robomongo.org/) is a good GUI tool.
