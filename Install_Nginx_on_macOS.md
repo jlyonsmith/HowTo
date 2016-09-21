@@ -56,7 +56,7 @@ Create a simple `nginx.conf` file in this directory, removing all default websit
 
 ```
 worker_processes 1;
-error_log  /usr/local/var/log/nginx/error.log;
+error_log /var/log/nginx/error.log;
 events {
     worker_connections  1024;
 }
@@ -71,6 +71,12 @@ http {
     keepalive_timeout 65;
     include /usr/local/etc/nginx/conf.d/*;
 }
+```
+
+Create the log directory:
+
+```bash
+mkdir /var/log/nginx
 ```
 
 Lastly, restart `nginx` through launchctl to confirm all is working:
