@@ -22,11 +22,11 @@ distinguished_name = dn
 
 [dn]
 countryName = US
-stateOrProvinceName = WA
-localityName = Seattle
-O.organizationName = Jamoki
-commonName = cake.jamoki.com
-emailAddress = admin@jamoki.com
+stateOrProvinceName = StateName
+localityName = CityName
+O.organizationName = OrganizationName
+commonName = api.mydomain.com
+emailAddress = admin@mydomain.com
 ```
 
 Next, create the `.key` and the `.csr` file:
