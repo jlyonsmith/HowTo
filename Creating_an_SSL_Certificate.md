@@ -31,13 +31,22 @@ emailAddress = admin@jamoki.com
 
 Next, create the `.key` and the `.csr` file:
 
-	openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+```bash
+openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+chmod o-rwx <file-name>.key
+```
+
+To re-issue a certificate use:
+
+```bash
+openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+```
 
 This `.csr` and `.key` can either be passed to a 3rd party for signing, or can be self signed.
 
-Test the CSR is valid at [Comodo CSR Decoder](https://secure.comodo.net/utilities/decodeCSR.html).
+Test the CSR is valid at [Symantec CryptoReport](https://cryptoreport.websecurity.symantec.com/checker/views/csrCheck.jsp).
 
-Always save the `.csr`, the `.key` and of course the `.crt` file both on your server _and_ in a secure backup location.
+Always save the `.csr`, the `.key` and of course the `.crt` file both on your server _and_ in alongside the certificate and private key.
 
 ### 3rd Party Signing
 
@@ -101,6 +110,22 @@ First, import and update root certificates on the machine:
 If you get an error connecting via SSL, try using `certmgr` to pull down the certificates for the site.  For example:
 
     certmgr --ssl https://www.amazon.com
+
+### Validate SSL Certificate
+
+To validate an SSL certificate with OpenSSL:
+
+```bash
+openssl verify -CAfile certificate-chain.crt certificate.crt
+```
+
+`certificate-chain.crt` must be just the original CA bundle, not the combined chain.  If the response is anything other than OK then there is a problem.
+
+To check the dates the certificate is valid:
+
+```bash
+openssl x509 -noout -in certificate.crt -dates
+```
 
 ---
 
