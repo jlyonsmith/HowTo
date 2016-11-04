@@ -12,29 +12,27 @@ We'll refer to this as the `<domain-name>`. Replace the dots (`.`) with undersco
 
 Create a signing configuration file, `<file-name>.cnf`:
 
-	FQDN = <domain-name> 
-	ORGNAME = Your Company Name 
-	ALTNAMES = DNS:$FQDN 
-	
-	[req] 
-	default_bits = 2048 
-	prompt = no 
-	encrypt_key = no 
-	default_md = sha256 
-	distinguished_name = dn 
-	req_extensions = req_ext 
-	
-	[dn] 
-	C = US 
-	O = $ORGNAME
-	CN = $FQDN
-	
-	[req_ext] 
-	subjectAltName = $ALTNAMES 
+```
+[req]
+default_bits = 2048
+prompt = no
+encrypt_key = no
+default_md = sha384
+distinguished_name = dn
+req_extensions = req_ext
+
+[dn]
+countryName = US
+stateOrProvince = XX
+localityName = City
+O.organizationName = Company
+commonName = api.mydomain.com
+emailName = admin@mydomain.com
+```
 
 Next, create the `.key` and the `.csr` file:
 
-	openssl req -new -sha256 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+	openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
 
 This `.csr` and `.key` can either be passed to a 3rd party for signing, or can be self signed.
 
