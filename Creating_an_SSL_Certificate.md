@@ -19,15 +19,14 @@ prompt = no
 encrypt_key = no
 default_md = sha384
 distinguished_name = dn
-req_extensions = req_ext
 
 [dn]
 countryName = US
-stateOrProvince = XX
-localityName = City
-O.organizationName = Company
-commonName = api.mydomain.com
-emailName = admin@mydomain.com
+stateOrProvinceName = WA
+localityName = Seattle
+O.organizationName = Jamoki
+commonName = cake.jamoki.com
+emailAddress = admin@jamoki.com
 ```
 
 Next, create the `.key` and the `.csr` file:
