@@ -24,6 +24,11 @@
 1. `git com -am "Initial project"`
 1. `git push`
 
+## Fixing the Build
+
+1. Xcode will create the project in an extra sub-folder. Move it down one level.
+1. Fix the mess that ensues
+
 ## Adding Build Infrastructure
 
 1. Copy `.version` and `.version.config` files in, rename and tweak
@@ -31,4 +36,10 @@
 1. `Podfile`
 1. `Gemfile`
 1. Copy `main.swift` from another project for unit test builds
+1. 
+
+## Artwork
+
+1. `mkdir Xxx/Content` and linked into the app
+1. `mkdir Xxx/RawContent` and put artwork, sounds, fonts, etc.. in sub-folders
 1. 
