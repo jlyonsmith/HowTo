@@ -36,10 +36,14 @@
 1. `Podfile`
 1. `Gemfile`
 1. Copy `main.swift` from another project for unit test builds
-1. 
+1. Copy `bin` directory from another project
+2. Tweak the `switch_to` script as necessary
 
 ## Artwork
 
 1. `mkdir Xxx/Content` and linked into the app
 1. `mkdir Xxx/RawContent` and put artwork, sounds, fonts, etc.. in sub-folders
-1. 
+1. Add Sketch file with artwork
+2. Create `AppIcon.pdf` and run `create-icons`
+3. Run `switch-to internal` to use internal icon
+
