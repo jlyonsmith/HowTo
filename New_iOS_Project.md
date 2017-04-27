@@ -38,6 +38,9 @@
 1. Copy `main.swift` from another project for unit test builds
 1. Copy `bin` directory from another project
 2. Tweak the `switch_to` script as necessary
+3. Copy `Gemfile` from another project
+4. `rbenv local 2.2.2` in root
+4. `bundle install` in root
 
 ## Artwork
 
@@ -47,3 +50,17 @@
 2. Create `AppIcon.pdf` and run `create-icons`
 3. Run `switch-to internal` to use internal icon
 
+## Crashlytics/Fabric
+
+1. Run the Fabric app
+2. Add a new app
+3. Paste the segment into a Run Script build phase
+4. Add the initialization call
+5. Run the app
+6. Run `switch-to external` and do the above again
+7. Run `switch-to internal`
+
+## Do a Build
+
+1. Regenerate provisioning profiles
+1. Run an internal build and upload to Fabric
