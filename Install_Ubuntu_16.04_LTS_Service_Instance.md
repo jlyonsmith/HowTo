@@ -328,19 +328,38 @@ Check the version with:
 
     node --version
 
-### Upstart Service Configuration
+### `systemd` Configuration
 
-Ubuntu uses [Upstart](http://upstart.ubuntu.com/getting-started.html) to manage daemons.  Configuration files for Upstart daemons are placed in the `/etc/init` directory.  Upstart currently works alongside the existing Unix `/etc/init.d` daemon process on Ubuntu.
+Ubuntu 16.04 uses [Systemd](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal) to manage daemons.  Configuration files for `systemd` have a `.service` extension and are placed in the `/etc/systemd/system` directory.  `systemd` works alongside the existing Unix `/etc/init.d` and Upstart processes on Ubuntu.
 
-Build and deploy the software to the system using the `deploysvc.sh` script:
+A basic `.service` file might contain:
 
-    bin/deploysvc.sh ... 
+```
+[Unit]
+Description=An API Service
+After=network.target
 
-Where `machine` is a name configured in `~/.ssh/config`.
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/Xxx/Service
+ExecStart=/usr/bin/node server.js
+Restart=on-abort
 
-**NOTE:** If this is a clean install, copy the `service-vM-m.conf` then run:
+[Install]
+WantedBy=multi-user.target
+```
 
-    service service-v1-0 start
+Put the `.service` file in the `/etc/systemd/system` directory using a symbolic link:
 
-Test the service by going to `http://api.mydomain.com/vM/info` in a browser.
+    sudo ln -s /path/to/xxx.service /etc/systemd/system/xxx.system
+
+You can see the status of the service with:
+
+    sudo systemctl status xxx
+
+If the service file changes, reload it with:
+
+    sudo systemctl daemon-reload
+
 
