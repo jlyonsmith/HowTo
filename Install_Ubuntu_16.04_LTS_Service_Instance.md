@@ -330,7 +330,7 @@ Check the version with:
 
 ### `systemd` Configuration
 
-Ubuntu 16.04 uses [Systemd](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal) to manage daemons.  Configuration files for `systemd` have a `.service` extension and are placed in the `/etc/systemd/system` directory.  `systemd` works alongside the existing Unix `/etc/init.d` and Upstart processes on Ubuntu.
+Ubuntu 16.04 uses [Systemd](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal) to manage daemons.  Configuration files for `systemd` have a `.service` extension and are placed in the `/etc/systemd/system` directory.  See also [`systemd` file format](https://www.freedesktop.org/software/systemd/man/systemd.service.html) `systemd` works alongside the existing Unix `/etc/init.d` and Upstart processes on Ubuntu.
 
 A basic `.service` file might contain:
 
