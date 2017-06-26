@@ -328,6 +328,33 @@ Check the version with:
 
     node --version
 
+### RabbitMQ Install
+
+Add APT repository public key:
+
+```
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+```
+
+Add the repository to the `/etc/apt/sources.list.d` file:
+
+```
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+```
+
+Update and install the newest version of the server:
+
+```
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+```
+
+Test the server is running with:
+
+```
+sudo rabbitmqctl status
+```
+
 ### `systemd` Configuration
 
 Ubuntu 16.04 uses [Systemd](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal) to manage daemons.  Configuration files for `systemd` have a `.service` extension and are placed in the `/etc/systemd/system` directory.  See also [`systemd` file format](https://www.freedesktop.org/software/systemd/man/systemd.service.html) `systemd` works alongside the existing Unix `/etc/init.d` and Upstart processes on Ubuntu.
