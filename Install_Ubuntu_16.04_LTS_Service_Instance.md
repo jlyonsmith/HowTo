@@ -377,9 +377,13 @@ Restart=on-abort
 WantedBy=multi-user.target
 ```
 
-Put the `.service` file in the `/etc/systemd/system` directory using a symbolic link:
+Copy the `.service` file into the `/etc/systemd/system` directory using a symbolic link:
 
     sudo ln -s /path/to/xxx.service /etc/systemd/system/xxx.system
+
+Then enable and start the service with:
+
+    sudo systemctl --now enable xxx
 
 You can see the status of the service with:
 
@@ -388,5 +392,4 @@ You can see the status of the service with:
 If the service file changes, reload it with:
 
     sudo systemctl daemon-reload
-
 
