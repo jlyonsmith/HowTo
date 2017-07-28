@@ -66,7 +66,7 @@ On the server machine, create a `/etc/nginx/ssl` directory as `su`.  `scp` the c
 
 ### Self Signing
 
-Self signing is good to get an HTTPS site up and running, but you should order a 3rd party SSL certificate for any Internet facing site straight away.  Sites signed this way will generate a warning in the browser when you go to them.
+Self signing is really fast way to get an HTTPS site up and running, but you should order a 3rd party SSL certificate for any Internet facing site straight away.  Sites signed this way will generate a warning in the browser when you go to them.
 	
 To use `openssl` to sign your certificate:
 
