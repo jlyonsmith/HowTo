@@ -4,7 +4,7 @@ This document gives details on setting up a new Mac.
 
 ## Chrome
 
-Install [Chrome](https://www.google.com/chrome/browser/desktop/index.html).  After installation install [LastPass](https://lastpass.com/misc_download2.php)
+Install [Chrome](https://www.google.com/chrome/browser/desktop/index.html).  After installation install [LastPass](https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd/related) and use it to log into your Chrome profile.  This should install the extension you use on other Chrome instances.
 
 ## Safari
 
