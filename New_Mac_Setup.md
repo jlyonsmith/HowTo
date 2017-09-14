@@ -1,24 +1,43 @@
-## Developer Setup
+# New Mac Setup
 
-This document gives instructions on setting up to products on a Mac.
+This document gives details on setting up a new Mac.
 
-### Pre-requisites
+## Chrome
 
-First, we need to download and install a few editors and do some other configuration stuff.
+Install [Chrome](https://www.google.com/chrome/browser/desktop/index.html).  After installation install [LastPass](https://lastpass.com/misc_download2.php)
 
-#### Atom
+## Safari
 
-This is FREE and as powerful as Sublime.  Only downside is that start-up can be slow. [Atom](http://atom.io).
+Install [LastPass](https://lastpass.com/misc_download2.php) [and Ad Block Plus](https://adblockplus.org) from the Safari extensions under the `Safari` menu.
 
-#### Mou
+## Hide My Ass!
 
-[Mou](http://mouapp.com/) is a great [Markdown](http://daringfireball.net/projects/markdown/) editor.  Download, unzip, go to the `Downloads` folder and drag the file to the _Applications_ folder.
+Install [Hide My Ass!](https://www.hidemyass.com/en-us/index)
 
-#### Environment Tweaks
+## Micro Torrent
 
-Here are some tweaks that will make life better for you at the command line.  
+Install [Micro Torrent](http://www.utorrent.com/)
 
-I recommend __not__ having your prompt be at the end of the PATH, as for long PATHs it will get pushed off the right hand edge of the window.  Also, you need an `edit` command.4
+## Atom
+
+Install [Atom](http://atom.io).  Install the following packages:
+
+- `todo`
+- `
+
+## Dropbox
+
+Install [Dropbox](https://www.dropbox.com/install)
+
+## Mou
+
+Install [Mou](http://mouapp.com/).  Download, unzip, go to the `Downloads` folder and drag the file to the _Applications_ folder.
+
+## Xcode
+
+Install Xcode from the App Store.
+
+## Environment Tweaks
 
 Run:
 
