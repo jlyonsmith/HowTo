@@ -29,9 +29,13 @@ Install [Atom](http://atom.io).  Install the following packages:
 
 Install [Dropbox](https://www.dropbox.com/install)
 
-## Mou
+## Brew
 
-Install [Mou](http://mouapp.com/).  Download, unzip, go to the `Downloads` folder and drag the file to the _Applications_ folder.
+## iTerm
+
+## MacDown
+
+Install [MacDown](https://macdown.uranusjr.com/)
 
 ## Xcode
 
