@@ -1,6 +1,6 @@
 Here are some common `nginx` configurations.  Place them in the `conf.d` directory under `/usr/local/etc/nginx` or `/etc/nginx`.
 
-#### React App with API
+#### HTTPS, React App, `/api` Endpoint
 
 ```
 server {
