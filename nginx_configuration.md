@@ -1,5 +1,51 @@
 Here are some common `nginx` configurations.  Place them in the `conf.d` directory under `/usr/local/etc/nginx` or `/etc/nginx`.
 
+#### React App with API
+
+```
+server {
+  listen 443 ssl;
+  server_name xyz.com;
+  ssl_certificate /etc/nginx/ssl/xyz_com_chained.crt;
+  ssl_certificate_key /etc/nginx/ssl/xyz_com.key;
+  ssl_session_cache shared:SSL:1m;
+  ssl_session_timeout 5m;
+  ssl_ciphers HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers on;
+
+  #allow 67.183.189.74; # user1
+  #allow 24.18.144.122; # user2
+  #allow 24.16.120.178; # user3
+  #allow 273.63.121.153; # user4
+  #deny all;
+
+  root /home/ubuntu/xyz/website/build;
+
+  # Any route that starts with /api/ is for the backend
+  location /api/ {
+    proxy_pass http://127.0.0.1:3001/;
+    proxy_buffering off;
+    proxy_redirect off; # API's shouldn't redirect
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade"; # Support WebSocket upgrading
+    proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # Any route containing a file extension just return or fail
+  location ~ ^.+\..+$ {
+      try_files $uri =404;
+  }
+
+  # Any route that doesn't have a file extension is an app route
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+}
+```
+
 #### Configure Reverse Proxy
 
 Use the following as a base for setting up reverse proxying:
