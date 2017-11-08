@@ -17,5 +17,5 @@ az group create --name <myResourceGroupVM> --location eastus
 Create the VM:
 
 ```
-az vm create --resource-group <myResourceGroupVM> --name <myVM> --image UbuntuLTS --ssh-key-value ~/.ssh/id_rsa.pub
+az vm create --resource-group <myResourceGroupVM> --name <myVM> --image UbuntuLTS --ssh-key-value ~/.ssh/id_rsa.pub --admin-username ubuntu
 ```
