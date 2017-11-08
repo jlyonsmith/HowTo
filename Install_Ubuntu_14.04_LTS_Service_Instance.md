@@ -108,11 +108,11 @@ Add the following:
 
 Now change the permissions on the file:
 
-    chmod 440 ubuntu
+    chmod ug=r ubuntu
 
 See the [Sudo Manual](http://www.sudo.ws/sudoers.man.html) for more information.
 
-Logon as `ubuntu`, set the `PS1` prompt and check that you can `sudo`.
+Logon as `ubuntu`, set the `PS1` prompt and check that you can `sudo` without requiring a password.
 
 ### Adding SSH key authentication
 
