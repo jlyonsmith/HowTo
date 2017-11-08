@@ -9,7 +9,7 @@ If you only have a single user (often the case) then:
 5. Change user name with `sudo usermod -l newUsername oldUsername`
 6. Change user home folder with `sudo usermod -d /home/newHomeDir -m newUsername`
 7. `exit` the shell
-8. `ssh original@a.b.c.d`
+8. `ssh newUsername@a.b.c.d`
 9. Clean-up with `sudo deluser temporary; sudo rm -r /home/temporary`
 
 If not, you can use steps 5 & 6 only.
