@@ -312,7 +312,7 @@ Check the version:
 
 Should be at least `1.10.0`.  Ensure that nginx is set to start after reboot:
 
-    update-rc.d nginx defaults    
+    sudo systemctl status nginx  
 
 Note that the site `.conf` files are in the `/etc/nginx/conf.d` directory.
 
@@ -320,12 +320,14 @@ Note that the site `.conf` files are in the `/etc/nginx/conf.d` directory.
 
 To install `Node.js`:
 
-    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y build-essential nodejs
     
 Check the version with:
 
     node --version
+    
+Ensure that it's `8.0` or above.
 
 ### RabbitMQ Install
 
