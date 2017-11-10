@@ -168,7 +168,6 @@ Once you are able to login to the system with key authentication, disable passwo
 Set the following option:
 
     ChallengeResponseAuthentication no
-    UsePAM no
     PasswordAuthentication no
     
 Then:
