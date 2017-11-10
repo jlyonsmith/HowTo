@@ -6,7 +6,7 @@ Create a password file in the `/etc/ngin` directory:
 sudo -s
 cd /etc/nginx
 touch .htpasswd
-echo -n 'username:' >> .htpasswd
+echo -n '<username>:' >> .htpasswd  # Supply appropriate <username>...
 openssl passwd -apr1 >> .htpasswd
 ```
 
