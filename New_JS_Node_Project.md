@@ -6,7 +6,7 @@
 1. `npm init`
 1. `npm install -D babel-cli babel-core babel babel-plugin-transform-class-properties babel-plugin-transform-object-rest-spread babel-preset-env jest`
 1. `npm install chalk minimist temp`
-1. `touch README.md5`
+1. `touch README.md`
 1. Create MIT `LICENSE` file (see below)
 1. Create a `.babelrc` file (see below)
 1. Create a `.gitignore` file (see below)
