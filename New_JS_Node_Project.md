@@ -18,7 +18,8 @@
 1. Create a `src/version.js` (see below)
 1. `npx stampver -u`
 1. Add `package.json` content (see below) and update for each tool.
-1. `touch src/<tool>.js`
+1. `touch src/<tool>.js && touch src/<tool>Tool.js`
+1. Insert contents of `<tool>.js` and `<tool>Tool.js` files
 1. `git add -A :/ && git commit -m 'New NodeJS project with versioning'`
 
 ## `LICENSE`
