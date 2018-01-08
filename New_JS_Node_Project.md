@@ -20,6 +20,8 @@
 1. Add `package.json` content (see below) and update for each tool.
 1. `touch src/<tool>.js && touch src/<tool>Tool.js`
 1. Insert contents of `<tool>.js` and `<tool>Tool.js` files
+1. `npm run build`
+1. `babel-node dist/<tool>.js --help`
 1. `git add -A :/ && git commit -m 'New NodeJS project with versioning'`
 
 ## `LICENSE`
