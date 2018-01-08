@@ -13,7 +13,13 @@
 1. `npm install chalk minimist temp`
 1. Create a `.babelrc` file (see below)
 1. Create a `version.json5` (see below)
+1. `mkdir src/`
+1. `mkdir scratch && touch scratch/.gitkeep && git add scratch/.gitkeep`
 1. Create a `src/version.js` (see below)
+1. `npx stampver -u`
+1. Add `package.json` content (see below) and update for each tool.
+1. `touch src/<tool>.js`
+1. `git add -A :/ && git commit -m 'New NodeJS project with versioning'`
 
 ## `LICENSE`
 
@@ -146,4 +152,96 @@ yarn-error.log*
 ```
 export const version = '1.0.0'
 export const fullVersion = '1.0.0-20180101.0'
+```
+
+## `package.json` (Partial)
+
+```
+  ...
+  "bin": {
+    "<tool>": "dist/<tool>.js"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "babel src -d dist -s --ignore *.test.js",
+    "debug:snap": "babel-node --inspect-brk src/<tool>.js",
+    "test": "jest",
+    "test:debug": "babel-node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "node_modules/",
+      "scratch/"
+    ]
+  },
+  ...
+```
+
+## `<tool>.js`
+
+```
+#!/usr/bin/env node
+import { XxxTool } from './XxxTool'
+import chalk from 'chalk'
+
+const log = {
+  info: console.error,
+  info2: function() { console.error(chalk.green([...arguments].join(' '))) },
+  error: function() { console.error(chalk.red('error:', [...arguments].join(' '))) },
+  warning: function() { console.error(chalk.yellow('warning:', [...arguments].join(' '))) }
+}
+
+const tool = new XxxTool(log)
+tool.run(process.argv.slice(2)).then((exitCode) => {
+  process.exit(exitCode)
+}).catch((err) => {
+  console.error(err)
+})
+```
+
+## `<tool>Tool.js`
+
+```
+import parseArgs from 'minimist'
+import { fullVersion } from './version'
+import util from 'util'
+import path from 'path'
+import process from 'process'
+import temp from 'temp'
+
+export class MongoBackupTool {
+  constructor(log) {
+    this.log = log
+  }
+
+  async run(argv) {
+    const options = {
+      boolean: [ 'help', 'version', ... ],
+    }
+    this.args = parseArgs(argv, options)
+
+    if (this.args.version) {
+      this.log.info(`${fullVersion}`)
+      return 0
+    }
+
+    if (this.args.help) {
+      this.log.info(`
+usage: tool <cmd> [options]
+
+options:
+  --help                        Shows this help.
+  --version                     Shows the tool version.
+`)
+      return 0
+    }
+
+    ...
+
+    return 0
+  }
+}
+
 ```
