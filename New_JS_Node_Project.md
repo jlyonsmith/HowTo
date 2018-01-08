@@ -1,15 +1,17 @@
 # How to Set Up a New NodeJS Project
 
-1. `mkdir new-project && cd new-project`
+1. `mkdir <project> && cd <project>`
 1. `git init`
-1. Create empty remote git repository then `git add . && git commit -m 'Initial commit' && git push -u origin master`
+1. Create a `.gitignore` file (see below)
+1. `touch README.md`
+1. Create MIT `LICENSE` file (see below)
+1. Create empty remote git repository
+1. `git add . && git commit -m 'Initial commit'`
+1. `git remote add origin git@github.com:<user>/<project>.git && git push -u origin master`
 1. `npm init`
 1. `npm install -D babel-cli babel-core babel babel-plugin-transform-class-properties babel-plugin-transform-object-rest-spread babel-preset-env jest`
 1. `npm install chalk minimist temp`
-1. `touch README.md`
-1. Create MIT `LICENSE` file (see below)
 1. Create a `.babelrc` file (see below)
-1. Create a `.gitignore` file (see below)
 1. Create a `version.json5` (see below)
 1. Create a `src/version.js` (see below)
 
