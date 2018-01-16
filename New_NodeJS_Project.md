@@ -14,7 +14,7 @@
 1. Create a `.babelrc` file (see below)
 1. Create a `version.json5` (see below)
 1. `mkdir src/`
-1. `mkdir scratch && touch scratch/.gitkeep && git add scratch/.gitkeep`
+1. `mkdir scratch && touch scratch/.gitkeep && git add -f scratch/.gitkeep`
 1. Create a `src/version.js` (see below)
 1. `npx stampver -u`
 1. Add `package.json` content (see below) and update for each tool.
