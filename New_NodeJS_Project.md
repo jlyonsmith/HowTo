@@ -215,7 +215,7 @@ import path from 'path'
 import process from 'process'
 import temp from 'temp'
 
-export class MongoBackupTool {
+export class XxxTool {
   constructor(log) {
     this.log = log
   }
@@ -242,7 +242,7 @@ options:
       return 0
     }
 
-    ...
+    // ...
 
     return 0
   }
