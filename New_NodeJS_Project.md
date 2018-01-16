@@ -222,7 +222,7 @@ export class XxxTool {
 
   async run(argv) {
     const options = {
-      boolean: [ 'help', 'version', ... ],
+      boolean: [ 'help', 'version' ],
     }
     this.args = parseArgs(argv, options)
 
