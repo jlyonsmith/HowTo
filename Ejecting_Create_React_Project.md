@@ -2,7 +2,7 @@
 
 Run `npm run eject`.
 
-Open `config/webpack.config.dev.js` and add path aliases and the SASS loader:
+Open `config/webpack.config.dev.js` and `config/webpack.config.p and add path aliases and the SASS loader:
 
 ```
 ...
@@ -47,3 +47,28 @@ module.exports = {
               },
 ```
 
+To the `package.json` add: 
+
+```
+{
+  ...
+  "dependencies": {
+    "node-sass": ...
+    "sass-loader": ...
+  },
+  "scripts": {
+    ...
+    "deploy": "scp -r build/* ubuntu@xyz:<site-dir>/"
+  },
+  ...
+  "devDependencies": {
+    "chalk": "^1.1.3"
+  }
+}
+```
+
+Rename all `.css` file to `.scss`:
+
+```
+find . -depth 2 -name \*.css -exec bash -c 'mv "$1" "${1%.css}.scss"' -- {} \;
+```
