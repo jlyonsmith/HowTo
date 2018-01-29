@@ -72,3 +72,5 @@ Rename all `.css` file to `.scss`:
 ```
 find . -depth 2 -name \*.css -exec bash -c 'mv "$1" "${1%.css}.scss"' -- {} \;
 ```
+
+And update the `import` statements for `src/App.js` and `src/index.js`.
