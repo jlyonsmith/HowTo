@@ -1,4 +1,4 @@
-# Creating an SSL Certificate
+# Ordering an SSL Certificate
 
 ### Creating the CSR
 
