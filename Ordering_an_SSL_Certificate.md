@@ -113,18 +113,16 @@ If you get an error connecting via SSL, try using `certmgr` to pull down the cer
 
 ### Validate SSL Certificate
 
-To validate an SSL certificate with OpenSSL:
+Check a certificate and return information about it (signing authority, expiration date, etc.):
 
 ```bash
-openssl verify -CAfile certificate-chain.crt certificate.crt
+openssl x509 -in <your-chained-certificate>.crt -text -noout
 ```
 
-`certificate-chain.crt` must be just the original CA bundle, not the combined chain.  If the response is anything other than OK then there is a problem.
-
-To check the dates the certificate is valid:
+To check just the dates the certificate is valid:
 
 ```bash
-openssl x509 -noout -in certificate.crt -dates
+openssl x509 -noout -in certificate.crt -dates -noout
 ```
 
 ---
