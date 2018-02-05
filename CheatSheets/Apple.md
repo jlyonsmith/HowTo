@@ -32,8 +32,12 @@ See [QA1814].
 
 There are two types of certifate; developer and production.  Developer certificates are managed by Xcode.  As of Xcode 9 a certificate is generated for each computer the developer logs in on.  
 
-Production certificates are created using a signing request, following the instructions given in the developer portal.  You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.  Ignore the _Download_ button in the developer portal as it only downloads the certificate and not the private key.  Make sure the private key shows as a child of the certificate in _Keychain Access_.  This certificate needs to be on the **login** keychain.
+Production certificates are created using a signing request, following the instructions given in the developer portal.  You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.
 
+- Ignore the _Download_ button in the developer portal as it only downloads the certificate and not the private key.  
+- Make sure the private key shows as a child of the certificate in _Keychain Access_.  
+- The certificate needs to be on the **login** keychain. 
+- When exporting, make sure to expand the certificate and select both the certificate and the private key.
 
 
 ---
