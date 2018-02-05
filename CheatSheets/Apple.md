@@ -30,9 +30,17 @@ See [QA1814].
 
 ## Certificates
 
-There are two types of certifate; developer and production.  Developer certificates are managed by Xcode.  As of Xcode 9 a certificate is generated for each computer the developer logs in on.  
+There are two categories of certifate; **development** and **production**.
 
-Production certificates are created using a signing request, following the instructions given in the developer portal.  You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.
+Development certificates for iOS development allow you to debug apps with Xcode and they are managed by Xcode.  As of Xcode 9 a certificate is generated for each computer the developer logs in on.  There are also sandbox Apple Push Notification certificates which you manage yourself.
+
+Production certificates are for distribution and push notifications, and are created using a signing request. Follow the instructions given in the developer portal.  
+
+- Change the **Common Name** to be the thing you are generating the certificate for, e.g. _Company Name_ or _App Name APN_.
+- Download the certificate straight away and drag into the **Keychain Access** app.
+- Email should be that of the Apple user generating the certificate.
+
+You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.
 
 - Ignore the _Download_ button in the developer portal as it only downloads the certificate and not the private key.  
 - Make sure the private key shows as a child of the certificate in _Keychain Access_.  
