@@ -1,10 +1,13 @@
-## Provisioning
+# Certificates, Identifiers &amp; Profiles
 
-Apple provisioning is provides three ways to share apps:
+# General
 
-1. **Developer releases.** You are limited sharing developer releases to 100 iPhones.  You must get a unique code from the phone and once you add it you can only remove it _once per year_.  You can run out of devices really quickly and Apple don't cave for special resets.  _Only use for your developers, testers, artists and program managers._
-2. **Beta releases.**  You can add up to 1000 people for a limited beta release, and change that list of people at any time, but it takes up to 48 hours to get the uploaded binary approved by Apple.
-3. **Enterprise releases.**  You can pay $300 per year to Apple and after an approval process get an enterprise license that lets you install your apps on an unlimited number of devices.  It’s how, for example, Uber delivers their driver app.
+Apple provisioning provides four ways to share apps:
+
+1. **Developer releases** You are limited sharing developer releases to 100 iPhones.  You must get a unique code from the phone and once you add it you can only remove it _once per year_.  You can run out of devices really quickly and Apple don't cave for special resets.  _Only use for your developers, testers, artists and program managers._
+2. **Beta releases**  You can add up to 1000 people for a limited TestFlight Beta release, and change that list of people at any time, but it takes up to 48 hours to get the uploaded binary approved by Apple.
+3. **App store releases**  Once an app can be submitted to the app store with a multi-day approval process.  This app can be a version that was released as a TestFlight Beta or directly submitted.
+4. **Enterprise releases**  You can pay $300 per year to Apple and after an approval process get an enterprise license that lets you install your apps on an unlimited number of devices.  It’s how, for example, Uber delivers their driver app.
 
 ## Getting UDID
 
@@ -24,6 +27,14 @@ The name of a distribution provisioning profile begins with the text `XC:` follo
 If you are using a wildcard App ID, the name of the distribution provisioning profile is `XC:*`.
 
 See [QA1814].
+
+## Certificates
+
+There are two types of certifate; developer and production.  Developer certificates are managed by Xcode.  As of Xcode 9 a certificate is generated for each computer the developer logs in on.  
+
+Production certificates are created using a signing request, following the instructions given in the developer portal.  You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.  Ignore the _Download_ button in the developer portal as it only downloads the certificate and not the private key.  Make sure the private key shows as a child of the certificate in _Keychain Access_.  This certificate needs to be on the **login** keychain.
+
+
 
 ---
 
