@@ -38,7 +38,8 @@ Production certificates are created using a signing request, following the instr
 - Make sure the private key shows as a child of the certificate in _Keychain Access_.  
 - The certificate needs to be on the **login** keychain. 
 - When exporting, make sure to expand the certificate and select both the certificate and the private key.
-
+- You can leave the password blank but _don't_, just use something easy to type.
+- Give the `codesign` tool access to the private key by going to **Get Info** and `+` then **Shift+&#8984;+G**, paste in `/usr/bin/codesign` then **Add**, **Save** &amp; type admin password.
 
 ---
 
