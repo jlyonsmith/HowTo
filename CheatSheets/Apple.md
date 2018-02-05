@@ -42,12 +42,14 @@ Production certificates are for distribution and push notifications, and are cre
 
 You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.
 
-- Ignore the _Download_ button in the developer portal as it only downloads the certificate and not the private key.  
+- After the first download, the _Download_ button in the developer portal only brings down the certificate and not the private key.
 - Make sure the private key shows as a child of the certificate in _Keychain Access_.  
 - The certificate needs to be on the **login** keychain. 
 - When exporting, make sure to expand the certificate and select both the certificate and the private key.
 - You can leave the password blank but _don't_, just use something easy to type.
 - Give the `codesign` tool access to the private key by going to **Get Info** and `+` then **Shift+&#8984;+G**, paste in `/usr/bin/codesign` then **Add**, **Save** &amp; type admin password.
+- Import `.p12` files by double-click.  Drag/drop into **Keychain Access** is unreliable.
+- Check the certificate shows up without an error icon in **Xcode** under **Preferences Accounts**.
 
 ---
 
