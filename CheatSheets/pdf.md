@@ -2,6 +2,14 @@
 
 These notes refer to [PDF Reference 1.7](https://github.com/jlyonsmith/HowTo/blob/master/CheatSheets/pdf_reference_1-7.pdf)
 
+## Dumping a PDF as Text
+
+First, `brew install qpdf`, then:
+
+```
+qpdf --qdf --object-streams=disable original.pdf uncompressed-original.pdf
+```
+
 ## Coordinates
 
 The default coordinate system has (0,0) in the lower left.  Rectangles are specified (llx, lly, urx, ury).
