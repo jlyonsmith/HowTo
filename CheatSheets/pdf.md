@@ -32,3 +32,7 @@ Transparency is achieved by adding a _graphics state_ with entries (page 222):
 - `ca` - alpha for non-stroking operations
 
 Then perform graphics operations with this new state.
+
+## Form XObjects
+
+Section 8.10, page 217.  PDF content stream with self contained sequence of graphics.  Can be inserted into the page resources and reused multiple times. Can have it's own resources which is useful for creating graphics contexts for transparency.
