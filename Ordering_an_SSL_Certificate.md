@@ -32,7 +32,7 @@ emailAddress = admin@mydomain.com
 Next, create the `.key` and the `.csr` file:
 
 ```bash
-openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+openssl req -new -newkey rsa -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
 chmod o-rwx <file-name>.key
 ```
 
