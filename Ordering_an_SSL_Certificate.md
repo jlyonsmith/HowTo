@@ -39,7 +39,7 @@ chmod o-rwx <file-name>.key
 To re-issue a certificate use:
 
 ```bash
-openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+openssl req -new -newkey rsa -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
 ```
 
 This `.csr` and `.key` can either be passed to a 3rd party for signing, or can be self signed.
