@@ -34,7 +34,7 @@ find the section containing `PS1=` and replace with:
 
 Also, I like to set the colors in `vi` to be easier to read on a dark background:
 
-   cat ':color desert' > ~/.vimrc
+    cat ':color desert' > ~/.vimrc
 
 Log off and on again.
 
