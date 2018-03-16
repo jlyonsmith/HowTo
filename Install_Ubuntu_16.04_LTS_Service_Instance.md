@@ -32,6 +32,10 @@ find the section containing `PS1=` and replace with:
     fi
     unset color_prompt force_color_prompt
 
+Also, I like to set the colors in `vi` to be easier to read on a dark background:
+
+   cat ':color desert' > ~/.vimrc
+
 Log off and on again.
 
 ### Hostname
