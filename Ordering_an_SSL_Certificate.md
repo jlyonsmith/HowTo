@@ -32,21 +32,21 @@ emailAddress = admin@mydomain.com
 Next, create the `.key` and the `.csr` file:
 
 ```bash
-openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+openssl req -new -newkey rsa -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
 chmod o-rwx <file-name>.key
 ```
 
 To re-issue a certificate use:
 
 ```bash
-openssl req -new -sha384 -newkey rsa:2048 -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
+openssl req -new -newkey rsa -config <file-name>.cnf -keyout <file-name>.key -out <file-name>.csr
 ```
 
 This `.csr` and `.key` can either be passed to a 3rd party for signing, or can be self signed.
 
 Test the CSR is valid at [Symantec CryptoReport](https://cryptoreport.websecurity.symantec.com/checker/views/csrCheck.jsp).
 
-Always save the `.csr`, the `.key` and of course the `.crt` file both on your server _and_ in alongside the certificate and private key.
+Backup the `.csr`, `.key`, `.crt`, `.cnf` and `.csr` in an encrypted `.zip` file with a password.  Ideally nobody, not even you, should ever see a private key, both that's another story.  They of course both need to be on your server in the `nginx` or Apache configuration.
 
 ### 3rd Party Signing
 

@@ -30,14 +30,25 @@ See [QA1814].
 
 ## Certificates
 
-There are two categories of certifate; **development** and **production**.
+There are two categories of certicate; **development** and **production** (also referred to as **distribution** in Xcode).
 
-Development certificates for iOS development allow you to debug apps with Xcode and they are managed by Xcode.  As of Xcode 9 a certificate is generated for each computer the developer logs in on.  There are also sandbox Apple Push Notification certificates which you manage yourself.
+Development certificates for iOS development allow you to debug apps with Xcode and they are managed by Xcode. There are also sandbox Apple Push Notification certificates which you manage yourself. Production certificates are for distribution and push notifications, and are created using a signing request.
 
-Production certificates are for distribution and push notifications, and are created using a signing request. Follow the instructions given in the developer portal.  
+To generate a certificate the easy way, just use the Xcode 9 Accounts dialog.  Click on the `+` button at the bottom of the account dialog and select _iOS Development_ or _iOS Distribution_.  This will also put the certificate in the Keychain Access application, and do all the other magical stuff below to give the `codesign` tool access, etc..
 
-- Change the **Common Name** to be the thing you are generating the certificate for, e.g. _Company Name_ or _App Name APN_.
-- Download the certificate straight away and drag into the **Keychain Access** app.
+To generate a certificate manually:
+
+In the Applications folder on your Mac, open the Utilities folder and launch Keychain Access.
+
+Within the Keychain Access drop down menu, select _Keychain Access > Certificate Assistant > Request a Certificate from a Certificate Authority_.
+
+- In the Certificate Information window, enter the following information
+  - In the User Email Address field, your (development) or the company (production) email address.
+  - In the Common Name field put the thing you are generating the certificate for, e.g. _Company Name_ or _App Name APN_.
+  - The CA Email Address field should be left empty.
+  - In the "Request is" group, select the "Saved to disk" option.
+- Click Continue within Keychain Access to complete the CSR generating process.
+- Download the certificate straight away from the developer portal and drag into the Keychain Access app.
 - Email should be that of the Apple user generating the certificate.
 
 You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.

@@ -32,6 +32,10 @@ find the section containing `PS1=` and replace with:
     fi
     unset color_prompt force_color_prompt
 
+Also, I like to set the colors in `vi` to be easier to read on a dark background:
+
+    cat ':color desert' > ~/.vimrc
+
 Log off and on again.
 
 ### Hostname
@@ -378,11 +382,11 @@ Restart=on-abort
 WantedBy=multi-user.target
 ```
 
-Copy the `.service` file into the `/etc/systemd/system/` directory using a symbolic link:
+Copy the `.service` file into the `/lib/systemd/system` directory:
 
-    sudo ln -s /path/to/xxx.service /etc/systemd/system/xxx.system
+    sudo cp xxx.service /lib/systemd/system/
 
-Service files also live in `/lib/systemd/system/`.  Enable and start the service with:
+Enable and start the service with:
 
     sudo systemctl --now enable xxx
 

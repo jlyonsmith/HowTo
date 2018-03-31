@@ -55,12 +55,14 @@ Now edit the main config file:
 sudo vi /etc/postfix/main.cf
 ```
 
-Change `myhostname` to `<machine>.<domain>`. Add:
+Set `myhostname=<machine>.<domain>`. Then add:
 
 ```
 virtual_alias_domains = <domain> <my-other-domain>
 virtual_alias_maps = hash:/etc/postfix/virtual
 ```
+
+The `mydestination` parameter specifies what domains this machine will deliver locally, instead of forwarding to another machine.  It should contain `mydestination=$myhostname, <machine>, localhost.localdomain, localhost`.  That's it.
 
 You can add multiple domains for `virtual_alias_domains` separated by spaces.  Now add a `virtual` file with `sudo vi /etc/postfix/virtual` and add:
 
