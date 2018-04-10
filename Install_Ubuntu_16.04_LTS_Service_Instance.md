@@ -18,12 +18,16 @@ If not using a key, change the `root` password using [Strong Password Generator]
 
     passwd
 
-Now, fix the prompt as follows:
+If using a dark themed terminal set the colors in `vi` to be easier to read on a dark background:
+
+    echo ':color desert' > ~/.vimrc
+
+Improve the `bash` prompt as follows:
 
     cd ~
     vi .bashrc
 
-find the section containing `PS1=` and replace with:
+Find the section containing `PS1=` and replace with:
 
     if [ "$color_prompt" = yes ]; then
         PS1='[${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]]\n\$'
@@ -31,10 +35,6 @@ find the section containing `PS1=` and replace with:
          PS1='[${debian_chroot:+($debian_chroot)}\u@\h:\w]\n\$'
     fi
     unset color_prompt force_color_prompt
-
-Also, I like to set the colors in `vi` to be easier to read on a dark background:
-
-    cat ':color desert' > ~/.vimrc
 
 Log off and on again.
 
