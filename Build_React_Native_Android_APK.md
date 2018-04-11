@@ -96,3 +96,14 @@ cd android
 
 The `.apk` is in the `android/app/build/outputs/apk/` folder.
 
+## Installing the APK
+
+You can install the signed build directly on a connected device with,
+
+```
+adb install -r android/app/build/outputs/apk/app-release.apk
+```
+
+The `-r` flag overwrites and existing installation.  
+
+You can also mail the APK or make it accessible as a download link on a web server.  
