@@ -178,7 +178,7 @@ Set the following option:
     
 Then:
 
-    sudo /etc/init.d/ssh restart
+    sudo systemctl reload sshd
 
 Test by doing using the non-SSH alias name to login (because there is no associated `.pem` file):
 
