@@ -115,7 +115,9 @@ Now change the permissions on the file:
 
 See the [Sudo Manual](http://www.sudo.ws/sudoers.man.html) for more information.
 
-Logon as `ubuntu`, set the `PS1` prompt and check that you can `sudo`.
+Logon as `ubuntu`, set the `PS1` prompt and check that you can `sudo`.  If all is well, disable `root` user with:
+
+    sudo passwd -l root
 
 ### Adding SSH key authentication
 
