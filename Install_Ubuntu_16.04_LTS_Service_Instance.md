@@ -180,12 +180,6 @@ Then:
 
     sudo systemctl reload sshd
 
-Test by doing using the non-SSH alias name to login (because there is no associated `.pem` file):
-
-    ssh ubuntu@xyz.mydomain.com
-
-You should get `Permission denied`.
-
 ### Screen, Super User and Updates
 
 Firstly, it useful when running multiple installs and messing with global configuration to start a new super-user shell:
@@ -225,12 +219,12 @@ Install Git:
 
 These are really useful for scripting and accessing AWS services from the command line:
 
-    python --version
+    python3 --version
 
-Must be > 2.6.3.  Then:
+Must be > 3.5.  Then:
 
-    apt-get install python-pip
-    pip install awscli
+    apt-get install python3-pip
+    pip3 install awscli
 
 ### MongoDB Install
 
