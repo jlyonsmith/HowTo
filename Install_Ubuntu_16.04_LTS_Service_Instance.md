@@ -14,9 +14,11 @@ Then check the version:
     Release:    16.04
     Codename:   xenial
 
-If not using a key, change the `root` password using [Strong Password Generator](http://strongpasswordgenerator.com/):
+### VIM
 
-    passwd
+Change the indent by adding this to `~/.vimrc`:
+
+    echo ':set shiftwidth=2' >> ~/.vimrc
 
 If using a dark themed terminal set the colors in `vi` to be easier to read on a dark background:
 
@@ -36,7 +38,7 @@ Find the section containing `PS1=` and replace with:
     fi
     unset color_prompt force_color_prompt
 
-Log off and on again.
+Log off and on again to activate.
 
 ### Hostname
 
@@ -90,6 +92,10 @@ You can use the `$SSH_CONNECTION` environment variable to find your connection a
 but not from the `sudo` shell.
 
 ### Adding 'ubuntu' User (non-EC2)
+
+If not using a key, change the `root` password using [Strong Password Generator](http://strongpasswordgenerator.com/):
+
+    passwd
 
 We use an `ubuntu` user which has root access, like Amazon does with EC2.  First, `ssh` to the system as `root`, logging on with the provided password.
 
