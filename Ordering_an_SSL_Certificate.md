@@ -46,8 +46,6 @@ This `.csr` and `.key` can either be passed to a 3rd party for signing, or can b
 
 Test the CSR is valid at [Symantec CryptoReport](https://cryptoreport.websecurity.symantec.com/checker/views/csrCheck.jsp).
 
-Backup the `.csr`, `.key`, `.crt`, `.cnf` and `.csr` in an encrypted `.zip` file with a password.  Ideally nobody, not even you, should ever see a private key, both that's another story.  They of course both need to be on your server in the `nginx` or Apache configuration.
-
 ### 3rd Party Signing
 
 Take the `.csr` and `.key` files and order an SSL certificate on [Namecheap](http://namecheap.com).  This will just require email verification.
@@ -73,6 +71,10 @@ To use `openssl` to sign your certificate:
 	openssl -req -x509 -days 365 -in <file-name>.csr -signkey <file-name>.key -out <file-name>.crt
 	
 This creates a certificate which expires in 1 year.  See [here][2] for more information on self signing.
+
+### Backup
+
+Backup the `.csr`, `.key`, `.crt`, `.cnf` and `.csr` into an encrypted `.zip` file with a password.  Ideally nobody, not even you, should ever see a private key, but that's another story.  
 
 ### View Previous CSRs
 
