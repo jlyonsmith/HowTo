@@ -322,6 +322,39 @@ Should be at least `1.10.0`.  Ensure that nginx is set to start after reboot:
 
 Note that the site `.conf` files are in the `/etc/nginx/conf.d` directory.
 
+The default `nginx.conf` should look like:
+
+```
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+  worker_connections 768;
+}
+
+http {
+  sendfile on;
+  sendfile_max_chunk 1m;
+  tcp_nopush on;
+  tcp_nodelay on;
+  keepalive_timeout 65;
+  types_hash_max_size 2048;
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_prefer_server_ciphers on;
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+  gzip on;
+  gzip_disable "msie6";
+
+  include /etc/nginx/conf.d/*;
+}
+```
+
+_Make sure_ to copy the `default` configuration from `sites-enabled` and set up a redirect to an actual site hosted on the system or you'll get the default `nginx` page.
+
 ### Node Install
 
 To install `Node.js`:
