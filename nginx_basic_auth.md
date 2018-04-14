@@ -1,16 +1,13 @@
 ## Setting Up Basic Auth With `nginx`
 
-Create a password file in the `/etc/ngin` directory:
+Create a password file in the `root` directory of your site:
 
 ```Shell
 sudo -s
-cd /etc/nginx
-touch .htpasswd
-echo -n '<username>:' >> .htpasswd  # Supply appropriate <username>...
-openssl passwd -apr1 >> .htpasswd
+apt-get install -y apache2-utils
+cd <root-dir>
+htpasswd -cb .htpasswd <user> <password>
 ```
-
-You will be prompted to enter and verify a password.
 
 Then, under the appropriate `location` in the sites `.conf` file:
 
@@ -19,7 +16,7 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
 
-    root /usr/share/nginx/html;
+    root <root-dir>;
     index index.html index.htm;
 
     server_name localhost;
@@ -27,7 +24,7 @@ server {
     location / {
         try_files $uri $uri/ =404;
         auth_basic "Restricted Content";
-        auth_basic_user_file /etc/nginx/.htpasswd;
+        auth_basic_user_file <root-dir>/.htpasswd;
     }
 }
 ```
