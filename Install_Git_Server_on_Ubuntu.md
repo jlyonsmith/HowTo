@@ -2,6 +2,8 @@
 
 These instructions show you how to install a Git server in such a way that you can serve multiple repositories for different users and keep each users repositories isolated.
 
+## Basic Installation
+
 First, install git, nginx & fcgiwrap:
 
 ```
@@ -87,3 +89,25 @@ git clone https://<user>:<password>@<your-domain>/<user>/<repo>.git
 ```
 
 There is a StackOverflow answer on this [here](https://stackoverflow.com/a/36362218/576235).
+
+## Read-only Repository
+
+To make the repository read-only:
+
+```
+cd ~/git/<user>/<repo>.git/hooks
+sudo touch pre-receive
+sudo chmod ug=rwx,o=rx pre-receive
+sudo chown www-data:www-data pre-receive
+```
+
+Edit the file contents to contain something like:
+
+```
+#!/bin/bash
+echo "=================================================="
+echo "This repository is read-only. Please contact"
+echo "support@<your-domain> for more information."
+echo "=================================================="
+exit 1
+```
