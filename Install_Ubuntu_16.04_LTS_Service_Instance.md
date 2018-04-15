@@ -16,13 +16,16 @@ Then check the version:
 
 ### VIM
 
-Change the indent by adding this to `~/.vimrc`:
+Here's a good set of defaults for VIM:
 
-    echo ':set shiftwidth=2' >> ~/.vimrc
+```
+:color desert
+:set shiftwidth=2
+:set tabstop=2
+:set expandtab
+```
 
-If using a dark themed terminal set the colors in `vi` to be easier to read on a dark background:
-
-    echo ':color desert' > ~/.vimrc
+### Bash
 
 Improve the `bash` prompt as follows:
 
