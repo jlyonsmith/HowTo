@@ -17,12 +17,20 @@ cd ~
 mkdir -p git/<user>
 ```
 
-Clone the remote repo under this users directory:
+Clone the remote repo under this users directory as a _mirror_:
 
 ```
 cd ~/git/<user>
-git clone --bare <remote-repo>
+git clone --mirror git@github.com/<user>/<repo>.git
+cd <repo>.git
+git remote set-url --push origin no_push
 ```
+
+To update the mirror in future:
+
+```
+git remote update
+``````
 
 Create a basic auth password file:
 
@@ -90,18 +98,11 @@ git clone https://<user>:<password>@<your-domain>/<user>/<repo>.git
 
 There is a StackOverflow answer on this [here](https://stackoverflow.com/a/36362218/576235).
 
-## Read-only Repository
+## Read-Only Repository
 
 To make the repository read-only:
 
-```
-cd ~/git/<user>/<repo>.git/hooks
-sudo touch pre-receive
-sudo chmod ug=rwx,o=rx pre-receive
-sudo chown www-data:www-data pre-receive
-```
-
-Edit the file contents to contain something like:
+Add a file `~/git/<user>/<repo>.git/hooks/pre-receive` containing:
 
 ```
 #!/bin/bash
