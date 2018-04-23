@@ -1,8 +1,8 @@
-# Install Git Server on Ubuntu
+# Install a Read-Only Repository Mirror Using Git Server on Ubuntu 16.04
 
-These instructions show you how to install a Git server in such a way that you can serve multiple repositories for different users and keep each users repositories isolated.
+Neither GitHub or BitBucket have a feature that allows you to share read-only access to a private repository to an unlimited number of users.  You can easily do it from your own server.
 
-## Basic Installation
+These instructions show you how to install a Git server in such a way that you can serve multiple repositories, with each repository having different users that can access it.
 
 First, install git, nginx & fcgiwrap:
 
@@ -17,7 +17,7 @@ cd ~
 mkdir -p git/<user>
 ```
 
-Clone the remote repo under this users directory as a _mirror_:
+Clone the remote repo under this users directory as a _mirror_ repository:
 
 ```
 cd ~/git/<user>
@@ -26,13 +26,26 @@ cd <repo>.git
 git remote set-url --push origin no_push
 ```
 
-To update the mirror in future:
+Because the `nginx` will access the mirrored repository with the `www-data` user, nobody will be able to push to this repository.  But the error message given will be rather unfriendly.  To make the repository read-only in a friendly way, add a file `~/git/<user>/<repo>.git/hooks/pre-receive` containing:
+
+```
+#!/bin/bash
+echo "=================================================="
+echo "This repository is read-only. Please contact"
+echo "support@<your-domain> for more information."
+echo "=================================================="
+exit 1
+```
+
+Now, to update the mirror in future simply do:
 
 ```
 git remote update
-``````
+```
 
-Create a basic auth password file:
+This will fetch new changes from the remote.
+
+Now, create a basic auth password file:
 
 ```
 cd ~/git/<user>
@@ -40,13 +53,6 @@ htpasswd -cb .htpasswd <user> <password>
 ```
 
 Make sure your password is at least 16 characters long.
-
-Change permissions for all the files so that you can push to the repo:
-
-```
-cd ~/git/<user>
-sudo chown -R www-data:www-data .htpasswd *.git
-```
 
 Create an `<your-domain>.conf` file for nginx containing:
 
@@ -98,17 +104,3 @@ git clone https://<user>:<password>@<your-domain>/<user>/<repo>.git
 
 There is a StackOverflow answer on this [here](https://stackoverflow.com/a/36362218/576235).
 
-## Read-Only Repository
-
-To make the repository read-only:
-
-Add a file `~/git/<user>/<repo>.git/hooks/pre-receive` containing:
-
-```
-#!/bin/bash
-echo "=================================================="
-echo "This repository is read-only. Please contact"
-echo "support@<your-domain> for more information."
-echo "=================================================="
-exit 1
-```
