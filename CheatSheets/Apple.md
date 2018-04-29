@@ -18,6 +18,22 @@ The UDID is not visible on the phone. It has to be revealed in iTunes, and it ca
 3. Click the Serial Number. It will switch to displaying the UDID. 
 4. Press **&#8984;C** to copy the UDID to the clipboard.
 
+## Provisioning
+
+Provisioning profiles contain a cryptographically signed collection of:
+
+- An app ID
+- One or more certificates
+- A list of devices
+- A list of capabalitilies 
+- A list of entitlements
+
+It's installed on the device to allow an app to run on that device.
+
+**Ad-Hoc Distribution:** Distribution builds of an app, which can be installed on 100 devices designated by the developer on his provisioning portal. The distribution mechanism can be websites, mails or OTA. These type of builds are generally for beta testing or demos.
+
+**App-store Distribution:** Distribution builds that are intended for general public(for sale). The distribution mechanism is iTunesConnect and the APp store only.  This is also the profile you want to use for TestFlight distribution.
+
 ## Identifying Xcode-managed Provisioning Profiles
 
 Xcode-managed provisioning profiles in the member center using an explicit App ID begin with the `iOS Team Provisioning Profile:` and are followed by the bundle ID. 
