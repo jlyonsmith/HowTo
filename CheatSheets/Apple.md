@@ -23,9 +23,10 @@ The UDID is not visible on the phone. It has to be revealed in iTunes, and it ca
 Provisioning profiles contain a cryptographically signed collection of:
 
 - An app ID
-- One or more certificates
-- A list of devices
-- A list of capabalitilies 
+- A team ID
+- One or more certificates (usually developer and team)
+- A list of devices (ad-hoc and developer profiles only)
+- A list of capabilities 
 - A list of entitlements
 
 It's installed on the device to allow an app to run on that device.
