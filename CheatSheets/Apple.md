@@ -31,7 +31,7 @@ Provisioning profiles contain a cryptographically signed collection of:
 - A list of capabilities 
 - A list of entitlements
 
-It's installed on the device to allow an app to run on that device.
+It's installed on the device to allow an app to run on that device.  It can be installed separatedly for ad-hoc releases, or bundled with the app for production releases.
 
 **Ad-Hoc Distribution:** Distribution builds of an app, which can be installed on 100 devices designated by the developer on his provisioning portal. The distribution mechanism can be websites, mails or OTA. These type of builds are generally for beta testing or demos.
 
