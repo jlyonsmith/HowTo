@@ -18,6 +18,8 @@ The UDID is not visible on the phone. It has to be revealed in iTunes, and it ca
 3. Click the Serial Number. It will switch to displaying the UDID. 
 4. Press **&#8984;C** to copy the UDID to the clipboard.
 
+The site [What's my UDID?](http://whatsmyudid.com/) has a nice walk through.
+
 ## Provisioning
 
 Provisioning profiles contain a cryptographically signed collection of:
