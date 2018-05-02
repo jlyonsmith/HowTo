@@ -218,6 +218,10 @@ Then, if you get kicked off, just run:
     
 to reconnect and get back to work.
 
+### DNS Utils
+
+    sudo apt-get install dnsutils
+
 ### Git Install
 
 Install Git:
