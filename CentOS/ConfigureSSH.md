@@ -15,3 +15,9 @@ ssh -p2200 127.0.0.1
 ```
 
 And you should connect.
+
+The SSH configuration is in `/etc/ssh/sshd_config`.  After modifying, restart the service with:
+
+```
+systemctl restart sshd.service
+```
