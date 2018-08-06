@@ -16,7 +16,7 @@ Then check the version:
 
 ### VIM
 
-Here's a good set of defaults for VIM:
+Here's a good set of defaults for the `~/.vimrc` file:
 
 ```
 :color desert
@@ -50,7 +50,7 @@ Change the name of the host to something meaningful:
     sudo -s
     vi /etc/hostname
     vi /etc/hosts
-    
+
 Change the default name, e.g. `Ubuntu-xenial-16-04`, to whatever name you desire.  Reboot the system for the change to take effect:
 
     reboot
@@ -75,15 +75,15 @@ Use [Uncomplicated Firewall](https://help.ubuntu.com/12.10/serverguide/firewall.
     sudu -s
     apt-get install ufw
     ufw allow ssh
-    ufw enable 
+    ufw enable
 
 Add additional rules as necessary, e.g.
 
     ufw allow https
     ufw allow http
 
-Or  
-  
+Or
+
     ufw reject http
 
 See [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall) for more information.
@@ -91,7 +91,7 @@ See [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall) for 
 You can use the `$SSH_CONNECTION` environment variable to find your connection address:
 
     echo $SSH_CONNECTION
-    
+
 but not from the `sudo` shell.
 
 ### Adding 'ubuntu' User (non-EC2)
@@ -104,7 +104,7 @@ We use an `ubuntu` user which has root access, like Amazon does with EC2.  First
 
 Create the `ubuntu` user:
 
-    adduser  ubuntu 
+    adduser  ubuntu
 
 Use [Strong Password Generator](http://strongpasswordgenerator.com/) to generate a password.
 
@@ -184,7 +184,7 @@ Set the following option:
 
     ChallengeResponseAuthentication no
     PasswordAuthentication no
-    
+
 Then:
 
     sudo systemctl reload sshd
@@ -194,9 +194,9 @@ Then:
 Firstly, it useful when running multiple installs and messing with global configuration to start a new super-user shell:
 
     sudo -s
-    
+
 Be careful because any files you create in this shell will owned by `root`, and you will usually want them owned by `ubuntu`.  Use `whoami` or watch the prompt.
- 
+
 It's time to update all packages:
 
     sudo -s
@@ -215,7 +215,7 @@ Installs over `ssh` can be a pain if you get disconnected from the network durin
 Then, if you get kicked off, just run:
 
     screen -r
-    
+
 to reconnect and get back to work.
 
 ### DNS Utils
@@ -246,7 +246,7 @@ Install MongoDB from the [official 10gen repo](http://docs.mongodb.org/manual/tu
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
     echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
     sudo apt-get update
-    sudo apt-get install -y mongodb-org 
+    sudo apt-get install -y mongodb-org
 
 Configuring MongoDB for the first requires setting up an `admin` database.  Edit `/etc/mongod.conf` to contain:
 
@@ -264,7 +264,7 @@ Now create an `admin` database, _but not as the superuser_:
 Note, if you get a warning about readahead size, exit and do:
 
     echo 'ACTION=="add", KERNEL=="md2", ATTR{bdi/read_ahead_kb}="128"' | sudo tee -a /etc/udev/rules.d/85-ebs.rules
-    
+
 Reboot and check `RA` value from for the the `mongo` drive:
 
     df /var/lib/mongo
@@ -279,9 +279,9 @@ Now enable security on the MongoDB instance by adding `auth true` to the `mongod
 
     sudo service mongod restart
 
-Now connect as the `root` user: 
+Now connect as the `root` user:
 
-    mongo --port 27017 -u root -p "..." --authenticationDatabase admin 
+    mongo --port 27017 -u root -p "..." --authenticationDatabase admin
 
 Now create the `whatever-vM-m` database:
 
@@ -310,7 +310,7 @@ If you want to install a really new build, you can find the official instruction
 Use:
 
     redis-cli info
-    
+
 to test the install.
 
 ### Install nginx
@@ -325,7 +325,7 @@ Check the version:
 
 Should be at least `1.10.0`.  Ensure that nginx is set to start after reboot:
 
-    sudo systemctl status nginx  
+    sudo systemctl status nginx
 
 Note that the site `.conf` files are in the `/etc/nginx/conf.d` directory.
 
@@ -368,11 +368,11 @@ To install `Node.js`:
 
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install -y build-essential nodejs
-    
+
 Check the version with:
 
     node --version
-    
+
 Ensure that it's `8.0` or above.
 
 ### RabbitMQ Install
