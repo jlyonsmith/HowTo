@@ -6,9 +6,23 @@ These instructions assume a clean installation of macOS (at least High Sierra or
 
 Go to your `$HOME` directory and do `mkdir bin`.
 
+## Install iTerm2
+
+Download and install [iTerm2](https://www.iterm2.com/). Open _Preferences_ and duplicate the default profile:
+
+![iterm2](images/iterm2-prefs-1.png)
+
+Set the _Working Directory_ to _Reuse previous session directory_.
+
+Go to the _Keys_ tab. Delete all key shortcuts, and add two for **&#8997; &#8592;** and **&#8997; &#8594;** as shown.
+
+![iterm2](images/iterm2-prefs-2.png)
+
+Select _Send Escape Sequence_ from the really long drop-down menu, and the type `b` or `f`.
+
 ## Install Homebrew
 
-_NOTE: Be careful!!! There is a Trojan Horse site parked at `http://homebrew.sh` that looks like the Homebrew site but which actuall attempts to install malware._
+_NOTE: Be careful!!! There is a Trojan Horse site parked at `http://homebrew.sh` that looks like the Homebrew site but which actually attempts to install malware._
 
 Go to [Homebrew](https://brew.sh), copy the line and run it:
 
@@ -22,7 +36,7 @@ NOTE: You do not need or want to be `sudo` when you install Homebrew. If you hav
 
 Download [Visual Studio Code](https://code.visualstudio.com/download) and install to _Applications_.
 
-Run it, type &#8984;+Shift+P then search for and run "Shell command: Install 'code' command in PATH".
+Run it, type **&#8984; Shift P** then search for and run "Shell command: Install 'code' command in PATH".
 
 Install the packages:
 
@@ -231,3 +245,17 @@ Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.htm
 ## Install PostgreSQL
 
 `brew install postgresql` then `brew services start postgresql`
+
+## Install Node.js Tools
+
+Do `npm install -g snap-tool stampver monzilla babel-cli jest`
+
+To support Node.js development.
+
+## Install Sketch
+
+Download and install [Bohemian Sketch](https://www.sketchapp.com/). Purchase or otherwise obtain a valid license key.
+
+## Install Acorn
+
+Download and install [Acorn](https://itunes.apple.com/us/app/acorn-6-image-editor/id1233861775?mt=12) from the App Store. Purchase or obtain a license key.
