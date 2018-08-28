@@ -263,6 +263,10 @@ Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.htm
 
 `brew install redis` then `brew services start redis`
 
+## Install MongoDB
+
+`brew install mongodb` then `brew services start mongodb`
+
 ## Install nginx
 
 `brew install nginx` then `brew services start nginx`
