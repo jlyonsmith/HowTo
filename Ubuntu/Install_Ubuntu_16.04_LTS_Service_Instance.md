@@ -251,7 +251,7 @@ Install MongoDB from the [official 10gen repo](http://docs.mongodb.org/manual/tu
 Configuring MongoDB for the first requires setting up an `admin` database.  Edit `/etc/mongod.conf` to contain:
 
     security:
-      noauth true
+      authorization: "disabled"
 
 Restart MongoDB with:
 
