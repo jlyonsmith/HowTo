@@ -60,6 +60,31 @@ Override the default `keybindings.json` file with:
 ]
 ```
 
+Add the following settings:
+
+```
+{
+    "window.zoomLevel": 0,
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "editor.minimap.enabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.trimTrailingWhitespace": true,
+    "editor.tabSize": 2,
+    "workbench.startupEditor": "newUntitledFile",
+    "extensions.ignoreRecommendations": true,
+    "explorer.confirmDelete": false,
+    "editor.formatOnSave": false,
+    "[javascript]": {
+        "editor.formatOnSave": true
+    },
+    "[json]": {
+        "editor.autoIndent": false
+    },
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "breadcrumbs.enabled": true
+}
+```
+
 ## Install git
 
 Do `brew install git`.
