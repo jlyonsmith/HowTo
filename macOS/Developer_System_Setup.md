@@ -148,7 +148,7 @@ Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the sy
 
 ## Install readline
 
-`brew install readline` (which helps to fix Node.js REPL coloring issues)
+`brew install readline rlwrap` (which helps to fix Node.js REPL coloring issues)
 
 ## Bash Setup
 
