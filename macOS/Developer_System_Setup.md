@@ -89,7 +89,7 @@ Add the following settings:
 
 Do `brew install git`.
 
-Edit the global config with `git config --edit --config` (which will open the file in `vi`). Go to a point in the file, type `i` to insert then paste:
+Edit the global config with `git config --edit --global` (which will open the file in `vi`). Go to a point in the file, type `i` to insert then paste:
 
 ```ini
 [user]
