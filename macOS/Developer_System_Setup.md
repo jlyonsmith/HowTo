@@ -203,6 +203,8 @@ export LOCAL_IP_ADDR=$(ipconfig getifaddr en0)
 
 alias edit="code"
 alias bn="babel-node"
+alias an="ansible"
+alias ap="ansible-playbook"
 alias mq=rabbitmqctl
 alias node=alias node="NODE_NO_READLINE=1 rlwrap -pcyan node"
 
