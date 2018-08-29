@@ -131,8 +131,9 @@ Edit the global config with `git config --edit --global` (which will open the fi
 
 Copy git prompt and completion scripts to `~/bin`:
 
-- [`gitcompletion.sh`](https://github.com/git/git/blob/master/contrib/completion/git-completion.bash)
-- [`gitprompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
+
+- [`git-completion.sh`](https://github.com/git/git/blob/master/contrib/completion/git-completion.bash)
+- [`git-prompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 
 See the section below on setting up Bash for how to install and use these.
 
