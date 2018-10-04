@@ -1,5 +1,9 @@
 # PostgreSQL
 
+## Authentication
+
+PostgreSQL authentication is described full in the documentation - [Authentication Methods](https://www.postgresql.org/docs/current/static/auth-methods.html)
+
 ## Find database sizes
 
 Show database sizes with `\l+ <database-name>`.  With a query:
