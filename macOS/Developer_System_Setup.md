@@ -131,7 +131,6 @@ Edit the global config with `git config --edit --global` (which will open the fi
 
 Copy git prompt and completion scripts to `~/bin`:
 
-
 - [`git-completion.sh`](https://github.com/git/git/blob/master/contrib/completion/git-completion.bash)
 - [`git-prompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 
@@ -222,6 +221,14 @@ export PATH="$HOME/bin:$PATH:/usr/local/share/npm/bin:/usr/local/sbin"
 export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 ```
 
+## Install SuperDuper!
+
+Install the [SuperDuper!](https://www.shirt-pocket.com/SuperDuper/SuperDuperDescription.html) software. This is the software we use for back-ups.
+
+## Install ClamXAV
+
+Install [ClamXAV](https://www.clamxav.com/) virus checker. This is required for PCI compliance.
+
 ## Install Xcode
 
 Install [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) from the App Store.
@@ -284,6 +291,63 @@ Do `npm install -g snap-tool stampver monzilla babel-cli jest`
 
 To support Node.js development.
 
+## Install consul
+
+We use consul in production for dynamic configuration of the backend cluster.
+
+First, install `consul`:
+
+```
+brew install consul
+```
+
+Then, edit the `.plist` file that is installed, `edit /usr/local/Cellar/consul/1.2.3/homebrew.mxcl.consul.plist` to contain:
+
+```plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>KeepAlive</key>
+    <dict>
+      <key>SuccessfulExit</key>
+      <false/>
+    </dict>
+    <key>Label</key>
+    <string>homebrew.mxcl.consul</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/local/opt/consul/bin/consul</string>
+      <string>agent</string>
+      <string>-server</string>
+      <string>-bind</string>
+      <string>127.0.0.1</string>
+      <string>-bootstrap</string>
+      <string>-data-dir</string>
+      <string>/usr/local/var/consul</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>WorkingDirectory</key>
+    <string>/usr/local/var</string>
+    <key>StandardErrorPath</key>
+    <string>/usr/local/var/log/consul.log</string>
+    <key>StandardOutPath</key>
+    <string>/usr/local/var/log/consul.log</string>
+  </dict>
+</plist>
+```
+
+This will configure `consnul` to persist key/value pairs locally, otherwise they will be lost on each system restart. Then `brew services start consul`.
+
+## React Native
+
+For React Native development:
+
+```
+npm react-native-cli watchman
+`
+
 ## Install Sketch
 
 Download and install [Bohemian Sketch](https://www.sketchapp.com/). Purchase or otherwise obtain a valid license key.
@@ -291,3 +355,4 @@ Download and install [Bohemian Sketch](https://www.sketchapp.com/). Purchase or 
 ## Install Acorn
 
 Download and install [Acorn](https://itunes.apple.com/us/app/acorn-6-image-editor/id1233861775?mt=12) from the App Store. Purchase or obtain a license key.
+```
