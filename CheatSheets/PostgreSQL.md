@@ -1,4 +1,4 @@
-# Postgres SQL
+# PostgreSQL
 
 ## Find database sizes
 
