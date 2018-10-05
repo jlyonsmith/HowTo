@@ -4,7 +4,9 @@ These instructions assume a clean installation of macOS (at least High Sierra or
 
 ## General
 
-Go to your `$HOME` directory and do `mkdir bin`.
+Go to your `$HOME` directory and do `mkdir bin`.  
+
+Note, you can create a `scratch` directory anywhere in your source tree and any files in those directories will not be committed.
 
 ## Install iTerm2
 
