@@ -147,6 +147,20 @@ Push local tags remotely:
 
     git push --tags
 
+## Patches
+
+To make a patch file from unstaged changes:
+
+    git diff > <patch-file>.patch
+    
+From staged changes:
+
+    git diff --cached > <patch-file>.patch
+    
+To apply the patches in another repository:
+
+    git apply <patch-file>.patch
+
 ## Stashes
 
 Pop/apply stash without merging:
