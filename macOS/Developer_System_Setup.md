@@ -4,7 +4,7 @@ These instructions assume a clean installation of macOS (at least High Sierra or
 
 ## General
 
-Go to your `$HOME` directory and do `mkdir bin`.  
+Go to your `$HOME` directory and do `mkdir bin`.
 
 Note, you can create a `scratch` directory anywhere in your source tree and any files in those directories will not be committed.
 
@@ -287,7 +287,7 @@ Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.htm
 
 `brew install postgresql` then `brew services start postgresql`
 
-## Install Node.js Tools
+## Install Node.js
 
 Do `npm install -g snap-tool stampver monzilla babel-cli jest`
 
@@ -340,7 +340,7 @@ Then, edit the `.plist` file that is installed, `edit /usr/local/Cellar/consul/1
 </plist>
 ```
 
-This will configure `consnul` to persist key/value pairs locally, otherwise they will be lost on each system restart. Then `brew services start consul`.
+This will configure `consul` to persist key/value pairs locally, otherwise they will be lost on each system restart. Then `brew services start consul`.
 
 ## React Native
 
