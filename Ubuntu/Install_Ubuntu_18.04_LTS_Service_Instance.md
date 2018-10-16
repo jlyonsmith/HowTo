@@ -51,7 +51,7 @@ Change the name of the host to something meaningful:
     vi /etc/hostname
     vi /etc/hosts
 
-Change the default name, e.g. `Ubuntu-xenial-16-04`, to whatever name you desire.  Reboot the system for the change to take effect:
+Change the default name, e.g. `Ubuntu-xenial-16-04`, to whatever name you desire. Reboot the system for the change to take effect:
 
     reboot
 
@@ -87,7 +87,7 @@ If not using a key, change the `root` password using [Strong Password Generator]
 
     passwd
 
-We use an `ubuntu` user which has root access, like Amazon does with EC2.  First, `ssh` to the system as `root`, logging on with the provided password.
+We use an `ubuntu` user which has root access, like Amazon does with EC2. First, `ssh` to the system as `root`, logging on with the provided password.
 
 Create the `ubuntu` user:
 
@@ -111,13 +111,13 @@ Now change the permissions on the file:
 
 See the [Sudo Manual](http://www.sudo.ws/sudoers.man.html) for more information.
 
-Logon as `ubuntu`, set the `PS1` prompt and check that you can `sudo`.  If all is well, disable `root` user with:
+Logon as `ubuntu`, set the `PS1` prompt and check that you can `sudo`. If all is well, disable `root` user with:
 
     sudo passwd -l root
 
 ## Enable SSH login for `ubuntu`
 
-SSH in again as `ubuntu`.  Create the `.ssh` directory:
+SSH in again as `ubuntu`. Create the `.ssh` directory:
 
     mkdir .ssh
     chmod u=rwx,go= .ssh
@@ -141,7 +141,7 @@ Add an entry to your local `~/.ssh/config` file:
       HostName xxx.mydomain.com
       IdentityFile ~/.ssh/mydomain-xxx.pem
 
-Close the remote shell and re-connect as `ubuntu`.  You should no longer require a password.  Check you can `sudo` without a password.
+Close the remote shell and re-connect as `ubuntu`. You should no longer require a password. Check you can `sudo` without a password.
 
     ssh ubuntu@xxx.mydomain.com -i ~/.ssh/mydomain.pem
 
@@ -166,7 +166,7 @@ Firstly, it useful when running multiple installs and messing with global config
 
     sudo -s
 
-Be careful because any files you create in this shell will owned by `root`, and you will usually want them owned by `ubuntu`.  Use `whoami` or watch the prompt.
+Be careful because any files you create in this shell will owned by `root`, and you will usually want them owned by `ubuntu`. Use `whoami` or watch the prompt.
 
 It's time to update all packages:
 
@@ -205,48 +205,36 @@ These are really useful for scripting and accessing AWS services from the comman
 
     python3 --version
 
-Must be > 3.5.  Then:
+Must be > 3.5. Then:
 
     apt-get install python3-pip
     pip3 install awscli
 
 ### MongoDB Install
 
-Install MongoDB from the [official 10gen repo](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/) (not the Ubuntu one):
+Install MongoDB:
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-    echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
 
-Configuring MongoDB for the first requires setting up an `admin` database.  Edit `/etc/mongod.conf` to contain:
+Configuring MongoDB for security requires a few steps. First, disable security. Edit `/etc/mongod.conf` to contain:
 
     security:
-      noauth true
+      authorization: disabled
 
 Restart MongoDB with:
 
-    service mongod restart
+    sudo systemctl restart mongod
 
-Now create an `admin` database, _but not as the superuser_:
+Create an `admin` database, _but not as running under sudo_:
 
     mongo
-
-Note, if you get a warning about readahead size, exit and do:
-
-    echo 'ACTION=="add", KERNEL=="md2", ATTR{bdi/read_ahead_kb}="128"' | sudo tee -a /etc/udev/rules.d/85-ebs.rules
-
-Reboot and check `RA` value from for the the `mongo` drive:
-
-    df /var/lib/mongo
-    sudo blockdev --report
-
-Back in `mongo`, continue with:
-
     use admin
     db.createUser({user:"root",pwd:"...",roles:["userAdminAnyDatabase","readAnyDatabase","clusterAdmin"]})
 
-Now enable security on the MongoDB instance by adding `auth true` to the `mongod.conf` file, then do:
+Now enable security on the MongoDB instance by changing `authorization: enabled` in the `mongod.conf` file, then:
 
     sudo service mongod restart
 
@@ -263,12 +251,6 @@ Now create the `whatever-vM-m` database:
     db.system.users.find()
 
 For good system security, use a new password for each database version.
-
-You need to comment out `bind_ip` in the `/etc/mongod.conf` file and allow port 27017 through the firewall in order to access the database remotely:
-
-	ufw allow proto tcp from x.x.x.x to any port 27017
-
-Connect as `user` for development purposes.  Try to use `admin` only to drop databases and add users and when using [RoboMongo]()
 
 ### Redis Install
 
@@ -294,7 +276,7 @@ Check the version:
 
     nginx -v
 
-Should be at least `1.10.0`.  Ensure that nginx is set to start after reboot:
+Should be at least `1.10.0`. Ensure that nginx is set to start after reboot:
 
     sudo systemctl status nginx
 
@@ -375,7 +357,7 @@ sudo rabbitmqctl status
 
 ### `systemd` Configuration
 
-Ubuntu 16.04 uses [Systemd](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal) to manage daemons.  Configuration files for `systemd` have a `.service` extension and are placed in the `/etc/systemd/system` directory.  See also [`systemd` file format](https://www.freedesktop.org/software/systemd/man/systemd.service.html) `systemd` works alongside the existing Unix `/etc/init.d` and Upstart processes on Ubuntu.
+Ubuntu 16.04 uses [Systemd](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal) to manage daemons. Configuration files for `systemd` have a `.service` extension and are placed in the `/etc/systemd/system` directory. See also [`systemd` file format](https://www.freedesktop.org/software/systemd/man/systemd.service.html) `systemd` works alongside the existing Unix `/etc/init.d` and Upstart processes on Ubuntu.
 
 A basic `.service` file might contain:
 
@@ -410,4 +392,3 @@ You can see the status of the service with:
 If the service file changes, reload it with:
 
     sudo systemctl daemon-reload
-
