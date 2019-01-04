@@ -83,7 +83,7 @@ Add the following settings:
 
 ## Install Ruby
 
-Install [rbenv](https://github.com/rbenv/rbenv) with `homebrew install rbenv`.
+Install [rbenv](https://github.com/rbenv/rbenv) with `brew install rbenv`.
 
 Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the system version over to it, `rbenv global 2.3.7`.
 
