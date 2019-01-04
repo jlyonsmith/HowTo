@@ -2,12 +2,6 @@
 
 These instructions assume a clean installation of macOS (at least High Sierra or above) and that you are logged on as an administrator user, i.e. you can run `sudo`.
 
-## General
-
-Go to your `$HOME` directory and do `mkdir bin`.
-
-Note, you can create a `scratch` directory anywhere in your source tree and any files in those directories will not be committed.
-
 ## Install iTerm2
 
 Download and install [iTerm2](https://www.iterm2.com/). Open _Preferences_ and duplicate the default profile:
@@ -154,7 +148,9 @@ Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the sy
 
 ## Bash Setup
 
-Setup your `bash` environment correctly first! Create a `~/.bash_profile` file that contains just this:
+Setup your `bash` environment now.  First do `cd ~; mkdir bin`.
+
+Create a `~/.bash_profile` file that contains just this:
 
 ```bash
 # The personal initialization file, executed for login shells
@@ -253,7 +249,7 @@ To install the command line tools, don't use the link in the app, because it ass
 ln -s /Applications/SourceTree.app/Contents/Resources/stree /usr/local/bin/
 ```
 
-## Install image libraries
+## Install Image libraries
 
 `brew install pkg-config cairo libpng jpeg giflib` to support using the [canvas](https://www.npmjs.com/package/canvas) library.
 
@@ -358,3 +354,4 @@ Download and install [Bohemian Sketch](https://www.sketchapp.com/). Purchase or 
 
 Download and install [Acorn](https://itunes.apple.com/us/app/acorn-6-image-editor/id1233861775?mt=12) from the App Store. Purchase or obtain a license key.
 ```
+
