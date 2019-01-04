@@ -81,6 +81,20 @@ Add the following settings:
 }
 ```
 
+## Install Ruby
+
+Install [rbenv](https://github.com/rbenv/rbenv) with `homebrew install rbenv`.
+
+Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the system version over to it, `rbenv global 2.3.7`.
+
+## Install Node.js
+
+`brew install node`. Ensure that `npm` is up-to-date with `npm i -g npm`.
+
+## Install readline
+
+`brew install readline rlwrap` (which helps to fix Node.js REPL coloring issues)
+
 ## Install git
 
 Do `brew install git`.
@@ -130,21 +144,7 @@ Copy git prompt and completion scripts to `~/bin`:
 - [`git-completion.sh`](https://github.com/git/git/blob/master/contrib/completion/git-completion.bash)
 - [`git-prompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 
-See the section below on setting up Bash for how to install and use these.
-
-## Install Ruby
-
-Install [rbenv](https://github.com/rbenv/rbenv) with `homebrew install rbenv`.
-
-Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the system version over to it, `rbenv global 2.3.7`.
-
-## Install Node.js
-
-`brew install node`. Ensure that `npm` is up-to-date with `npm i -g npm`.
-
-## Install readline
-
-`brew install readline rlwrap` (which helps to fix Node.js REPL coloring issues)
+The section below on setting up your Bash shell will show how to install these scripts.
 
 ## Bash Setup
 
