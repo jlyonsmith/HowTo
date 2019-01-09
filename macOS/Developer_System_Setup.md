@@ -91,6 +91,10 @@ Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the sy
 
 `brew install node`. Ensure that `npm` is up-to-date with `npm i -g npm`.
 
+Do `npm install -g snap-tool stampver monzilla bitbucket-tool consul-tool`
+
+To support Node.js development.
+
 ## Install readline
 
 `brew install readline rlwrap` (which helps to fix Node.js REPL coloring issues)
@@ -145,6 +149,12 @@ Copy git prompt and completion scripts to `~/bin`:
 - [`git-prompt.sh`](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
 
 The section below on setting up your Bash shell will show how to install these scripts.
+
+## Install Java
+
+Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html) by downloading the appropriate installer:
+
+![java](images/java-se-install.png)
 
 ## Bash Setup
 
@@ -239,25 +249,9 @@ xcode-select --install
 
 to install the command line tools. You can also run `brew doctor` which will tell you how to do this also.
 
-## Install SourceTree
-
-Go to [SourceTree](https://www.sourcetreeapp.com/) and download the installer. Copy to _Applications_.
-
-To install the command line tools, don't use the link in the app, because it assumes that the `sudo` user owns the `/usr/local/bin` directory. Instead run:
-
-```
-ln -s /Applications/SourceTree.app/Contents/Resources/stree /usr/local/bin/
-```
-
-## Install Image libraries
+## Install Image Libraries
 
 `brew install pkg-config cairo libpng jpeg giflib` to support using the [canvas](https://www.npmjs.com/package/canvas) library.
-
-## Install Java
-
-Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html) by downloading the appropriate installer:
-
-![java](images/java-se-install.png)
 
 ## Install Ansible
 
@@ -283,13 +277,7 @@ Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.htm
 
 `brew install postgresql` then `brew services start postgresql`
 
-## Install Node.js
-
-Do `npm install -g snap-tool stampver monzilla babel-cli jest`
-
-To support Node.js development.
-
-## Install consul
+## Install Consul
 
 We use consul in production for dynamic configuration of the backend cluster.
 
@@ -344,7 +332,7 @@ For React Native development:
 
 ```
 npm react-native-cli watchman
-`
+```
 
 ## Install Sketch
 
@@ -353,5 +341,15 @@ Download and install [Bohemian Sketch](https://www.sketchapp.com/). Purchase or 
 ## Install Acorn
 
 Download and install [Acorn](https://itunes.apple.com/us/app/acorn-6-image-editor/id1233861775?mt=12) from the App Store. Purchase or obtain a license key.
+
+## Install SourceTree
+
+Go to [SourceTree](https://www.sourcetreeapp.com/) and download the installer. Copy to _Applications_.
+
+To install the command line tools, don't use the link in the app, because it assumes that the `sudo` user owns the `/usr/local/bin` directory. Instead run:
+
 ```
+ln -s /Applications/SourceTree.app/Contents/Resources/stree /usr/local/bin/
+```
+
 
