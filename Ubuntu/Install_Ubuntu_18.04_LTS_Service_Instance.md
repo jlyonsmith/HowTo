@@ -10,9 +10,10 @@ Then check the version:
 
     >lsb_release -a
     ...
-    Description:    Ubuntu 16.04.2 LTS
-    Release:    16.04
-    Codename:   xenial
+    Distributor ID:	Ubuntu
+    Description:	Ubuntu 18.04.1 LTS
+    Release:	    18.04
+    Codename:	    bionic
 
 ### VIM
 
@@ -157,6 +158,14 @@ Set the following option:
 Then:
 
     sudo systemctl reload sshd
+
+## Proxy
+
+If using a proxy, configure `apt` to use it by editing `/etc/apt/apt.conf` to contain:
+
+```
+Acquire::http::Proxy "http://yourproxyaddress:proxyport";
+```
 
 ### Screen, Super User and Updates
 
@@ -317,14 +326,14 @@ _Make sure_ to copy the `default` configuration from `sites-enabled` and set up 
 
 To install `Node.js`:
 
-    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt-get install -y build-essential nodejs
 
 Check the version with:
 
     node --version
 
-Ensure that it's `8.0` or above.
+Ensure that it's `10.0` or above.
 
 ### RabbitMQ Install
 
