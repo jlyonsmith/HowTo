@@ -21,6 +21,8 @@ exit
 # You can safely echo stuff to the terminal in here
 
 [[ -r ~/.bashrc ]] && source ~/.bashrc
+
+title xxx # TODO: Should come from consul
 ```
 
 ## `.bashrc`
@@ -47,7 +49,7 @@ if [[ -f "$GIT_PROMPT_SCRIPT" ]]; then
 
   export PS1=''
   export PROMPT_COMMAND="__git_ps1 \"${PROMPT_1}\" \"${PROMPT_2}\""
-elif
+else
   export PS1="${PROMPT_1}${PROMPT_2}"
 fi
 
