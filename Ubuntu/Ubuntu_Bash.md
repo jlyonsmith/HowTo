@@ -1,5 +1,21 @@
 # Settings for Ubuntu Bash Shell
 
+## Clean Up Message-of-the-Day
+
+```bash
+sudo -s
+cd /etc/update-motd.d
+rm 10-help-text 50-landscape-sysinfo 50-motd-news 51-cloudguest 80-esm 80-livepatch 95-hwe-eol 97-overlayroot
+exit
+```
+
+## `.vimrc`
+
+```
+color desert
+set shiftwidth=2 tabstop=2 expandtab
+```
+
 ## Git Completion
 
 Install [Git completion scripts](https://github.com/git/git/tree/master/contrib/completion) to `/usr/local/etc/bash_completion.d/`.
@@ -26,6 +42,8 @@ title xxx # TODO: Should come from consul
 ```
 
 ## `.bashrc`
+
+Here are my recommended settings for `~/.bashrc`:
 
 ```bash
 # The individual non-interactive shell startup file
@@ -57,8 +75,6 @@ unset GIT_PROMPT_SCRIPT
 unset GIT_COMPLETION_SCRIPT
 unset PROMPT_1
 unset PROMPT_2
-
-export PS1=''
 
 export EDITOR='vim'
 export CLICOLOR=1
