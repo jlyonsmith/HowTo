@@ -44,7 +44,28 @@ Show local & global configuration:
 Edit global configuration:
 
     git config --edit --global
+    
+## Maintenance    
 
+Get rough size of repo:
+
+    git count-objects -vH
+    
+Find largest objects in the repo:
+
+```
+git rev-list --objects --all \
+| git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
+| sed -n 's/^blob //p' \
+| sort --numeric-sort --key=2
+```
+
+To redact entries from a repo and re-write Git history use [BFG Repo Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) installed with `brew install bfg`.
+
+After running do:
+
+    git reflog expire --expire=now --all && git gc --prune=now --aggressive
+    
 ## Advanced
 
 Refresh `.gitignore`:
