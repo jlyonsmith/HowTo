@@ -111,4 +111,7 @@ alias node=alias node="NODE_NO_READLINE=1 rlwrap -pcyan node"
 alias an=ansible
 alias ap=ansible-playbook
 alias ag=ansible-galaxy
+alias ufv="ufw status verbose"
+alias ufn="ufw status numbered"
+alias ufd="ufw delete"
 ```

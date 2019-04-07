@@ -13,8 +13,8 @@ You want to use the closest NTP server possible.  This is done automatically by 
 Uninstall `ntpupdate` and install `ntpd`:
 
 ```bash
-sudo apt remove ntpupdate
-sudo apt install ntpd
+sudo apt remove ntpdate
+sudo apt install ntp
 ```
 
 Now edit the `/etc/ntp.conf` file as follows:
@@ -80,3 +80,25 @@ Now run `ntpq -pn`.  You should get output like this:
  ```
 
 As long as one of the lines start with `*` (and it's not the `127.127.1.0` line) you are getting time from the Internet. See [How do I use pool.ntp.org?](https://www.ntppool.org/en/use.html) from more information.
+
+## Bastion and Internal System Setup
+
+Your bastion and other systems should synchronize with the proxy systems on the internal network.  You'll need the following `/etc/ntp.conf`:
+
+```conf
+server 10.1.1.1 iburst
+server 10.1.1.2 iburst
+server 127.127.1.0
+fudge 127.127.1.0 stratum 10
+```
+
+Ideally, you should use the internal `consul` based DNS instead of hard coded IP addresses.
+
+And the following firewall rules on the bastion machine:
+
+```bash
+export LAN_PROXY_SUBNET=...
+export LAN_IP=...
+sudo ufw allow out proto udp from $LAN_IP to $LAN_PROXY_SUBNET port 123
+sudo ufw allow in proto udp from $LAN_PROXY_SUBNET to $LAN_IP port 123
+```
