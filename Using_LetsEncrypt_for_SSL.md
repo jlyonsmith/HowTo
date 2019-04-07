@@ -2,7 +2,7 @@
 
 Let's Encrypt is a free SSL certificate authority that supports the ACME verification protocol. You can use any certificate daemon software with it. [EFF's Certbot](https://certbot.eff.org) is recommended.
 
-## Installing Certbot on Ubuntu 16.04 for nginx
+## Installing Certbot on Ubuntu
 
 Run:
 
@@ -11,20 +11,29 @@ sudo apt update
 sudo apt install software-properties-common
 sudo apt-add-repository ppa:certbot/certbot
 sudo apt update
+```
+
+## Generating Certificates with Nginx
+
+To install the Nginx verification plugin:
+
+```
 sudo apt install python-certbot-nginx
 ```
 
-## Generating Certificates
-
 Set up an A record in the DNS for `<domain>`.
 
-With the nginx service installed and running:
+With the `nginx` service installed and running:
 
 ```
 certbot certonly --nginx -d <domain>
 ```
 
 If all is well, the certificate will be in `/etc/letsencrypt/live`. `fullchain.pem` is the the certificate. `privkey.pem` is the key for `nginx` configuration.
+
+## Generating Certificates with Route53
+
+Read about using [AWS Route53 plugin](https://certbot-dns-route53.readthedocs.io/en/stable/) to verify domains.
 
 ## Certificate Renewal
 

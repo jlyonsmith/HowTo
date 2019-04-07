@@ -5,7 +5,7 @@
 ```bash
 sudo -s
 cd /etc/update-motd.d
-rm 10-help-text 50-landscape-sysinfo 50-motd-news 51-cloudguest 80-esm 80-livepatch 95-hwe-eol 97-overlayroot
+rm 10-help-text 50-motd-news 80-esm 80-livepatch 95-hwe-eol 97-overlayroot
 exit
 ```
 
@@ -37,8 +37,6 @@ exit
 # You can safely echo stuff to the terminal in here
 
 [[ -r ~/.bashrc ]] && source ~/.bashrc
-
-title xxx # TODO: Should come from consul
 ```
 
 ## `.bashrc`
