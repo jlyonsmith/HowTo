@@ -57,6 +57,7 @@ echo "*filter
 -A FORWARD -i br0 -j ACCEPT
 -A FORWARD -j DROP
 COMMIT" > /etc/iptables/rules.v4
+iptables-restore < /etc/iptables/rules.v4
 ```
 
 These rules allow traffic in from the LAN on port 22 (for `ssh`), and from port 1194 for OpenVPN. They also allow packets to forward to and from the bridge `br0`.
@@ -209,6 +210,7 @@ echo "*filter
 -A INPUT -i tap0 -j ACCEPT
 -A INPUT -j DROP
 COMMIT" > /etc/iptables/rules.v4
+iptables-restore < /etc/iptables/rules.v4
 ```
 
 Grab the file `$HOME/client01.ovpn` from the server. Copy it to `/etc/openvpn/client.conf`.
