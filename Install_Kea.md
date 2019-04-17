@@ -29,7 +29,7 @@ echo "/usr/local/lib/hooks" > /etc/ld.so.conf.d/kea.conf
 ldconfig
 ```
 
-Kea will now be installed in `/usr/local`.  Type `keactrl` to confirm that it is installed an running.
+Kea will now be installed in `/usr/local`. Type `keactrl` to confirm that it is installed an running.
 
 ## Configuration
 
@@ -39,22 +39,22 @@ For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
 
 ```json5
 {
-  "Dhcp4": {
+  Dhcp4: {
     "interfaces-config": {
-      "interfaces": ["eth0"]
+      interfaces: ["eth0"]
     },
     "valid-lifetime": 4000,
     "renew-timer": 1000,
     "rebind-timer": 2000,
     "lease-database": {
-      "type": "memfile",
-      "persist": true,
-      "name": "/var/kea/dhcp4.leases"
+      type: "memfile",
+      persist: true,
+      name: "/var/kea/dhcp4.leases"
     },
-    "subnet4": [
+    subnet4: [
       {
-        "pools": [{ "pool": "192.0.2.1-192.0.2.200" }],
-        "subnet": "192.0.2.0/24"
+        pools: [{ pool: "192.0.2.1-192.0.2.200" }],
+        subnet: "192.0.2.0/24"
       }
     ],
     "control-socket": {
@@ -63,11 +63,11 @@ For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
     }
   },
 
-  "Logging": {
-    "loggers": [
+  Logging: {
+    loggers: [
       {
-        "name": "*",
-        "severity": "DEBUG"
+        name: "*",
+        severity: "DEBUG"
       }
     ]
   }
@@ -78,39 +78,39 @@ An equivalent file for DHCPv6 in `/usr/local/etc/kea-dhcp6.conf` is:
 
 ```json5
 {
-  "Dhcp6": {
+  Dhcp6: {
     "valid-lifetime": 4000,
-      "renew-timer": 1000,
-      "rebind-timer": 2000,
+    "renew-timer": 1000,
+    "rebind-timer": 2000,
 
-      "interfaces-config": {
-        "interfaces": [ ]
-      },
+    "interfaces-config": {
+      interfaces: []
+    },
 
-      "lease-database": {
-        "type": "memfile",
-        "persist": true,
-        "name": "/var/kea/dhcp6.leases"
-      },
+    "lease-database": {
+      type: "memfile",
+      persist: true,
+      name: "/var/kea/dhcp6.leases"
+    },
 
-      "subnet6": [ ],
+    subnet6: [],
     "control-socket": {
       "socket-type": "unix",
       "socket-name": "/tmp/kea-dhcp6-ctrl.sock"
     }
   },
 
-  "Logging": {
-    "loggers": [
-    {
-      "name": "kea-dhcp6",
-      "output_options": [
+  Logging: {
+    loggers: [
       {
-        "output": "/var/log/kea/kea-dhcp6.log"
+        name: "kea-dhcp6",
+        output_options: [
+          {
+            output: "/var/log/kea/kea-dhcp6.log"
+          }
+        ],
+        severity: "INFO"
       }
-      ],
-      "severity": "INFO"
-    }
     ]
   }
 }
@@ -122,19 +122,19 @@ Unless you are installing for a large corporation, you do not need to use the Po
 
 To create a high availability hot standby DHCP cluster, do the following.
 
-Edit the file `/usr/local/etc/kea/kea-ctrl-agent.conf`.  Change the lines:
+Edit the file `/usr/local/etc/kea/kea-ctrl-agent.conf`. Change the lines:
 
 ```json
 {
-  "http-host": "10.1.1.1",
-  "http-port": 8080,
+  "http-host": "10.10.1.1",
+  "http-port": 8080
 }
 ```
 
-To reflect the system internal IP address.  Confirm that the agent API is working with:
+To reflect the system internal IP address. Confirm that the agent API is working with:
 
 ```bash
-http_proxy= curl -X POST -H "Content-Type: application/json" -d '{ "command": "config-get", "service": [ "dhcp4" ] }' http://10.1.1.1:8080/
+http_proxy= curl -X POST -H "Content-Type: application/json" -d '{ "command": "config-get", "service": [ "dhcp4" ] }' http://10.10.1.1:8080/
 ```
 
 You should see a dump of the DHCPv4 configuration.
@@ -179,7 +179,7 @@ Now add the following configuration to the `/usr/local/etc/kea/kea-dhcp4.conf` f
   ]
 ```
 
-Hot standby is used instead of load balancing because it does not require splitting the pool of IP addresses into two groups with different DHCP *classes*, and is simpler to administer.  Ensure that `this-server-name` is set to `server1` or `server2` as appropriate.
+Hot standby is used instead of load balancing because it does not require splitting the pool of IP addresses into two groups with different DHCP _classes_, and is simpler to administer. Ensure that `this-server-name` is set to `server1` or `server2` as appropriate.
 
 And of course, update your proxy firewalls:
 
