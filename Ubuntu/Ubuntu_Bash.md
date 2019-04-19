@@ -93,10 +93,7 @@ function tab-color {
   printf "\x1b]6;1;bg;blue;brightness;%s\x7" "$3"
 }
 
-# BPT
-export BPT_USER=jlyonsmith
-export BPT_ROOT=~/projects/next
-
+#Aliases
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -114,4 +111,8 @@ alias ag=ansible-galaxy
 alias ufv="ufw status verbose"
 alias ufn="ufw status numbered"
 alias ufd="ufw delete"
+alias ipts="iptables-save"
+alias iptn="iptables -t nat"
+alias iptf="iptables -t filter"
+alias iptr="iptables =t raw"
 ```

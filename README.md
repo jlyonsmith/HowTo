@@ -1,33 +1,5 @@
-# How To's and Cheat Sheets
+# How To
 
-My collection of _how to's_ and _cheat sheets_.
+This repository is for a "How to do X" documents. When you add a new document, add a link to it here, with a short description so that others can find it.
 
-## Ubuntu
-
-- Install Ubuntu 12.04 LTS Service Instance
-- Install Ubuntu 14.04 LTS Service Instance
-- Install Ubuntu 16.04 LTS Service Instance
-
-## Services
-
-- Configure nginx Basic Authentication
-- Install nginx on macOS (not using `brew`)
-- Install MongoDB on macOS (not using `brew`)
-- Install Wordpress on Ubuntu 16.04
-- Install Redmine 3.1
-
-## Tools
-
-- Using rsync
-
-## SSL
-
-- Ordering an SSL Certificate
-- SSL Troubleshooting
-
-## Mobile Development
-
-- New iOS project
-
-
-
+- [Developer System Setup](/Developer_System_Setup.md). Simple step-by-step instructions on setting up a developer Macbook for development.
