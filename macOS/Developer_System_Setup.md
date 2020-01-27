@@ -267,7 +267,9 @@ to install the command line tools. You can also run `brew doctor` which will tel
 
 ## Install MongoDB
 
-`brew install mongodb` then `brew services start mongodb`
+- `brew tap mongodb/brew`
+- `brew install mongodb-community` 
+- `brew services start mongodb-community`
 
 ## Install nginx
 
