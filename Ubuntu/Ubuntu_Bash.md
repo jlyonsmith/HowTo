@@ -11,7 +11,7 @@ exit
 
 ## `.vimrc`
 
-```
+```vim
 color desert
 set shiftwidth=2 tabstop=2 expandtab
 ```
@@ -37,6 +37,8 @@ exit
 # You can safely echo stuff to the terminal in here
 
 [[ -r ~/.bashrc ]] && source ~/.bashrc
+
+title $(hostname)
 ```
 
 ## `.bashrc`
@@ -108,11 +110,8 @@ alias node=alias node="NODE_NO_READLINE=1 rlwrap -pcyan node"
 alias an=ansible
 alias ap=ansible-playbook
 alias ag=ansible-galaxy
-alias ufv="ufw status verbose"
-alias ufn="ufw status numbered"
-alias ufd="ufw delete"
 alias ipts="iptables-save"
 alias iptn="iptables -t nat"
 alias iptf="iptables -t filter"
-alias iptr="iptables =t raw"
+alias iptr="iptables -t raw"
 ```

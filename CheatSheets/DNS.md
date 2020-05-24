@@ -36,3 +36,47 @@ An A record maps a hasname to 4-digit IPv4 addresses, e.g. 10.10.10.10. It's wha
 The allow you alias hostnames.  The rule for CNAME records is that there cannot be any other records for that hostname.  As a domain always has at least an NS and an SOA record, it is not allowed to have a CNAME for the domain itself. 
 
 CNAME must eventually resolved down to A records.  The CNAME doesn't replace anything in the URL of a web request.  The exact URL entered by the user will arrive at the web server.  It's simply a mechanism to find the underlying IP address for a domain name.
+
+______
+
+## Resetting DNS cache for End Users
+ 
+### Windows 10
+Right Click on the Start Icon.
+Click on Command.
+The Windows Command Prompt Window will appear. Type the following: ipconfig /flushdns
+Press ENTER
+ 
+### Windows 7
+Right Click on the Start Icon.
+Right Click on Command Prompt and select Run as Administrator.
+The Windows Command Prompt Window will appear. Type the following: ipconfig /flushdns Press ENTER
+ 
+### Mac OS 10.12 and later
+Go to the Applications/Utilities folder and click on Terminal.
+The Terminal window will appear.
+In the command prompt, Type the following: 
+sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache
+Press ENTER
+ 
+### Mac OS 10.11 
+Go to the Applications/Utilities folder and click on Terminal.
+The Terminal window will appear.
+In the command prompt, Type the following: 
+sudo killall -HUP mDNSResponder
+Press ENTER
+ 
+### Linux
+In the command prompt, Type the following: 
+sudo service nscd restart
+Press ENTER
+ 
+### iOS Phones and Tablets
+Switch device to airplane mode. 
+Turn airplane mode off again
+ 
+### Android Devices
+Settings->Apps->Browser.
+Go to “Storage”.
+tap on “Clear Cache“. 
+ 

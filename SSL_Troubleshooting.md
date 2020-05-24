@@ -1,3 +1,0 @@
-
-# Re-issuing a Certificate
-
