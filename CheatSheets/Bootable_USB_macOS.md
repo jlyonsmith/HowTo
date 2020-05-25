@@ -62,7 +62,7 @@ Finished partitioning on disk2
    1:                 DOS_FAT_32 UBUNTU                  15.5 GB    disk2s1
 ```
 
-We use Master Boot Record (`MBR`) and `FAT32` as that will have the widest compatability for the different BIOS' that you will encounter on varying hardware when installing Ubuntu.  If you have problems getting your hardare to recognize the drive, it's most likely because of the type of partition scheme.  The other ones you can try are Apple Partition Map (`APM`) and GUID Partition Scheme (`GPT`). Re-run the `diskutil partitionDisk` command with the different partition type and everything else the same.
+We use Master Boot Record (`MBR`) and `FAT32` as that will have the widest compatability for the different BIOS' that you will encounter on varying hardware when installing Ubuntu.  If you have problems getting your hardare to recognize the drive, it's most likely because of the type of partition scheme.  The other ones you can try are Apple Partition Map (`APM`) and GUID Partition Scheme (`GPT`). See `diskutil partitionDisk --help` and `diskutil listFilesystems` for more information.
 
 To confirm everything worked, you should see a disk with the title `UBUNTU` on your desktop.  The final step is to run the `dd` command copy the ISO to the drive, but for this to work must be unmounted, but not ejected.  Essentially, we just want to remove entry for it in your file system so the drive is no longer in use and the `dd` command can work.
 
