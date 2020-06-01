@@ -17,6 +17,8 @@ sudo apt remove ntpdate
 sudo apt install ntp
 ```
 
+This may remove `timesyncd`, which is a lightweight client only time sync deamon.
+
 Now edit the `/etc/ntp.conf` file as follows:
 
 ```conf
@@ -29,11 +31,12 @@ filegen loopstats file loopstats type day enable
 filegen peerstats file peerstats type day enable
 filegen clockstats file clockstats type day enable
 
-server 0.pool.ntp.org iburst
-server 1.pool.ntp.org iburst
-server 2.pool.ntp.org iburst
-server 3.pool.ntp.org iburst
+pool 0.pool.ntp.org iburst
+pool 1.pool.ntp.org iburst
+pool 2.pool.ntp.org iburst
+pool 3.pool.ntp.org iburst
 server ntp.ubuntu.com
+server 127.127.1.0 # Local clock
 fudge 127.127.1.0 stratum 10
 
 restrict -4 default kod notrap nomodify nopeer noquery limited

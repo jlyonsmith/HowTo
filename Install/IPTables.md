@@ -38,7 +38,7 @@ ExecStart=/bin/sh -c 'iptables-restore < /etc/iptables.rules'
 WantedBy=network-pre.target
 ```
 
-Then `systemctl enable restore-iptables`.
+Then `systemctl enable iptables-restore`.
 
 ## CentOS
 

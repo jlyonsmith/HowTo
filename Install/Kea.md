@@ -2,34 +2,28 @@
 
 ## Build and Installation
 
-Instructions on how to configure Kea DHCP is available [here](https://ftp.isc.org/isc/kea/cur/doc/kea-guide.html).
+Instructions on how to configure Kea DHCP is available [here](https://kb.isc.org/docs/isc-kea-packages).
 
-To build the latest version of Kea (1.5 as of this writing), follow the instructions from [Kea build on Ubuntu](https://kb.isc.org/docs/kea-build-on-ubuntu).
+Install Kea DHCP from Cloudsmith:
 
-```bash
-sudo apt -y install automake libtool pkg-config build-essential ccache
-sudo apt -y install libboost-dev libboost-system-dev liblog4cplus-dev libssl-dev
+```sh
+curl -1sLf \
+  'https://dl.cloudsmith.io/public/isc/kea-1-7/cfg/setup/bash.deb.sh' \
+  | sudo -E bash
 ```
 
 Then:
 
-```bash
-sudo -s
-cd /opt
-wget https://ftp.isc.org/isc/kea/1.5.0/kea-1.5.0.tar.gz
-tar xvfz kea-1.5.0.tar.gz
-cd kea-1.5.0
-export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig
-declare -x PATH="/usr/lib64/ccache:$PATH"
-autoreconf --install
-./configure
-make -j4
-sudo make install
-echo "/usr/local/lib/hooks" > /etc/ld.so.conf.d/kea.conf
-ldconfig
+```sh
+sudo apt install -y isc-kea-dhcp4-server isc-kea-dhcp6-server isc-kea-admin isc-kea-ctrl-agent
 ```
 
-Kea will now be installed in `/usr/local`. Type `keactrl` to confirm that it is installed an running.
+Then enable:
+
+```sh
+systemctl enable isc-kea-dhcp4-server
+systemctl start isc-kea-dhcp4-server
+```
 
 ## Configuration
 
@@ -37,24 +31,34 @@ Configuration is stored in JSON and is separate for DHCPv4 and DHCPv6. See [this
 
 For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
 
-```json5
+```json
 {
-  Dhcp4: {
+  "Dhcp4": {
     "interfaces-config": {
-      interfaces: ["eth0"]
+      "interfaces": ["enp2s0"]
     },
     "valid-lifetime": 4000,
     "renew-timer": 1000,
     "rebind-timer": 2000,
     "lease-database": {
-      type: "memfile",
-      persist: true,
-      name: "/var/kea/dhcp4.leases"
+      "type": "memfile",
+      "persist": true,
+      "name": "/var/kea/dhcp4.leases"
     },
-    subnet4: [
+    "option-data": [
       {
-        pools: [{ pool: "192.0.2.1-192.0.2.200" }],
-        subnet: "192.0.2.0/24"
+        "name": "domain-name-servers",
+        "data": "1.1.1.1, 1.0.0.1"
+      },
+      {
+        "name": "routers",
+        "data": "192.168.1.1"
+      }
+    ],
+    "subnet4": [
+      {
+        "pools": [{ "pool": "192.168.1.2-192.168.1.250" }],
+        "subnet": "192.168.1.0/24"
       }
     ],
     "control-socket": {
@@ -62,12 +66,16 @@ For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
       "socket-name": "/tmp/kea-dhcp4-ctrl.sock"
     }
   },
-
-  Logging: {
-    loggers: [
+  "Logging": {
+    "loggers": [
       {
-        name: "*",
-        severity: "DEBUG"
+        "name": "kea-dhcp4",
+        "output_options": [
+          {
+            "output": "/var/log/kea/kea-dhcp4.log"
+          }
+        ],
+        "severity": "DEBUG"
       }
     ]
   }
@@ -76,40 +84,38 @@ For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
 
 An equivalent file for DHCPv6 in `/usr/local/etc/kea-dhcp6.conf` is:
 
-```json5
+```json
 {
-  Dhcp6: {
+  "Dhcp": {
     "valid-lifetime": 4000,
     "renew-timer": 1000,
     "rebind-timer": 2000,
 
     "interfaces-config": {
-      interfaces: []
+      "interfaces": []
     },
 
     "lease-database": {
-      type: "memfile",
-      persist: true,
-      name: "/var/kea/dhcp6.leases"
+      "type": "memfile",
+      "persist": true,
+      "name": "/var/kea/dhcp6.leases"
     },
-
-    subnet6: [],
+    "subnet6": [],
     "control-socket": {
       "socket-type": "unix",
       "socket-name": "/tmp/kea-dhcp6-ctrl.sock"
     }
   },
-
-  Logging: {
-    loggers: [
+  "Logging": {
+    "loggers": [
       {
-        name: "kea-dhcp6",
-        output_options: [
+        "name": "kea-dhcp6",
+        "output_options": [
           {
-            output: "/var/log/kea/kea-dhcp6.log"
+            "output": "/var/log/kea/kea-dhcp6.log"
           }
         ],
-        severity: "INFO"
+        "severity": "INFO"
       }
     ]
   }
