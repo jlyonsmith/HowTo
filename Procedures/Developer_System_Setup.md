@@ -152,16 +152,16 @@ Install a specific version of Ruby, say `rbenv install 2.3.7` then switch the sy
 
 `brew install readline rlwrap` (which helps to fix Node.js REPL coloring issues)
 
-## Bash Setup
+## Zsh Setup
 
-Setup your `bash` environment correctly first! Create a `~/.bash_profile` file that contains just this:
+Setup your `zsh` environment correctly first! Create a `~/.zprofile` file that contains just this:
 
-```bash
+```zsh
 # The personal initialization file, executed for login shells
-[[ -r ~/.bashrc ]] && source ~/.bashrc
+[[ -r ~/.zshrc ]] && source ~/.zshrc
 ```
 
-Then create a `~/.bashrc` file that contains:
+Then create a `~/.zshrc` file that contains:
 
 ```zsh
 # The individual per-interactive-shell startup file
