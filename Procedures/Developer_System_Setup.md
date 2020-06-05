@@ -163,64 +163,93 @@ Setup your `bash` environment correctly first! Create a `~/.bash_profile` file t
 
 Then create a `~/.bashrc` file that contains:
 
-```
+```zsh
 # The individual per-interactive-shell startup file
 
-# Git prompt and completion scripts
-source ~/bin/git-prompt.sh
-source ~/bin/git-completion.sh
+# Load the zsh move command
+autoload zmv
 
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM=1
-GIT_PS1_SHOWCOLORHINTS=1
-
-export PS1=''
-export PROMPT_COMMAND='__git_ps1 "[\u@\h:\w" "]\n\$"'
+# Set default editor
 export EDITOR='code -w'
-export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
 
-# function for setting terminal titles, e.g. title server
+# History
+HISTFILE=~/.zsh_history
+SAVEHIST=10000
+HISTSIZE=10000
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+
+# cd shortcuts
+export CDPATH=.:~/Projects/jlyonsmith:~/Projects/KingstonSoftware
+
+# Function for setting terminal titles in OSX
 function title {
-  printf "\x1b]0;%s\x7" "$1"
+  name=$1
+  if [[ $1 == "" ]]; then
+    name=$(basename $(pwd))
+  fi
+  printf "\x1b]0;%s\x7" "$name"
 }
 
-# function for setting iTerm2 tab colors, e.g. tab-color 255 100 255
+# Function for setting iTerm2 tab colors
 function tab-color {
   printf "\x1b]6;1;bg;red;brightness;%s\x7" "$1"
   printf "\x1b]6;1;bg;green;brightness;%s\x7" "$2"
   printf "\x1b]6;1;bg;blue;brightness;%s\x7" "$3"
 }
 
+# Prompt
+source ~/.zsh/zsh-git-prompt/zshrc.sh
+
+export PROMPT='[%F{#99E343}%n@%m%f:%F{#83B0D8}%~%f$(git_super_status)]'$'\n''$'
+export RPROMPT=''
+
 # Android SDK
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH="$PATH:$ANDROID_HOME/emulator"
-export PATH="$PATH:$ANDROID_HOME/tools"
-export PATH="$PATH:$ANDROID_HOME/platform-tools"
+#export ANDROID_HOME="$HOME/Library/Android/sdk"
+#export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+
+# GoLang
+#export PATH="$PATH:$HOME/go/bin"
 
 # Get IP address
 export LOCAL_IP_ADDR=$(ipconfig getifaddr en0)
 
 alias edit="code"
 alias bn="babel-node"
-alias an="ansible"
-alias ap="ansible-playbook"
-alias mq=rabbitmqctl
-alias node=alias node="NODE_NO_READLINE=1 rlwrap -pcyan node"
+alias nbn="npx babel-node"
+alias ll="ls -al"
 
-if which rbenv > /dev/null; then
-    eval "$(rbenv init -)"
-fi
+# Ruby version manager
+# if which rbenv > /dev/null; then
+#     eval "$(rbenv init -)"
+# fi
+
+# Node version manager
+# if which nodenv > /dev/null; then
+#     eval "$(nodenv init -)"
+# fi
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home)
+if /usr/libexec/java_home 2> /dev/null; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
 
 # Brew
-export PATH="$HOME/bin:$PATH:/usr/local/share/npm/bin:/usr/local/sbin"
+PATH="$HOME/bin:$PATH:/usr/local/share/npm/bin:/usr/local/sbin"
 
-# Tcl/Tk
-export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+# Araxis Merge
+# Assumes you've done "ln -s /Applications/Araxis\ Merge.app/Contents/Utilities ~/bin/araxis"
+PATH="$PATH:$HOME/bin/araxis"
+
+# Disable insecure completion directory warning
+ZSH_DISABLE_COMPFIX=true
+
+# Clean up duplicates in the PATH
+typeset -U PATH
+export PATH
 ```
 
 ## Install SuperDuper!
