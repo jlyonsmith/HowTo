@@ -60,6 +60,12 @@ Restart service with `sudo systemctl restart fail2ban`.
 
 ### MFA With Google Authenticator
 
+```sh
+sudo apt install google-authenticator
+```
+
+Then for each user:
+
 ```bash
 sudo su - $USER
 google-authenticator
