@@ -64,9 +64,7 @@ For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
     "control-socket": {
       "socket-type": "unix",
       "socket-name": "/tmp/kea-dhcp4-ctrl.sock"
-    }
-  },
-  "Logging": {
+    },
     "loggers": [
       {
         "name": "kea-dhcp4",
@@ -86,7 +84,7 @@ An equivalent file for DHCPv6 in `/usr/local/etc/kea-dhcp6.conf` is:
 
 ```json
 {
-  "Dhcp": {
+  "Dhcp6": {
     "valid-lifetime": 4000,
     "renew-timer": 1000,
     "rebind-timer": 2000,
@@ -104,9 +102,7 @@ An equivalent file for DHCPv6 in `/usr/local/etc/kea-dhcp6.conf` is:
     "control-socket": {
       "socket-type": "unix",
       "socket-name": "/tmp/kea-dhcp6-ctrl.sock"
-    }
-  },
-  "Logging": {
+    },
     "loggers": [
       {
         "name": "kea-dhcp6",
@@ -202,7 +198,7 @@ http_proxy= curl -X POST -H "Content-Type: application/json" -d '{ "command": "h
 
 You should see:
 
-```
+```sh
 [
     {
         "arguments": {

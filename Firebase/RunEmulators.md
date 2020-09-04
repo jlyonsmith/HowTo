@@ -18,3 +18,5 @@ Refer to Firebase notes at [Run functions locally](https://firebase.google.com/d
 ## Usage
 
 Instrument your app or website to use the emulator. See [Connect your app and start prototyping](https://firebase.google.com/docs/emulator-suite/connect_and_prototype)
+
+For example, use the `.env` file and a variable `REACT_APP_USE_FUNCTIONS_EMULATOR` and point it to `http://localhost:5001` or wherever the Emulator says your endpoint is running.
