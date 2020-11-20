@@ -1,14 +1,14 @@
 # Install `iptables`
 
-`iptables` is the built-in firewall on Ubuntu and CentOS.
+`iptables` is the built-in firewall on Ubuntu, Debian and CentOS.
 
 Heres a handy diagram to understand how it works:
 
 ![iptables](./IPTables/iptables.png)
 
-Each color of box is a _table_, each gray box is a _chain_.
+Each colored box is a _table_, each gray box is a _chain_.
 
-## Ubuntu
+## Ubuntu/Debian
 
 `iptables` is installed by default. `iptables` do not persist on Ubuntu by default! You **must** add a persistence mechanism as an extra step.
 
@@ -32,7 +32,7 @@ Description=Apply iptables rules
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c 'iptables-restore < /etc/iptables.rules'
+ExecStart=/bin/sh -c 'iptables-restore /etc/iptables.rules'
 
 [Install]
 WantedBy=network-pre.target
@@ -44,7 +44,7 @@ Then `systemctl enable iptables-restore`.
 
 `iptables` are persistent by default.
 
-## Checking
+## Debugging
 
 You can use:
 
@@ -54,7 +54,11 @@ sudo netstat -peanut
 
 To see what ports are listening and the network activity that is occurring.
 
-## Debugging
+You can check IPTables when changing with:
+
+```sh
+iptables-restore --test
+```
 
 Debugging IPTables can be tricky.  To see each rule and how many times it has matched, do:
 

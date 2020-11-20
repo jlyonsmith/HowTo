@@ -127,12 +127,12 @@ Next, in the `index.d.ts` file define the exported types in the module.  Use the
 // export ...
 ```
 
-You can read about how to define different types of `export` in the TypeScript documentation.
+The `<reference ...>` is only needed if you are using Node.js types.  You can read about how to define different types of `export` in the TypeScript documentation.
 
 Now, install the `dslint` tool to validate your `.d.js` files:
 
 ```bash
-npm install -g dtslint
+npm install -g dtslint @types/node typescript
 ```
 
 Add these lines to your `packages.json` file:
@@ -144,7 +144,7 @@ Add these lines to your `packages.json` file:
   //...
   "scripts": {
     //...
-    "test": "... && dtslint types",
+    "lint:types": "dtslint types",
     "build": "babel -D types/index.d.ts ..."
   }
 }

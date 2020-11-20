@@ -198,3 +198,7 @@ On the PRIMARY:
 3. Run `rs.reconfig(cfg, {force: true})
 
 This may can data loss if the database is in use.
+
+## Using an Arbiter
+
+If you can only set up two isolated server instances, you can use an _arbiter_ instance that does not write any data, but only participates in replica voting. See [MongoDB Replication](https://docs.mongodb.com/manual/replication/)

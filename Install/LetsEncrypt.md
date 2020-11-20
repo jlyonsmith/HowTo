@@ -70,7 +70,7 @@ certbot delete --cert-name <domain>
 
 First, move the files to a holding location and change their permissions and zip:
 
-```
+```bash
 sudo rsync -az --perms --progress /etc/letsencrypt ~/letsencrypt
 sudo chown -R $USER:$USER ~/letsencrypt
 zip --symlinks -r letsencrypt.zip letsencrypt/*
@@ -78,14 +78,14 @@ zip --symlinks -r letsencrypt.zip letsencrypt/*
 
 Now, pull it onto your client and push back to new system:
 
-```
+```bash
 scp $OLD_SYSTEM:letsencrypt.zip
 scp letsencrypt.zip $NEW_SYSTEM:
 ```
 
 Unzip on new host, move into new location, set permissions:
 
-```
+```bash
 unzip letsencrypt.zip
 sudo mv letsencrypt/ /etc/
 sudo chown -R root:root /etc/letsencrypt

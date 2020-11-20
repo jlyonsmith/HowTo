@@ -60,8 +60,10 @@ Restart service with `sudo systemctl restart fail2ban`.
 
 ### MFA With Google Authenticator
 
+Install Googles PAM module:
+
 ```sh
-sudo apt install google-authenticator
+sudo apt install libpam-google-authenticator
 ```
 
 Then for each user:
@@ -82,13 +84,17 @@ Rate limiting...?(y/n) n
 
 Edit `/etc/pam.d/sshd`.  Comment out `@include common-auth`.  Add `auth required pam_google_authenticator.so` at the end of the file.
 
-Edit `/etc/ssh/sshd_config` and add:
+Restart SSH with `systemctl restart sshd`.
+
+Now edit `/etc/ssh/sshd_config` and add:
 
 ```conf
 UsePAM yes
 ChallengeResponseAuthentication yes
-AuthenticationMethods publickey,keyboard-interactive
+AuthenticationMethods publickey,password publickey,keyboard-interactive
 ```
+
+Run `sshd -t` and confirm no errors. Then restart the SSH daemon again with `systemctl restart sshd`.
 
 See [How To Set Up Multi-Factor Authentication for SSH on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-set-up-multi-factor-authentication-for-ssh-on-ubuntu-16-04).
 

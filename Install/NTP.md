@@ -48,7 +48,7 @@ restrict source notrap nomodify noquery
 
 NOTE: This configuration specifically does _not_ use the `pool` directive or the Ubuntu time servers. The `pool.ntp.org` servers are already pooled.
 
-Also, this does not fallback to the local hardware clock as some StackOverflow answers say.  This can cause the clock never to synchronize when the time is too far off the real time.
+Check the local clock is with a few seconds of the actual time with `hwclock`. `ntp` will only update the hardware clock in very small increments so if it's too far off you need to set it manually for the first time.
 
 On the root time server in your subnet (the one that is connected to the Internet), open up the firewall to allow NTP traffic using the UDP protocol on port 123.
 

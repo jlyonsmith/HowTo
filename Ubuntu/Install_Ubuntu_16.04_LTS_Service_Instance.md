@@ -18,7 +18,7 @@ Then check the version:
 
 Here's a good set of defaults for the `~/.vimrc` file:
 
-```
+```vimrc
 :color desert
 :set shiftwidth=2
 :set tabstop=2
@@ -59,14 +59,14 @@ Change the default name, e.g. `Ubuntu-xenial-16-04`, to whatever name you desire
 
 Set the _Amazon EC2_ security groups to only allow access to the following ports:
 
-Service | Port
-:-- | :--
-HTTP | 80
-HTTPS | 443
-SSH | 22
-MongoDB | 27017
-Service | 1337 - 1347
-ICMP | 0 - 65535
+| Service | Port        |
+| :------ | :---------- |
+| HTTP    | 80          |
+| HTTPS   | 443         |
+| SSH     | 22          |
+| MongoDB | 27017       |
+| Service | 1337 - 1347 |
+| ICMP    | 0 - 65535   |
 
 ### Firewall (non-EC2)
 

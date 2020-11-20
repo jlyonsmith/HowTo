@@ -1,6 +1,8 @@
-# Lockdown SSH on Ubuntu
+# Lockdown SSH on Debian/Ubuntu
 
-Replace `/etc/sshd_config` with:
+## Server
+
+Replace `/etc/ssh/sshd_config` with:
 
 ```ssh
 # Security best practice
@@ -31,3 +33,15 @@ Subsystem       sftp    /usr/lib/openssh/sftp-server
 ```
 
 Test for errors with `sshd -t` and then `systemctl restart sshd`.
+
+## Client
+
+Correct permissions for `.ssh` directory & files:
+
+```sh
+chmod go-w ~/
+chmod u=rwx,go= ~/.ssh
+chmod u=rw,go= ~/.ssh/authorized_keys
+chmod u=rw,go= ~/.ssh/id_rsa
+chmod u=rw,go=r ~/.ssh/id_rsa.pub
+```
