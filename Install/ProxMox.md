@@ -1,6 +1,7 @@
 # Installing ProxMox
 
 [How to set up your first machine](https://forum.proxmox.com/threads/proxmox-beginner-tutorial-how-to-set-up-your-first-virtual-machine-on-a-secondary-hard-disk.59559/)
+[`pointopoint` network configuration on Hetzner with Debian](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian)
 
 ## Install on Existing Debian
 

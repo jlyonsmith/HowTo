@@ -8,6 +8,8 @@ Heres a handy diagram to understand how it works:
 
 Each colored box is a _table_, each gray box is a _chain_.
 
+> When messing with IPTables configuration, it's a good idea to stop the `fail2ban` service or you may find yourself locked out.
+
 ## Ubuntu/Debian
 
 `iptables` is installed by default. `iptables` do not persist on Ubuntu by default! You **must** add a persistence mechanism as an extra step.
@@ -64,4 +66,20 @@ Debugging IPTables can be tricky.  To see each rule and how many times it has ma
 
 ```sh
 sudo iptables -L -v
+```
+
+## Commands
+
+See [How to List and Delete iptables Rules](https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules)
+
+### Git Line Numbers
+
+```sh
+iptables -L --line-numbers
+```
+
+### Delete by Position
+
+```sh
+iptables -D $CHAIN $POS
 ```
