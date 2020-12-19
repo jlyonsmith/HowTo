@@ -3,6 +3,8 @@
 [How to set up your first machine](https://forum.proxmox.com/threads/proxmox-beginner-tutorial-how-to-set-up-your-first-virtual-machine-on-a-secondary-hard-disk.59559/)
 [`pointopoint` network configuration on Hetzner with Debian](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian)
 
+[ProxMox Service Daemons](https://pve.proxmox.com/wiki/Service_daemons) is useful for when things stop working, such as the web interface.
+
 ## Install on Existing Debian
 
 If using Hetzner, [use the Rescue O/S to install Debian](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) adjusting for the most recent version of Debian.

@@ -6,7 +6,7 @@ Let's Encrypt is a free SSL certificate authority that supports the ACME verific
 
 Run:
 
-```
+```sh
 sudo apt install software-properties-common
 sudo apt-add-repository ppa:certbot/certbot
 sudo apt update
@@ -17,15 +17,15 @@ sudo apt install certbot
 
 To install the Nginx verification plugin:
 
-```
-sudo apt install python-certbot-nginx
+```sh
+sudo apt install python3-certbot-nginx
 ```
 
 Set up an A record in the DNS for `<domain>`.
 
 With the `nginx` service installed and running:
 
-```
+```sh
 certbot certonly --nginx -d <domain>
 ```
 
@@ -39,19 +39,19 @@ Read about using [AWS Route53 plugin](https://certbot-dns-route53.readthedocs.io
 
 To renew all certificates nearing expiration:
 
-```
+```sh
 certbot renew
 ```
 
 Run this command daily or weekly. Add to `crontab` with:
 
-```
+```sh
 sudo vi /etc/crontab
 ```
 
 Then add:
 
-```
+```sh
 30 9  * * 1 root  /usr/bin/certbot renew --quiet
 ```
 
@@ -61,7 +61,7 @@ Check the log at `/var/log/letsencrypt/letsencrypt.log` to see that certificates
 
 When no longer needed:
 
-```
+```sh
 certbot revoke --cert-path /etc/letsencrypt/live/<domain>/cert.pem
 certbot delete --cert-name <domain>
 ```

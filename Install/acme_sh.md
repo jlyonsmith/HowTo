@@ -1,5 +1,11 @@
 # Install acme.sh for Let's Encrypt
 
+## Install
+
+```sh
+curl https://get.acme.sh | sh
+```
+
 ## Get a Standalone Certificate
 
 Set `DOMAIN` to your FQDN.  Assuming `iptables` is running, get a standalone certificate (run as `root`):
