@@ -53,9 +53,17 @@ NOTE: This will change the fingerprint of the host, so you will need to remove i
 
 See below for changes needed to use Google Authenticator, which is only required on your SSH bastions.
 
-## Audit
+## Debug Connections
 
-On another system connected to the Internet, download and run [ssh-audit](https://github.com/arthepsy/ssh-audit) to check that the SSH daemon on the server is properly hardened:
+To view the SSH log use:
+
+```bash
+journalctl -u ssh -f
+```
+
+## Audit your Bastion
+
+On a system connected to the Internet (not the server you are trying to configure), download and run [ssh-audit](https://github.com/arthepsy/ssh-audit) to check that the SSH daemon on the server is properly hardened:
 
 ```sh
 ./ssh-audit my-server.my-domain.com
@@ -119,7 +127,7 @@ Your bastions should be maximally hardened against SSH attacks.  The private mac
 
 ## Connection Pooling on the Client
 
-Add the following to your `~/.ssh/config` under any entry:
+Add the following to your `~/.ssh/config` under the bastion entry:
 
 ```conf
 Host bastion1
@@ -129,7 +137,7 @@ Host bastion1
   ControlPersist 1
 ```
 
-This will activate [connection sharing](https://tanguy.ortolo.eu/blog/article42/ssh-connection-sharing) for connections to or through that machine. This is particularly useful for bastion machines.
+This will activate [connection sharing](https://tanguy.ortolo.eu/blog/article42/ssh-connection-sharing) for connections to or through that machine, so you don't have to do MFA repeatedly for example.
 
 ## Correct Permissions for  SSH Client Directories and Files
 

@@ -8,6 +8,8 @@ Once configured you can server a synchronized clock inside a provide subnet. Unm
 
 You want to use the closest NTP server possible. This is done automatically by using the built in [Ubuntu `pool` servers](https://www.ntppool.org/zone).
 
+NOTE: You do not need to run NTP on ProxMox LXC containers as the time is maintained by the host system.
+
 ## Proxy Configuration
 
 Uninstall `ntpdate` and install `ntpd`:
@@ -87,7 +89,7 @@ server <internal-system-2> iburst
 ...
 ```
 
-Ideally, you should use an internal `consul` based DNS instead of hard coded IP addresses.
+Ideally, you should use an internal DNS instead of hard coded IP addresses.
 
 Again, configre the firewall appropriately for port 123 NTP traffic.
 

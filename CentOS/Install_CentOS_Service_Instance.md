@@ -8,19 +8,19 @@ Install the service instance.  It should have a `centos` user with sudo permissi
 
 Install VIM:
 
-```
+```sh
 yum install vim-enhanced
 ```
 
 Then add to `~/.bashrc`
 
-```
+```sh
 alias vi=vim
 ```
 
 Then set defaults in the `~/.vimrc` file:
 
-```
+```sh
 :color desert
 :set shiftwidth=2
 :set tabstop=2
@@ -31,48 +31,56 @@ Then set defaults in the `~/.vimrc` file:
 
 Add to `.bashrc`:
 
-```
+```sh
 export PS1='[\u@\h:\w]\n\$'
 ```
 
 Now make it so the `centos` user does not have to enter a password:
 
-    cd /etc/sudoers.d
-    vi ubuntu
+```sh
+cd /etc/sudoers.d
+vi ubuntu
+```
 
 Add the following:
 
-    # Add sudo permission for ubuntu user
-    ubuntu ALL=(ALL) NOPASSWD:ALL
+```sh
+# Add sudo permission for ubuntu user
+ubuntu ALL=(ALL) NOPASSWD:ALL
+```
 
 Now change the permissions on the file:
 
-    chmod ug=r o= centos
+```sh
+chmod ug=r o= centos
+```
 
 See the [Sudo Manual](http://www.sudo.ws/sudoers.man.html) for more information.
 
 Logon as `centos` and check that you can `sudo`.  If all is well, disable `root` user with:
 
-    sudo passwd -l root
+```sh
+sudo passwd -l root
+```
 
 ## Hostname
 
 Change the name of the host to something meaningful:
 
-```
+```sh
 sudo -s
 vi /etc/hostname
 ```
 
 Optionally add an entry to:
 
-```
+```sh
     vi /etc/hosts
 ```
 
 Reboot the system for the change to take effect:
 
-```
+```sh
 reboot
 ```
 

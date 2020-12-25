@@ -21,7 +21,7 @@ Codename:       bionic
 
 To make the `hostname` command "stick" you need to do:
 
-1. Set `preserve_hostname true` in `/etc/cloud/cloud.cfg`
+1. Set `echo "preserve_hostname true" > /etc/cloud/cloud.cfg`
 2. Update hostname with `sudo hostnamectl set-hostname ubuntu-1`
 3. `sudo reboot now`
 

@@ -7,8 +7,6 @@ Let's Encrypt is a free SSL certificate authority that supports the ACME verific
 Run:
 
 ```sh
-sudo apt install software-properties-common
-sudo apt-add-repository ppa:certbot/certbot
 sudo apt update
 sudo apt install certbot
 ```
@@ -21,12 +19,12 @@ To install the Nginx verification plugin:
 sudo apt install python3-certbot-nginx
 ```
 
-Set up an A record in the DNS for `<domain>`.
+Set up an A record in the DNS for `<domain>` and ensure that `dig` returns it on the machine.
 
 With the `nginx` service installed and running:
 
 ```sh
-certbot certonly --nginx -d <domain>
+sudo certbot certonly --nginx -d <domain>
 ```
 
 If all is well, the certificate will be in `/etc/letsencrypt/live`. `fullchain.pem` is the the certificate. `privkey.pem` is the key for `nginx` configuration.

@@ -21,7 +21,19 @@ Install [fail2ban](https://pve.proxmox.com/wiki/Fail2ban) to protect against bru
 
 See [this article](https://blog.jenningsga.com/private-network-with-proxmox/)
 
-You don't need to use the NATS approach to give access to the public network.
+You DO NOT need to use the NATS approach to give access to the public network.
+
+For LXC containers, networking is configured by ProxMox. You can find the network configuration files in `/etc/systemd/network/eth0.network`, etc..  If you change these files in the ProxMox UI they will change here without requiring a reboot.
+
+Network configuration for the internal `10.x.x.x` network in `/etc/systemd/network/eth1.network` should look like:
+
+```ini
+[Network]
+Description = Interface eth1 autoconfigured by PVE
+Address = 10.10.10.3/24
+DHCP = no
+IPv6AcceptRA = false
+```
 
 ## Adding an XFS Drive to an Existing Node
 
@@ -68,7 +80,7 @@ Note, you can configure 2FA for a PAM user with Google Authenticator and use the
 
 [Adding two factor authentication](https://jonspraggins.com/the-idiot-adds-two-factor-authentication-to-proxmox/)
 
-Create an `admin` group, add users to the gorup, then on the command line make members of that group have the `Administrator` role:
+Create an `admin` group, add users to the group, then on the command line make members of that group have the `Administrator` role:
 
 ```sh
 pveum acl modify / -group admin --roles Administrator

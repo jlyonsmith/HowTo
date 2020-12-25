@@ -8,11 +8,11 @@ Heres a handy diagram to understand how it works:
 
 Each colored box is a _table_, each gray box is a _chain_.
 
-> When messing with IPTables configuration, it's a good idea to stop the `fail2ban` service or you may find yourself locked out.
+> When messing with IPTables configuration, it's a good idea to stop the `fail2ban` service if it's running or you may find yourself locked out.
 
 ## Ubuntu/Debian
 
-`iptables` is installed by default. `iptables` do not persist on Ubuntu by default! You **must** add a persistence mechanism as an extra step.
+`iptables` is installed by default on Debian. Also, `iptables` do not persist on Ubuntu by default. You **must** add a persistence mechanism as an extra step.
 
 Remove any old mechanism for persistences:
 
@@ -20,27 +20,27 @@ Remove any old mechanism for persistences:
 apt remove iptables-persistent netfilter-persistent
 ```
 
-Copy the rules to `/etc/iptables.rules`, then:
+Place your rules in `/etc/iptables.rules`, then:
 
 ```bash
-sudo vi /etc/systemd/system/iptables-restore.service
-```
-
-And add:
-
-```service
+cat << EOF | sudo tee /etc/systemd/system/iptables-restore.service
 [Unit]
 Description=Apply iptables rules
+After=network.target
 
 [Service]
 Type=oneshot
 ExecStart=/bin/sh -c 'iptables-restore /etc/iptables.rules'
+RemainAfterExit=true
+ExecStop=/bin/sh -c 'iptables -F; iptables -X'
+StandardOutput=journal
 
 [Install]
-WantedBy=network-pre.target
+WantedBy=multi-user.target
+EOF
 ```
 
-Then `systemctl enable iptables-restore`.
+Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`.
 
 ## CentOS
 

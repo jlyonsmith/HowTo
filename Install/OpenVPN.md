@@ -228,13 +228,11 @@ systemctl enable openvpn@client
 
 To create a NAT tunnel from the server VPN side to the client VPN side, add the following to your `iptables`:
 
-```
+```bash
 *nat
 -A PREROUTING -i tap0 -p tcp -m tcp --dport <source-port> -j DNAT --to-destination <dest-ip>:<dest-port>
 -A POSTROUTING -s <source-subnet> -o enp2s0 -j MASQUERADE
 ```
-
-
 
 ## References
 

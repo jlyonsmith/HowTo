@@ -67,3 +67,8 @@ To get a mutable iterator - `for f in list.iter_mut()`
 Zip entries from two iterators together - `iter1.zip(iter2)`
 
 Filter items from an iterator - `iter1.filter(|&item| item != 0)`
+
+### Useful Crates
+
+- [lazy_static](https://docs.rs/lazy_static/1.1.1/lazy_static/)
+- [regex](https://docs.rs/regex/1.4.2/regex/index.html)

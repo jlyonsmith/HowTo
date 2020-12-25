@@ -331,7 +331,7 @@ Note that the site `.conf` files are in the `/etc/nginx/conf.d` directory.
 
 The default `nginx.conf` should look like:
 
-```
+```conf
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
