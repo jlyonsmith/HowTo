@@ -30,7 +30,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c 'iptables-restore /etc/iptables.rules'
+ExecStart=/bin/sh -c 'iptables-restore -w 15 /etc/iptables.rules'
 RemainAfterExit=true
 ExecStop=/bin/sh -c 'iptables -F; iptables -X'
 StandardOutput=journal
@@ -41,6 +41,8 @@ EOF
 ```
 
 Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`.
+
+NOTE: The `-w 15` option is useful on systems where other services like `fail2ban` are also setting the IPTables as it will cause the
 
 ## CentOS
 

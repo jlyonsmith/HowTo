@@ -110,6 +110,8 @@ alias ll='ls -al'
 alias ls='ls --color=auto'
 alias ipts="iptables-save"
 alias iptr="iptables-restore"
+alias sc="systemctl"
+alias jc="journalctl"
 ```
 
 ## Lock down `root`

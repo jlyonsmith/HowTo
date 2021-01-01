@@ -117,6 +117,30 @@ sudo systemctl enable rocketchat && sudo systemctl start rocketchat
 
 Immediately open the `https://yourdomain.com` and configure the admin user.  Unrestrict port `80` and `443` for any IP address.
 
+## Upgrade
+
+To upgrade, as `sudo` do:
+
+```bash
+cd /tmp
+curl -L https://releases.rocket.chat/latest/download -o rocket.chat.tgz
+rm -rf bundle
+tar -xzf rocket.chat.tgz -C /tmp
+cd bundle/programs/server && npm install
+cd /opt
+sudo mv /tmp/bundle Rocket.Chat.Next
+sudo chown -R rocketchat:rocketchat Rocket.Chat.Next
+systemctl stop rocketchat
+rm -rf Rocket.Chat.Previous
+mv Rocket.Chat Rocket.Chat.Previous
+mv Rocket.Chat.Next Rocket.Chat
+systemctl start rocketchat
+```
+
+## Configuration
+
+Make sure to set _Manually approve new users_ for any domains that are not in your *Whitelist domains*.
+
 ## Reference
 
 - [Rocket.Chat Ubuntu Manual Installation](https://docs.rocket.chat/installation/manual-installation/ubuntu)
