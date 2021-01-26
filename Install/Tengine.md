@@ -11,22 +11,31 @@ The easiest way to build and install Tengine is using the [build-tengine](https:
 Tengine can be a forward proxy as well as a reverse proxy.  First, replace the default `/etc/nginx/nginx.conf` file with:
 
 ```conf
-worker_processes 1;
-
-error_log /var/log/nginx/error.log info;
-
+user www-data;
+worker_processes auto;
 pid /run/nginx.pid;
+error_log /var/log/nginx/error.log;
 
 events {
-  worker_connections 1024;
+  worker_connections 768;
 }
 
 http {
-  include mime.types;
-  default_type application/octet-stream;
   sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
   keepalive_timeout 65;
+  types_hash_max_size 2048;
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers on;
+  gzip on;
+  access_log /var/log/nginx/access.log;
 
+  include /etc/nginx/conf.d/*.conf;
+
+  # HTTP Forward proxy
   server {
     listen 3128;
     # DNS Resolver to use - disable i
@@ -47,6 +56,7 @@ http {
   }
 }
 
+# HTTPS passthrough
 stream {
   upstream ssh {
     server bitbucket.org:22;
@@ -83,7 +93,7 @@ ssh -v -o ProxyCommand='nc -X connect -x <proxy-ip-and-port> bitbucket.org 22' g
 
 `npm` should work with the `https_proxy` environement set. You can also do:
 
-```
+```bash
 npm config set proxy $http_proxy
 npm config set https-proxy $https_proxy
 ```

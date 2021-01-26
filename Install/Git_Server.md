@@ -39,7 +39,7 @@ exit 1
 
 Now, to update the mirror in future simply do:
 
-```
+```conf
 git remote update
 ```
 
@@ -47,7 +47,7 @@ This will fetch new changes from the remote.
 
 Now, create a basic auth password file:
 
-```
+```conf
 cd ~/git/<user>
 htpasswd -cb .htpasswd <user> <password>
 ```
@@ -56,9 +56,10 @@ Make sure your password is at least 16 characters long.
 
 Create an `<your-domain>.conf` file for nginx containing:
 
-```
+```conf
 server {
   listen 80;
+  server_name <your-domain>
 
   return 301 https://$host$request_uri;
 }

@@ -78,3 +78,19 @@ COMMIT
 
 COMMIT
 ```
+
+## Diagnostic Procedure
+
+- Can you ping? `ping 192.168.1.1`
+- Can you SSH in? `ssh ...`
+- Kea-DHCP running? `systemctl status isc-kea-dhcp4-server`
+- Bind9 DNS running? `systemctl status named`
+- Do you have an public IP address? `ip addr`
+- External DNS working? `ping www.google.com`
+- Connect via diagnostic LAN?  Set manual IP of `172.16.0.2` and `ssh user@172.16.0.1`
+- Cannot connect to cable modem? Set manual IP of `192.168.100.2` and `ping 192.168.100.1` then use browser to connect to `http://192.168.100.1` with modem password.
+- Modem not responding to `ping 192.168.100.1`? Reboot the modem.
+
+The cable modem has a diagnostic IP of `192.168.100.1`  Even though this isn't on the `192.168.1.0/24` subnet you can get to it normally because it looks like any other Internet address.  You know it's a private IP, but the routing tables don't care.  It hits the default routing table to the Internet and gets caught on the first hop.
+
+The problem is, when the interface can't get an address from the modem it doesn't add a default route.  You can add one manually with `route add 192.168.100.1 dev enp1s0`.  This will get overwritten when the interface eventually comes up.

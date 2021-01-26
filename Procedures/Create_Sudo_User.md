@@ -11,13 +11,14 @@ export USER=<user>
 
 The following must be run as `root`.
 
-Set `USER` to the user name.  Add the new user:
+Set `USER` to the user name and `PASSWORD` to the desired password.  Add the new user:
 
 ```sh
-adduser $USER
+adduser  --disabled-password --gecos "<Full Name>" $USER
+chpasswd <<<"$USER:$PASSWORD"
 ```
 
-Use [Strong Password Generator](https://strongpasswordgenerator.com/).  Add the users full name at a minimum.
+Use [Strong Password Generator](https://strongpasswordgenerator.com/).  Add the users full name at a minimum as GECOS (`finger`) information.
 
 Add to the `sudo` group:
 
@@ -25,19 +26,12 @@ Add to the `sudo` group:
 usermod -aG sudo $USER
 ```
 
-If desired, add an entry to allow the user to use `sudo` without entering a password:
+If desired, add an entry to allow the user to use `sudo` (without entering a password):
 
 ```sh
-export EDITOR=$(which vi)
-vi /etc/sudoers.d/$USER
+echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
 chmod ug=r,o= /etc/sudoers.d/$USER
 visudo -c
-```
-
-And add an entry (don't forget to replace `$USER`):
-
-```sudo
-$USER ALL=(ALL) NOPASSWD:ALL
 ```
 
 Instead of the last `ALL` you can add a comma separated list of commands (including args if needed, i.e. `apt install`).
@@ -113,6 +107,8 @@ alias iptr="iptables-restore"
 alias sc="systemctl"
 alias jc="journalctl"
 ```
+
+It's also a good idea to set these scripts for the `root` user in the `/root` directory.
 
 ## Lock down `root`
 

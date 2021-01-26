@@ -13,12 +13,6 @@ sudo apt install certbot
 
 ## Generating Certificates with Nginx
 
-To install the Nginx verification plugin:
-
-```sh
-sudo apt install python3-certbot-nginx
-```
-
 Set up an A record in the DNS for `<domain>` and ensure that `dig` returns it on the machine.
 
 With the `nginx` service installed and running:

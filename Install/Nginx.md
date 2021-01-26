@@ -152,6 +152,17 @@ server {
 }
 ```
 
+### Redirect HTTP to HTTPS
+
+```conf
+server {
+  listen 80;
+  server_name <your-domain>
+
+  return 301 https://$host$request_uri;
+}
+```
+
 ### Configure Reverse Proxy
 
 Use the following as a base for setting up reverse proxying:
@@ -189,8 +200,8 @@ Use the following file to configure the HTTPS site in `/etc/nginx/conf.d`:
 server {
   listen 443 ssl;
   server_name api.xyz.com;
-  ssl_certificate /etc/nginx/ssl/api_xyz_com_chained.crt;
-  ssl_certificate_key /etc/nginx/ssl/api_xyz_com.key;
+  ssl_certificate /etc/letsencrypt/live/<domain>/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/<domain>/privkey.pem;
 
   ssl_session_cache shared:SSL:1m;
   ssl_session_timeout 5m;

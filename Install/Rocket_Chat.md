@@ -119,7 +119,7 @@ Immediately open the `https://yourdomain.com` and configure the admin user.  Unr
 
 ## Upgrade
 
-To upgrade, as `sudo` do:
+To upgrade:
 
 ```bash
 cd /tmp
@@ -130,11 +130,11 @@ cd bundle/programs/server && npm install
 cd /opt
 sudo mv /tmp/bundle Rocket.Chat.Next
 sudo chown -R rocketchat:rocketchat Rocket.Chat.Next
-systemctl stop rocketchat
-rm -rf Rocket.Chat.Previous
-mv Rocket.Chat Rocket.Chat.Previous
-mv Rocket.Chat.Next Rocket.Chat
-systemctl start rocketchat
+sudo systemctl stop rocketchat
+sudo rm -rf Rocket.Chat.Previous
+sudo mv Rocket.Chat Rocket.Chat.Previous
+sudo mv Rocket.Chat.Next Rocket.Chat
+sudo systemctl start rocketchat
 ```
 
 ## Configuration

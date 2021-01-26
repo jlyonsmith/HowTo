@@ -85,3 +85,19 @@ Create an `admin` group, add users to the group, then on the command line make m
 ```sh
 pveum acl modify / -group admin --roles Administrator
 ```
+
+## Subscriptions
+
+Check your machines socket count with:
+
+```bash
+lscpu | grep Socket
+```
+
+Then [Purchase a ProxMox subscription](https://www.proxmox.com/en/proxmox-ve/pricing)
+
+Set your subscription key on the machine with:
+
+```bash
+pvesubscription set <key>
+```

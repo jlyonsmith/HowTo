@@ -40,7 +40,7 @@ basicConstraints=critical,CA:true
 
 > You can find the help for the `v3_req` flags with `man x509v3_config`, and for the other options at `man x509`.
 
-The most important field is the Common Name (CN), which should be a company or other name, *not a Fully Qualified Domain Name (FQDN)*.  I recommend that you add **CA** or **Certificate Authority** as a suffix to this name so you can more easily identify you CA certificate.
+The most important field is the Common Name (CN), which should be a company or other name, *not a Fully Qualified Domain Name (FQDN)*.  I recommend that you add **CA** or **Certificate Authority** as a suffix to this name so you can more easily identify your CA certificates.
 
 Now generate the *root certificate*:
 
@@ -54,11 +54,13 @@ The file `myCA.crt` is your CA certificate in [PEM](https://en.wikipedia.org/wik
 
 Now you have the CA certificate, you can install it once everywhere your certificates will be used and all certificates signed with it will be trusted.  No more browser warnings.
 
-`scp` the `myCA.pem` file locally. Run `open myCA.pem`.  Add it to the login or System key chains.  Right click on it, **Get Info** then select **Always trust**.
+`scp` the `myCA.pem` file locally. Run `open myCA.pem`.
+
+On macOS, add it to the **login** or **System** key chains.  Right click on it, **Get Info** then select **Always trust**.
 
 ## Sign Certificates For Internal Sites
 
-Now you have your CA certificate created and distributed, you are ready to sign you own TLS/SSL certificates.
+Now you have your CA certificate created and distributed, you are ready to sign your own TLS/SSL certificates.
 
 First, create a working directory and generate a key for the certificate:
 
@@ -80,7 +82,7 @@ default_md=sha256
 prompt=no
 distinguished_name=req_distinguished_name
 [req_distinguished_name]
-commonName=my.domain.key
+commonName=my.domain
 countryName=US
 stateOrProvinceName=Washington
 localityName=Seattle
@@ -89,9 +91,7 @@ organizationName=My Org Name
 keyUsage=digitalSignature,keyEncipherment
 extendedKeyUsage=serverAuth,clientAuth
 basicConstraints=critical,CA:false
-subjectAltName=@alt_names
-[alt_names]
-DNS.0=my.domain.key
+subjectAltName=DNS:my.domain
 ```
 
 Now you have configuration, here's the command to generate the `.csr` file using the `.cnf` file:
@@ -119,7 +119,7 @@ This certificate lasts 2 years. You'll take the files `my.domain.key` and `my.do
 Don't forget that for web servers such as `nginx`, this certificate needs to be concatenated together into a _chained certificate bundle_ before deployment. You do this by concatenating the site certificate with the CA certificate (in that order), e.g.:
 
 ```sh
-cat my.domain.crt ../root/MyCA.crt > my.domain/my.domain.chained.crt
+cat my.domain.crt ../root/MyCA.crt > my.domain/my.domain.fullchain.crt
 ```
 
 Best practice is to just send the requester back your CA certificate along with the signed certificate and remind them of this detail.  It's dependent on where they are using the certificate.

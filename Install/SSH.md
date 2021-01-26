@@ -139,14 +139,17 @@ Host bastion1
 
 This will activate [connection sharing](https://tanguy.ortolo.eu/blog/article42/ssh-connection-sharing) for connections to or through that machine, so you don't have to do MFA repeatedly for example.
 
-## Correct Permissions for  SSH Client Directories and Files
+## Correct Permissions for SSH Client Directories and Files
 
 Correct permissions for `.ssh` directory & files:
 
 ```sh
 chmod go-w ~/
-chmod u=rwx,go= ~/.ssh
-chmod u=rw,go= ~/.ssh/authorized_keys
-chmod u=rw,go= ~/.ssh/id_rsa
-chmod u=rw,go=r ~/.ssh/id_rsa.pub
+mkdir .ssh
+chmod u=rwx,go= .ssh
+cd .ssh
+touch authorized_keys
+chmod u=rw,go= authorized_keys
+chmod u=rw,go= id_rsa
+chmod u=rw,go=r id_rsa.pub
 ```
