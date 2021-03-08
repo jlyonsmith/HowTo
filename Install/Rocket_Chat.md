@@ -135,6 +135,7 @@ sudo rm -rf Rocket.Chat.Previous
 sudo mv Rocket.Chat Rocket.Chat.Previous
 sudo mv Rocket.Chat.Next Rocket.Chat
 sudo systemctl start rocketchat
+sudo systemctl status rocketchat
 ```
 
 ## Configuration

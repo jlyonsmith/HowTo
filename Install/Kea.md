@@ -29,7 +29,7 @@ systemctl start isc-kea-dhcp4-server
 
 Configuration is stored in JSON and is separate for DHCPv4 and DHCPv6. See [this](https://ftp.isc.org/isc/kea/cur/doc/kea-guide.html#idm45914470877152) section of the documentation.
 
-For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
+For DHCPv4 see `/etc/kea/kea-dhcp4.conf`:
 
 ```json
 {
@@ -80,7 +80,7 @@ For DHCPv4 see `/usr/local/etc/kea/kea-dhcp4.conf`:
 }
 ```
 
-An equivalent file for DHCPv6 in `/usr/local/etc/kea-dhcp6.conf` is:
+An equivalent file for DHCPv6 in `/etc/kea-dhcp6.conf` is:
 
 ```json
 {
@@ -120,11 +120,40 @@ An equivalent file for DHCPv6 in `/usr/local/etc/kea-dhcp6.conf` is:
 
 Unless you are installing for a large corporation, you do not need to use the PostreSQL or other lease database options.
 
+## Showing Current Leases
+
+Dump the leases file:
+
+```bash
+cat /var/kea/dhcp4.leases
+```
+
+## Adding Address Reservations
+
+Add a `reservations` array under the subnet:
+
+```json5
+  "subnet4": [
+    {
+      "subnet": "192.168.0.0/24",
+      "pools": [{...}],
+      "reservations": [
+        # My printer
+        {
+          "hw-address": "f2:dd:ab:ba:77:c9",
+          "ip-address": "192.168.0.42"
+        }
+      ]
+    }
+```
+
+See [Host Reservation in DHCPv4](https://kea.readthedocs.io/en/latest/arm/dhcp4-srv.html#host-reservation-in-dhcpv4).
+
 ## High Availability Configuration
 
 To create a high availability hot standby DHCP cluster, do the following.
 
-Edit the file `/usr/local/etc/kea/kea-ctrl-agent.conf`. Change the lines:
+Edit the file `/etc/kea/kea-ctrl-agent.conf`. Change the lines:
 
 ```json
 {
@@ -141,16 +170,16 @@ http_proxy= curl -X POST -H "Content-Type: application/json" -d '{ "command": "c
 
 You should see a dump of the DHCPv4 configuration.
 
-Now add the following configuration to the `/usr/local/etc/kea/kea-dhcp4.conf` file:
+Now add the following configuration to the `/etc/kea/kea-dhcp4.conf` file:
 
 ```json5
   "hooks-libraries": [
     {
-      "library": "/usr/local/lib/hooks/libdhcp_lease_cmds.so",
+      "library": "/usr/lib/hooks/libdhcp_lease_cmds.so",
       "parameters": {}
     },
     {
-      "library": "/usr/local/lib/hooks/libdhcp_ha.so",
+      "library": "/usr/lib/hooks/libdhcp_ha.so",
       "parameters": {
         "high-availability": [
           {
