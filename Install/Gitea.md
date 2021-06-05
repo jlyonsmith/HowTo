@@ -44,11 +44,13 @@ sudo adduser --system --group --disabled-password --shell /bin/bash --home /home
 Download Gitea and install:
 
 ```bash
-VERSION=1.13.0
+VERSION=1.14.2
 sudo wget -O /tmp/gitea https://dl.gitea.io/gitea/${VERSION}/gitea-${VERSION}-linux-amd64
 sudo mv /tmp/gitea /usr/local/bin
 sudo chmod +x /usr/local/bin/gitea
 ```
+
+> If you are upgrading Gitea, just run the above steps then `systemctl restart gitea`
 
 Create directories and set ownership:
 
