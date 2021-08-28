@@ -31,9 +31,9 @@ map $http_upgrade $connection_upgrade {
 }
 
 server {
-    listen 192.168.1.1:80;
+    listen 192.168.0.1:80;
     # listen [::]:80 ipv6only=on;
-    listen 192.168.1.1:443 ssl;
+    listen 192.168.0.1:443 ssl;
     # listen [::]:443 ipv6only=on ssl;
 
     server_name your-internal-domain.com;

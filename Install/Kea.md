@@ -15,7 +15,7 @@ curl -1sLf \
 Then:
 
 ```sh
-sudo apt install -y isc-kea-dhcp4-server isc-kea-dhcp6-server isc-kea-admin isc-kea-ctrl-agent
+sudo apt install -y isc-kea-dhcp4-server isc-kea-dhcp6-server isc-kea-admin
 ```
 
 Then enable:
