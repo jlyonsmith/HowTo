@@ -65,3 +65,4 @@ server {
 - [UniFi - How to Set Up a UniFi Network Controller](https://help.ui.com/hc/en-us/articles/360012282453-UniFi-How-to-Set-Up-a-UniFi-Network-Controller)
 - [User maintained upgrade script](https://get.glennr.nl)
 - [Install Nginx proxy in front of UniFi Controller](https://blog.ljdelight.com/nginx-proxy-to-ubiquiti-unifi-controller/)
+- [Gist to install Unifi controllor](https://gist.github.com/davecoutts/5ccb403c3d90fcf9c8c4b1ea7616948d)
