@@ -94,3 +94,11 @@ COMMIT
 The cable modem has a diagnostic IP of `192.168.100.1`  Even though this isn't on the `192.168.1.0/24` subnet you can get to it normally because it looks like any other Internet address.  You know it's a private IP, but the routing tables don't care.  It hits the default routing table to the Internet and gets caught on the first hop.
 
 The problem is, when the interface can't get an address from the modem it doesn't add a default route.  You can add one manually with `route add 192.168.100.1 dev enp1s0`.  This will get overwritten when the interface eventually comes up.
+
+## Configure `systemd-networkd-wait-online.service`
+
+Edit the service file to only wait for the network interfaces that you expect to come up, e.g.
+
+```conf
+ExecStart=/lib/systemd/systemd-networkd-wait-online -i enp2s0 -i enp1s0
+```

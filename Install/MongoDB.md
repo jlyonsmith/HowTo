@@ -66,10 +66,9 @@ Restart MongoDB with:
 sudo systemctl restart mongod
 ```
 
-Create an `admin` database, _but not as running under sudo_, and add `admin`, `backup` and `restore` users:
+Create an `admin` database, _but not as running under sudo_, and add `admin`, `backup` and `restore` users, run `mongo` then:
 
-```
-mongo
+```mongo
 use admin
 db.createUser({user:"root",pwd:"...",roles:["userAdminAnyDatabase","readAnyDatabase","clusterAdmin"]})
 db.createUser({user:"backup",pwd:"...",roles:["backup"]})
@@ -94,7 +93,7 @@ And create your `<database>-v<version>` database, e.g. database-v1:
 
 Now, enable security with:
 
-```
+```conf
 security:
   authorization: enabled
 ```
@@ -105,13 +104,13 @@ And do `systemctl restart mongod`.
 
 Then, create a key for replica set communication:
 
-```
+```mongo
 openssl rand -base64 756 > mongo-keyfile
 ```
 
 Once you’ve generated the key, copy it to each member of your replica set as `~/keyfile`:
 
-```
+```mongo
 sudo mkdir /val/lib/mongodb/keyfile
 sudo mv ~/keyfile /var/lib/mongodb/keyfile
 sudo chown mongodb:mongodb /var/lib/mongodb/keyfile
@@ -122,7 +121,7 @@ Configure an `admin` user.
 
 Then update `/etc/mongod.conf`:
 
-```
+```mongo
 security:
   keyFile: /opt/mongo/mongo-keyfile
 
@@ -132,13 +131,13 @@ replication:
 
 Restart each node. Then on each node,
 
-```
+```mongo
 mongo -u admin -p --authenticationDatabase admin
 ```
 
 Then:
 
-```
+```mongo
 rs.initiate()
 rs.add({ host: "<host2>:27017"})
 rs.add({ host: "<host3>:27017"})
@@ -148,21 +147,21 @@ rs.status()
 
 Configure replicas to allow read-only operations:
 
-```
-db.getMongo().setSlaveOk()
+```mongo
+db.getMongo().setSecondaryOk()
 ```
 
 ## Backup & Restore
 
 For small databases, < 75GB, use the [`mongo-bongo`](https://www.npmjs.com/package/mongo-bongo) tool. Do a backup with:
 
-```
+```mongo
 bongo backup <db-name>
 ```
 
 And restore a database with:
 
-```
+```mongo
 bongo restore <archive-file>
 ```
 
@@ -174,16 +173,16 @@ For larger database, you should backup the database directory on disk and rebuil
 
 On the PRIMARY, you can type:
 
-```
-db.printSlaveReplicationInfo()
+```mongo
+db.printSecondaryReplicationInfo()
 ```
 
 ## Allow Read-Only Operations on Secondaries
 
 On the SECONDARY:
 
-```
-rs.slaveOk()
+```mongo
+rs.secondaryOk()
 show dbs
 ```
 
@@ -197,7 +196,7 @@ On the PRIMARY:
 2. Edit `cfg` to be what you want
 3. Run `rs.reconfig(cfg, {force: true})
 
-This may can data loss if the database is in use.
+This may cause data loss if the database is in use.
 
 ## Using an Arbiter
 
