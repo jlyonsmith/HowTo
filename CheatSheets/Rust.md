@@ -1,19 +1,25 @@
-# Rust Cheat Sheet
+# Rust Links
 
 ## Books
 
-[Rust Standard Library](https://doc.rust-lang.org/std/index.html)
-[Rust Book](https://play.rust-lang.org/)
-[Rust Reference](https://doc.rust-lang.org/stable/reference/index.html)
-[Cargo Book](https://doc.rust-lang.org/cargo/index.html)
-[Rust by Example](https://doc.rust-lang.org/rust-by-example/index.html)
-[Rust Edition Guide 2018](https://doc.rust-lang.org/nightly/edition-guide/introduction.html)
-[The Little Book of Rust Macros](https://veykril.github.io/tlborm/macros/macro_rules.html)
+- [Rust Standard Library](https://doc.rust-lang.org/std/index.html)
+- [Rust Book](https://play.rust-lang.org/)
+- [Rust Reference](https://doc.rust-lang.org/stable/reference/index.html)
+- [Cargo Book](https://doc.rust-lang.org/cargo/index.html)
+- [Rust by Example](https://doc.rust-lang.org/rust-by-example/index.html)
+- [Rust Edition Guide 2018](https://doc.rust-lang.org/nightly/edition-guide/introduction.html)
+- [The Little Book of Rust Macros](https://veykril.github.io/tlborm/macros/macro_rules.html)
+- [Half an Hour to Learn Rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
+- [Rust Unstable Book](https://doc.rust-lang.org/nightly/unstable-book/the-unstable-book.html)
 
 ## Articles
 
-[Arrays, References and Slices in Rust](https://hashrust.com/blog/arrays-vectors-and-slices-in-rust/)
-[Where to Put the Turbofish](https://matematikaadit.github.io/posts/rust-turbofish.html)
+- [Arrays, References and Slices in Rust](https://hashrust.com/blog/arrays-vectors-and-slices-in-rust/)
+- [Where to Put the Turbofish](https://matematikaadit.github.io/posts/rust-turbofish.html)
+
+## Cheat Sheet
+
+- [Rust Language Cheat Sheet](https://cheats.rs/)
 
 ## Associated Types
 
@@ -23,8 +29,9 @@ Use associated type when there is a one-to-one relationship between the type imp
 
 ## Tools
 
-[Rust Playground](https://play.rust-lang.org/)
-[Tarpaulin Code Coverage Tool](https://github.com/xd009642/tarpaulin)
+- [Rust Playground](https://play.rust-lang.org/)
+- [GCC/LLVM Code Coverage](https://doc.rust-lang.org/nightly/unstable-book/compiler-flags/source-based-code-coverage.html)
+- [Tarpaulin Code Coverage Tool](https://github.com/xd009642/tarpaulin)
 
 ## Programming
 
