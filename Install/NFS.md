@@ -1,5 +1,26 @@
 # Install NFS
 
+## macOS
+
+Use NFS instead of SMB on macOS for trouble free sharing.  Edit `/etc/exports`:
+
+```txt
+/Users/person/Public -network 192.168.0.0 -mask 255.255.255.0
+```
+
+Run `nfsd enable` and confirm running.
+
+Run `showmount -e` to confirm shared directories on localhost.  Run `showmount -e $MACHINE` to confirm you can see from another system.
+
+To mount a remote drive, run:
+
+```bash
+mkdir ~/Public
+mount_nfs $MACHINE:/Users/person/Public ~/Public
+```
+
+Use `man exports | col -b | edit - &` to see the `/etc/exports` options.  You can also use **⌘ + shift + g** in Finder and use `nfs://<machine>/<share>` to view the share.
+
 ## Ubuntu
 
 ### Server

@@ -33,6 +33,8 @@ server {
     listen 443 ssl;
     server_name yourdomain.com;
 
+    client_max_body_size 10M; // Without this you can't upload images
+
     ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
 
@@ -135,7 +137,10 @@ sudo rm -rf Rocket.Chat.Previous
 sudo mv Rocket.Chat Rocket.Chat.Previous
 sudo mv Rocket.Chat.Next Rocket.Chat
 sudo systemctl start rocketchat
+sudo systemctl status rocketchat
 ```
+
+NOTE: Use `n $NEW_VERSION` and `systemctl restart rocketchat` to upgraded NodeJS.
 
 ## Configuration
 

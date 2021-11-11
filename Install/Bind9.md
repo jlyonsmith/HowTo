@@ -139,3 +139,29 @@ named-checkzone 1.168.192.in-addr.arpa db.192.168.1
 ```
 
 If all is well (no errors are displayed), restart the service with `sudo systemctl restart named`.
+
+## Flush Cache on Server
+
+To dump the cach use:
+
+```bash
+rndc dumpdb -cache
+```
+
+To flush the cache:
+
+```bash
+rndc flush
+```
+
+And to reload the service:
+
+```bash
+rndc reload
+```
+
+## Flush DNS Cache on macOS
+
+```bash
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+```

@@ -31,9 +31,9 @@ map $http_upgrade $connection_upgrade {
 }
 
 server {
-    listen 192.168.1.1:80;
+    listen 192.168.0.1:80;
     # listen [::]:80 ipv6only=on;
-    listen 192.168.1.1:443 ssl;
+    listen 192.168.0.1:443 ssl;
     # listen [::]:443 ipv6only=on ssl;
 
     server_name your-internal-domain.com;
@@ -65,3 +65,4 @@ server {
 - [UniFi - How to Set Up a UniFi Network Controller](https://help.ui.com/hc/en-us/articles/360012282453-UniFi-How-to-Set-Up-a-UniFi-Network-Controller)
 - [User maintained upgrade script](https://get.glennr.nl)
 - [Install Nginx proxy in front of UniFi Controller](https://blog.ljdelight.com/nginx-proxy-to-ubiquiti-unifi-controller/)
+- [Gist to install Unifi controllor](https://gist.github.com/davecoutts/5ccb403c3d90fcf9c8c4b1ea7616948d)
