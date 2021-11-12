@@ -1,20 +1,22 @@
 # macOS Developer System Setup
 
-These instructions assume a clean installation of macOS (at least High Sierra or above) and that you are logged on as an administrator user, i.e. you can run `sudo`.
+These instructions assume a clean installation of macOS Big Sur or Monterey and that you are logged on as an administrator user, i.e. you can run `sudo`.
+
+## Security
+
+Add an additional fingerprint in **System Preferences -> TouchID**
+
+Enable watch unlock in **System Preferences -> Security & Privacy** if you have a watch!
+
+## Install Browsers
+
+- [Chrome](https://www.google.com/chrome/)
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/)
+- [Edge](https://www.microsoft.com/en-us/edge)
 
 ## Install iTerm2
 
-Download and install [iTerm2](https://www.iterm2.com/). Open _Preferences_ and duplicate the default profile:
-
-![iterm2](images/iterm2-prefs-1.png)
-
-Set the _Working Directory_ to _Reuse previous session directory_.
-
-Go to the _Keys_ tab. Delete all key shortcuts, and add two for **&#8997; &#8592;** and **&#8997; &#8594;** as shown.
-
-![iterm2](images/iterm2-prefs-2.png)
-
-Select _Send Escape Sequence_ from the really long drop-down menu, and the type `b` or `f`.
+Download and install [iTerm2](https://www.iterm2.com/). Go to
 
 ## SSH
 
