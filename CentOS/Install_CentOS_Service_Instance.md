@@ -90,7 +90,7 @@ reboot
 
 SSH in again as `centos`.  Create the `.ssh` directory:
 
-```
+```sh
 mkdir ~/.ssh
 chmod u=rwx,go= .ssh
 cd ~/.ssh
@@ -98,13 +98,13 @@ cd ~/.ssh
 
 Copy your `~/.ssh/id_rsa.pub` file:
 
-```
+```sh
 cat ~/.ssh/id_rsa.pub | pbcopy
 ```
 
 Concat the `.pub` file to the authorized keys file:
 
-```
+```sh
 touch authorized_keys
 chmod u=rw authorized_keys
 vi authorized_keys
@@ -114,7 +114,7 @@ And paste your clipboard to the end of the file.
 
 Add an entry to your local `~/.ssh/config` file:
 
-```
+```sh
 Host <hostname>
   User centos
   HostName <hostname>
@@ -127,20 +127,20 @@ Close the remote shell and re-connect as `centos`.  You should no longer require
 
 Once you are able to login to the system with key authentication, disable password SSH login:
 
-```
+```sh
 sudo vi /etc/ssh/sshd_config
 ```
 
 Ensure the following options:
 
-```
+```sh
 ChallengeResponseAuthentication no
 PasswordAuthentication no
 ```
 
 Then:
 
-```
+```sh
 sudo systemctl reload sshd
 ```
 

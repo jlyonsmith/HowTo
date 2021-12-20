@@ -5,8 +5,12 @@
 Use NFS instead of SMB on macOS for trouble free sharing.  Edit `/etc/exports`:
 
 ```txt
-/Users/person/Public -network 192.168.0.0 -mask 255.255.255.0
+/Users/$USER/Public -ro -mapall=nobody
 ```
+
+Where `$USER` is your user name.  Run `nfsd checkexports` to validate.
+
+See [Apple OSX as NFS Server](https://www.barryodonovan.com/2012/12/12/apple-os-x-as-an-nfs-server-with-linux-clients)) for more details.
 
 Run `nfsd enable` and confirm running.
 
@@ -18,6 +22,8 @@ To mount a remote drive, run:
 mkdir ~/Public
 mount_nfs $MACHINE:/Users/person/Public ~/Public
 ```
+
+You can unmount with `umount ~/Public` and see all mounts with `mount`.
 
 Use `man exports | col -b | edit - &` to see the `/etc/exports` options.  You can also use **⌘ + shift + g** in Finder and use `nfs://<machine>/<share>` to view the share.
 
