@@ -67,27 +67,36 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD7
 echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 ```
 
-Install Node 12.x:
+Install Node 14.x:
 
 ```sh
-sudo apt-get -y update && sudo apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+sudo apt-get -y update && sudo apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 sudo apt-get install -y build-essential mongodb-org nodejs graphicsmagick
-sudo npm install -g inherits n && sudo n 12.18.4
+sudo npm install -g inherits n && sudo n 14.18.2
 ```
 
 Install Rocket.Chat:
 
-```sh
-curl -L https://releases.rocket.chat/latest/download -o /tmp/rocket.chat.tgz
-tar -xzf /tmp/rocket.chat.tgz -C /tmp
-cd /tmp/bundle/programs/server && npm install
-sudo mv /tmp/bundle /opt/Rocket.Chat
+```fish
+cd (mktemp -d)
+chown -R rocketchat:rocketchat .
+curl -L https://releases.rocket.chat/latest/download -o ./rocket.chat.tgz
+tar -xzf rocket.chat.tgz -C ./
+chown -R rocketchat:rocketchat ./bundle
+pushd bundle/programs/server
+sudo -u rocketchat -- npm install
+popd
+mv ./bundle /opt/Rocket.Chat
+systemctl start rocketchat
+systemctl status rocketchat
 ```
 
 Configure the Rocket.Chat service:
 
 ```sh
 sudo useradd -M rocketchat && sudo usermod -L rocketchat
+sudo mkdir /home/rocketchat
+sudo chown -R rocketchat:rocketchat /home/rocketchat
 sudo chown -R rocketchat:rocketchat /opt/Rocket.Chat
 cat << EOF |sudo tee -a /lib/systemd/system/rocketchat.service
 [Unit]
@@ -123,21 +132,30 @@ Immediately open the `https://yourdomain.com` and configure the admin user.  Unr
 
 To upgrade:
 
-```bash
-cd /tmp
-curl -L https://releases.rocket.chat/latest/download -o rocket.chat.tgz
-rm -rf bundle
-tar -xzf rocket.chat.tgz -C /tmp
-cd bundle/programs/server && npm install
+```fish
+#!/usr/bin/fish
+
+if functions -q fish_is_root_user; and not fish_is_root_user
+  echo 'Must be run as root'
+  exit
+end
+
+cd (mktemp -d)
+chown -R rocketchat:rocketchat .
+curl -L https://releases.rocket.chat/latest/download -o ./rocket.chat.tgz
+tar -xzf rocket.chat.tgz -C ./
+chown -R rocketchat:rocketchat ./bundle
+pushd bundle/programs/server
+sudo -u rocketchat -- npm install
+popd
+mv ./bundle /opt/Rocket.Chat.Next
 cd /opt
-sudo mv /tmp/bundle Rocket.Chat.Next
-sudo chown -R rocketchat:rocketchat Rocket.Chat.Next
-sudo systemctl stop rocketchat
-sudo rm -rf Rocket.Chat.Previous
-sudo mv Rocket.Chat Rocket.Chat.Previous
-sudo mv Rocket.Chat.Next Rocket.Chat
-sudo systemctl start rocketchat
-sudo systemctl status rocketchat
+systemctl stop rocketchat
+rm -rf Rocket.Chat.Previous
+mv Rocket.Chat Rocket.Chat.Previous
+mv Rocket.Chat.Next Rocket.Chat
+systemctl start rocketchat
+systemctl status rocketchat
 ```
 
 NOTE: Use `n $NEW_VERSION` and `systemctl restart rocketchat` to upgraded NodeJS.

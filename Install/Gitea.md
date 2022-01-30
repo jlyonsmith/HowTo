@@ -44,10 +44,12 @@ sudo adduser --system --group --disabled-password --shell /bin/bash --home /home
 Download Gitea and install:
 
 ```bash
-VERSION=1.14.2
-sudo wget -O /tmp/gitea https://dl.gitea.io/gitea/${VERSION}/gitea-${VERSION}-linux-amd64
-sudo mv /tmp/gitea /usr/local/bin
-sudo chmod +x /usr/local/bin/gitea
+sudo -s
+VERSION=1.15.10
+wget -O /tmp/gitea https://dl.gitea.io/gitea/${VERSION}/gitea-${VERSION}-linux-amd64
+mv /tmp/gitea /usr/local/bin
+chmod +x /usr/local/bin/gitea
+exit
 ```
 
 > If you are upgrading Gitea, just run the above steps then `systemctl restart gitea`
