@@ -14,6 +14,10 @@ sudo apt update
 sudo apt install fish
 ```
 
+## Documentation
+
+All the documentation you need is at [fishshell.com](https://fishshell.com/).
+
 ## Config
 
 The default configuration file is `~/.config/fish/config.fish` which is created the first time you run `fish`.
@@ -33,23 +37,21 @@ fish_add_path "~/bin"
 ```
 
 ```fish
-# Function for setting iTerm2 tab colors
-function tab-color {
-  printf "\x1b]6;1;bg;red;brightness;%s\x7" "$1"
-  printf "\x1b]6;1;bg;green;brightness;%s\x7" "$2"
-  printf "\x1b]6;1;bg;blue;brightness;%s\x7" "$3"
-}
+# Set tab color e.g. tab-color -r255 -g0 -b0
+function tab-color
+    argparse r/red= g/green= b/blue= -- $argv
+    or return
+    printf '\x1b]6;1;bg;red;brightness;%s\x7' $_flag_r
+    printf '\x1b]6;1;bg;green;brightness;%s\x7' $_flag_g
+    printf '\x1b]6;1;bg;blue;brightness;%s\x7' $_flag_b
+end
 ```
 
 ```fish
-# Function for setting terminal titles in OSX
-function title {
-  name=$1
-  if [[ $1 == "" ]]; then
-    name=$(basename $(pwd))
-  fi
-  printf "\x1b]0;%s\x7" "$name"
-}
+# Set the terminal title to the basename of the directory
+function fish_title
+    echo (basename (pwd))
+end
 ```
 
 ```fish
@@ -164,6 +166,12 @@ And these variables:
 
 Fish is simpler and does everything that Zsh does! But read this if you are interested in comparing [Fish vs. Zsh](https://www.educba.com/fish-vs-zsh/).
 
-## Oh My Fish!
+## Package Managers
+
+### Oh My Fish!
 
 There's a package manager for Fish too called [Oh-My-Fish!](https://github.com/oh-my-fish/oh-my-fish) if you really love shell customizations.
+
+### Fisher
+
+Another package manager is [Fisher](https://github.com/jorgebucaran/fisher). Install with `curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher`.
