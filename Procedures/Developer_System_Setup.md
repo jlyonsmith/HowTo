@@ -22,6 +22,8 @@ Go to the _Keys_ tab. Delete all key shortcuts, and add two for **&#8997; &#8592
 
 Select _Send Escape Sequence_ from the really long drop-down menu, and the type `b` or `f`.
 
+Also, to delete a word and `Send Hex Code 0x17` for **⌥ + delete** and to delete the whole line `Send Hex Code 0x15` for **⌘ + delete**
+
 ## Install Homebrew
 
 _NOTE: Be careful!!! There is a Trojan Horse site parked at `http://homebrew.sh` that looks like the Homebrew site but which actually attempts to install malware._

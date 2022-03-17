@@ -1,0 +1,100 @@
+{
+  "main": {
+    "id": "4c891130012acc0d",
+    "type": "split",
+    "children": [
+      {
+        "id": "375a263e06cc60ba",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Install/Nextcloud.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3f243893c53cdf23",
+    "type": "split",
+    "children": [
+      {
+        "id": "2876aadd8a8e6b50",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7b5f514294afff06",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "1e121b4c9d78fc80",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c2e009b2282c5a75",
+    "type": "split",
+    "children": [
+      {
+        "id": "7b8604183c24193b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "301347512569b091",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Install/Nextcloud.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "375a263e06cc60ba",
+  "lastOpenFiles": [
+    "Install/Nextcloud.md",
+    "Install/OpenVPN.md",
+    "Install/OpenVPN/VPN_Bridge.png",
+    "CheatSheets/iOS.md",
+    "CentOS/Install_CentOS_Service_Instance.md",
+    "CentOS/ChangeKeyboard.md",
+    "CentOS/Change_User_Name.md"
+  ]
+}
