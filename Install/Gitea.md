@@ -45,7 +45,7 @@ Download Gitea and install:
 
 ```bash
 sudo -s
-VERSION=1.15.10
+VERSION=1.16.4
 wget -O /tmp/gitea https://dl.gitea.io/gitea/${VERSION}/gitea-${VERSION}-linux-amd64
 mv /tmp/gitea /usr/local/bin
 chmod +x /usr/local/bin/gitea
