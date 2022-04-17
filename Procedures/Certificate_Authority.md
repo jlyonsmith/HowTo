@@ -30,7 +30,7 @@ distinguished_name=req_distinguished_name
 commonName=My CA
 countryName=US
 stateOrProvinceName=Washington
-localityName=Seattle
+localityName=My_Town
 organizationName=My Org Name
 [v3_req]
 keyUsage=digitalSignature,keyCertSign
@@ -50,17 +50,15 @@ openssl req -x509 -new -nodes -extensions v3_req -key myCA.key -sha256 -days 182
 
 The file `myCA.crt` is your CA certificate in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
 
-## Install on macOS
+## Installing the Root Certificate
 
-Now you have the CA certificate, you can install it once everywhere your certificates will be used and all certificates signed with it will be trusted.  No more browser warnings.
+Now you have the CA certificate you can install it once on every client that you will be accessing servers using certificates signed with this root one.  The server certificates will be trusted, and you will not get any more browser warnings. How you install depends on your O/S.
 
-`scp` the `myCA.pem` file locally. Run `open myCA.pem`.
-
-On macOS, add it to the **login** or **System** key chains.  Right click on it, **Get Info** then select **Always trust**.
+For example, on macOS `scp` the `myCA.crt` file or otherwise copy it to the machine. The run `open myCA.crt` in a terminal, or drag and drop the file to the **Keychain Access** app. This will add it to the **login** key chain under **Certificates**.  Right click on it, **Get Info** then select **Always trust**.
 
 ## Sign Certificates For Internal Sites
 
-Now you have your CA certificate created and distributed, you are ready to sign your own TLS/SSL certificates.
+At this point you are ready to sign your own TLS/SSL certificates for any servers on your internal network.
 
 First, create a working directory and generate a key for the certificate:
 
@@ -70,9 +68,9 @@ cd ca/my.domain
 openssl genrsa -out my.domain.key 2048
 ```
 
-We next need to create a *Certificate Signing Request* (CSR) for the Fully Qualified Domain Name (FQDN). We do this by creating a *signing configuration file* which we can then use to generate the CSR.
+Now, you must create a *Certificate Signing Request* (CSR) for the Fully Qualified Domain Name (FQDN). We do this by creating a *signing configuration file* which we can then use to generate the binar CSR.
 
-> The signing configuration file is a file containing the signing information and extended information about how the certificate can be used.  Signing information are things like Common Name (CN), Organization Name, etc.. In older certificates you used the CN field to specify the FQDN, but for newer certificates Subject Alternate Name is how you are supposed to specify the domains you are allowed to sign.  This is since [RFC2818](https://tools.ietf.org/html/rfc2818), written in 2000.  If you don't give this file you'll get prompted for some of the information, but you'll still need to provide *extended signing information* (a subset of the configuration file) to generate the certificate properly.
+> The signing configuration file is a file containing the signing information and extended information about how the certificate can be used.  Signing information contains things like Common Name (CN), Organization Name, etc.. In older certificates you used the CN field to specify the FQDN, but for newer certificates Subject Alternate Name is how you are supposed to specify the domains you are allowed to sign.  This is since [RFC2818](https://tools.ietf.org/html/rfc2818), written in 2000.  If you don't give this file you'll get prompted for some of the information, but you'll still need to provide *extended signing information* (a subset of the configuration file) to generate the certificate properly.
 
 So, create a file, `my.domain.cnf`, containing the following content:
 
@@ -86,7 +84,7 @@ commonName=my.domain
 countryName=US
 stateOrProvinceName=Washington
 localityName=Seattle
-organizationName=My Org Name
+organizationName=My_Org_Name
 [v3_req]
 keyUsage=digitalSignature,keyEncipherment
 extendedKeyUsage=serverAuth,clientAuth
@@ -94,19 +92,19 @@ basicConstraints=critical,CA:false
 subjectAltName=DNS:my.domain
 ```
 
-Now you have configuration, here's the command to generate the `.csr` file using the `.cnf` file:
+Now you have the configuration, here's the command to generate the `.csr` and a private `.key` file in one shot, using the `.cnf` file:
 
 ```sh
-openssl req -new -key my.domain.key -config my.domain.cnf -out my.domain.csr -extensions v3_req
+openssl req -out my.domain.csr -new -newkey rsa:2048 -keyout my.domain.key -nodes -config my.domain.cnf -extensions v3_req
 ```
 
 If you want to make a wildcard certificate add `*.` to both the `commonName` and the `DNS.0` name.
 
-In theory, other people generate the `.csr` using the steps above give it to you for signing, if you trust them.  That's what being a Certificate Authority *is* after all.
+In theory, other people generate the `.csr` using the steps above then give it to you for signing. Your job is to prove you can trust them.  That's what being a Certificate Authority *is* after all.
 
-> NOTE: there is an issue with CSR's that include extensions. Any extensions specified in the CSR are not automatically copied over to a signed certificate. You need to create an extension file (`.ext`), a subset of the full `.cnf` file, and provide it to the `openssl x509` command with the `-extfile` flag and `-extensions`. For our own certificates, it's easiest to do that by using the `.cnf` file as the `.ext` file.
+> NOTE: there is an issue with CSR's that include *extensions* (not file name extensions). Any extensions specified in the CSR are not automatically copied over to a signed certificate. You need to create an extension file (`.ext`), a subset of the full `.cnf` file, and provide it to the `openssl x509` command with the `-extfile` flag and `-extensions`. For our own certificates, it's easiest to do that by using the `.cnf` file as the `.ext` file!
 
-The final step is to generate a signed `.crt` file to use for your internal site. We're using the `x509` command not the `req` command specifically (yeah, it's weird):
+The final step is to generate a signed `.crt` file to use for your internal site. You use the `x509` command to generate the certificate:
 
 ```sh
 openssl x509 -req -in my.domain.csr -CA ../root/myCA.crt -CAkey ../root/myCA.key -CAcreateserial -out my.domain.crt -days 730 -sha256 -extfile my.domain.cnf -extensions v3_req

@@ -29,6 +29,32 @@ Restart the webcam service if you unplug the camera with:
 sudo systemctl restart webcamd
 ```
 
+## Upgrading the Raspberry Pi Distro
+
+Run `sudo apt update && sudo apt dist-upgrade && sudo apt-get autoremove && sudo apt clean && sudo reboot now`
+
+## Install an SSL Certificate
+
+Upgrade the distro (see above). Run `haproxy -v` to check the proxy software is installed.  Create a certificate and a private key using whatever method you wish and copy them locally with `scp`.
+
+```sh
+sudo -s
+cd /etc/ssl
+cat octopi.domain.org.crt octopi.domain.org.key > snakeoil.pem
+```
+
+Edit `/etc/haproxy/haproxy.cfg`.  Update as follows:
+
+```yaml
+frontend public
+  ...
+  option forwardfor except 127.0.0.1
+  redirect scheme https if !{ hdr(Host) -i 127.0.0.1 } !{ ssl_fc }
+  ...
+```
+
+Run `haproxy -c -- /etc/haproxy/haproxy.cfg` to check you did not make a typo, then `systemctl restart haproxy`.  The OctoPi web interface will kick out if you are logged, but you should now be using HTTPS to connect in your browser.
+
 ## References
 
 [Setting Up Your Raspberry Pi](https://www.raspberrypi.com/documentation/computers/getting-started.html#using-raspberry-pi-imager)
