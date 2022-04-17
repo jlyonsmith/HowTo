@@ -32,6 +32,7 @@ Use associated type when there is a one-to-one relationship between the type imp
 - [Rust Playground](https://play.rust-lang.org/)
 - [GCC/LLVM Code Coverage](https://doc.rust-lang.org/nightly/unstable-book/compiler-flags/source-based-code-coverage.html)
 - [Tarpaulin Code Coverage Tool](https://github.com/xd009642/tarpaulin)
+- [Moves, copies and clones in Rust](https://hashrust.com/blog/moves-copies-and-clones-in-rust/)
 
 ## Programming
 
@@ -42,6 +43,10 @@ Standard out, `io::stdout()` and standard in, `io::stdin()`.
 Read a line to a string `io::stdin().read_to_string(&mut input)?;`.  `std::io::Read` trait must be in scope.
 
 Write a line to a file `writeln!(io::stdio(), "{}", line)`.  `std::io::Write` trait must be in scope.
+
+[Different ways of reading a file](https://dev.to/dandyvica/different-ways-of-reading-files-in-rust-2n30).
+
+[Serializing with Serde](https://serde.rs/).  [Deserializing JSON](https://juliano-alves.com/2020/01/06/rust-deserialize-json-with-serde/)
 
 ### String
 
