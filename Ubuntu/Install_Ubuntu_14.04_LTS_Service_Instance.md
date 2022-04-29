@@ -41,7 +41,7 @@ Change the name of the host to something meaningful:
     sudo -s
     vi /etc/hostname
     vi /etc/hosts
-    
+
 Change the default name, e.g. `Ubuntu-trusty-14-04`, to something like `mydomain-alfa`.  Reboot the system for the change to take effect:
 
     reboot
@@ -50,14 +50,14 @@ Change the default name, e.g. `Ubuntu-trusty-14-04`, to something like `mydomain
 
 Set the _Amazon EC2_ security groups to only allow access to the following ports:
 
-Service | Port
-:-- | :--
-HTTP | 80
-HTTPS | 443
-SSH | 22
-MongoDB | 27017
-Service | 1337 - 1347
-ICMP | 0 - 65535
+| Service | Port        |
+| :------ | :---------- |
+| HTTP    | 80          |
+| HTTPS   | 443         |
+| SSH     | 22          |
+| MongoDB | 27017       |
+| Service | 1337 - 1347 |
+| ICMP    | 0 - 65535   |
 
 ### Firewall (Other)
 
@@ -65,15 +65,15 @@ Use [Uncomplicated Firewall](https://help.ubuntu.com/12.10/serverguide/firewall.
 
     sudu -s
     ufw allow 22
-    ufw enable 
+    ufw enable
 
 Add additional rules as necessary, e.g.
 
     ufw allow https
     ufw allow http
 
-Or  
-  
+Or
+
     ufw reject http
 
 See [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall) for more information.
@@ -92,7 +92,7 @@ We use an `ubuntu` user which has root access, like Amazon does with EC2.  First
 
 Create the `ubuntu` user:
 
-    adduser  ubuntu 
+    adduser  ubuntu
 
 Use [Strong Password Generator](http://strongpasswordgenerator.com/) to generate a password.
 
@@ -171,7 +171,7 @@ Set the following option:
     ChallengeResponseAuthentication no
     UsePAM no
     PasswordAuthentication no
-    
+
 Then:
 
     sudo /etc/init.d/ssh restart
@@ -187,9 +187,9 @@ You should get `Permission denied`.
 Firstly, it useful when running multiple installs and messing with global configuration to start a new super-user shell:
 
     sudo -s
-    
+
 Be careful because any files you create in this shell will owned by `root`, and you will usually want them owned by `ubuntu`.  Use `whoami` or watch the prompt.
- 
+
 It's time to update all packages:
 
     sudo -s
@@ -208,7 +208,7 @@ Installs over `ssh` can be a pain if you get disconnected from the network durin
 Then, if you get kicked off, just run:
 
     screen -r
-    
+
 to reconnect and get back to work.
 
 ### Git Install
@@ -235,7 +235,7 @@ Install MongoDB from the [official 10gen repo](http://docs.mongodb.org/manual/tu
     apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
     echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list
     apt-get update
-    apt-get install mongodb-org 
+    apt-get install mongodb-org
 
 Configuring MongoDB for the first requires setting up an `admin` database.  Edit `/etc/mongod.conf` to contain `noauth true`.  Restart MongoDB with `service mongod restart`.
 
@@ -246,7 +246,7 @@ Now create an `admin` database, _but not as the superuser_:
 Note, if you get a warning about readahead size, exit and do:
 
     echo 'ACTION=="add", KERNEL=="md2", ATTR{bdi/read_ahead_kb}="128"' | sudo tee -a /etc/udev/rules.d/85-ebs.rules
-    
+
 Reboot and check `RA` value from for the the `mongo` drive:
 
     df /var/lib/mongo
@@ -261,9 +261,9 @@ Now enable security on the MongoDB instance by adding `auth true` to the `mongod
 
     sudo service mongod restart
 
-Now connect as the `root` user: 
+Now connect as the `root` user:
 
-    mongo --port 27017 -u root -p "..." --authenticationDatabase admin 
+    mongo --port 27017 -u root -p "..." --authenticationDatabase admin
 
 Now create the `whatever-vM-m` database:
 
@@ -290,7 +290,7 @@ If you want to install a really new build, you can find the official instruction
 Use:
 
     redis-cli info
-    
+
 to test the install.
 
 ### Mono Install
@@ -308,28 +308,28 @@ Go to the `/opt` directory to build Mono bits:
 In the following commands `--prefix=/usr/local` puts everything that builds in the `/usr/local` directory.  This is the standard Unix location for system components that are left alone in a system upgrade, as opposed to `/usr` bits.
 
 To make and install `libgdiplus` (only needed if `System.Drawing.dll` is needed):
-    
-    git clone git://github.com/mono/libgdiplus.git 
-    cd libgdiplus 
+
+    git clone git://github.com/mono/libgdiplus.git
+    cd libgdiplus
     apt-get install libjpeg-dev libexif-dev glib-2.0 libcairo2-dev
     ./autogen.sh --prefix=/usr/local
-    make 
-    make install 
-    make clean 
+    make
+    make install
+    make clean
 
-To make and install the lastest released build of `mono`: 
+To make and install the lastest released build of `mono`:
 
-    git clone git://github.com/mono/mono.git 
+    git clone git://github.com/mono/mono.git
     cd mono
     git checkout mono-3.8.0
     ./autogen.sh --prefix=/usr/local
-    make 
- 
+    make
+
 If anything goes wrong, try an older tag, like `mono-3.6.0`.  After mono is built successfully, remove the pre-installed version of mono:
 
     apt-get purge mono-runtime
-    make install 
-    make clean 
+    make install
+    make clean
     cd ..
 
 Logoff and on to get the PATH changes.
@@ -346,7 +346,7 @@ Ubuntu uses [Upstart](http://upstart.ubuntu.com/getting-started.html) to manage 
 
 Build and deploy the software to the system using the `deploysvc.sh` script:
 
-    bin/deploysvc.sh ... 
+    bin/deploysvc.sh ...
 
 Where `machine` is a name configured in `~/.ssh/config`.
 
@@ -361,7 +361,7 @@ Test the service by going to `http://api.mydomain.com/vM/info` in a browser.
 Add the official nginx repository:
 
     sudo vi /etc/apt/sources.list
-  
+
 Add the following _at the top_ of the file:
 
     deb http://nginx.org/packages/ubuntu/ trusty nginx
@@ -385,7 +385,7 @@ Check the version:
 
 Should be at least `1.6.2`.  Ensure that nginx is set to start after reboot:
 
-    update-rc.d nginx defaults    
+    update-rc.d nginx defaults
 
 Note that the site `.conf` files are in the `/etc/nginx/conf.d` directory.
 
