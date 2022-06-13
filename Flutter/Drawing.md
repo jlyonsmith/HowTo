@@ -10,3 +10,5 @@
 - [Picture class - dart:ui library - Dart API](https://api.flutter.dev/flutter/dart-ui/Picture-class.html)
 - [Canvas class - dart:ui library - Dart API](https://api.flutter.dev/flutter/dart-ui/Canvas-class.html)
 - [Flutter: How would one save a Canvas/CustomPainter to an image file? - Stack Overflow](https://stackoverflow.com/questions/50320479/flutter-how-would-one-save-a-canvas-custompainter-to-an-image-file)
+- [How to draw and animate designs with Flutter CustomPaint Widget | Codemagic Blog](https://blog.codemagic.io/flutter-custom-painter/)
+- [Flutter Shape Maker - The Only Custom Paint Toolset You'll Ever Need!](https://fluttershapemaker.com/)

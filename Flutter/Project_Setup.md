@@ -13,7 +13,7 @@ Add to  `analysis_options.yaml`:
 
 ## Icons
 
-Use [Flutter Launcher Icons](https://pub.dev/packages/flutter_launcher_icons).  Follow the instructions on the pub.dev page.
+Use [Icons_Launcher](https://pub.dev/packages/icons_launcher).  Follow the instructions on the pub.dev page.
 
 Create a `dev_assets/` folder. Put an `appicon.png` there.  Add this to `pubspec.yaml`:
 
@@ -28,7 +28,7 @@ flutter_icons:
 
 Picking your own background/foreground colors/images.
 
-Run `flutter pub run flutter_launcher_icons`.
+Run `flutter pub run icons_launcher:main`.
 
 See [Adaptive Icons](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive) for more information on Android adaptive icons. Also, see this series of Medium articles
 
@@ -52,4 +52,3 @@ Edit the `**/launch_background.xml` files and add:
 ```
 
 See [Adding Icons & Splash Screens](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15229810#search) for more info.
-
