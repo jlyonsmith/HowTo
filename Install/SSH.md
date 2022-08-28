@@ -77,22 +77,6 @@ Install Googles PAM module:
 sudo apt install libpam-google-authenticator
 ```
 
-Then for each user:
-
-```bash
-sudo su - $USER
-google-authenticator
-```
-
-Then:
-
-```txt
-Do you want authentication tokens to be time-based (y/n) y
-Disallow multiple uses...(y/n) y
-Increase token time window...?(y/n) n
-Rate limiting...?(y/n) n
-```
-
 Edit `/etc/pam.d/sshd`.  Comment out `@include common-auth`.  Add `auth required pam_google_authenticator.so` at the end of the file.
 
 Restart SSH with `systemctl restart sshd`.
@@ -110,6 +94,25 @@ AuthenticationMethods publickey,keyboard-interactive
 Run `sshd -t` and confirm no errors. Then restart the SSH daemon again with `systemctl restart sshd`.
 
 See [How To Set Up Multi-Factor Authentication for SSH on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-set-up-multi-factor-authentication-for-ssh-on-ubuntu-16-04).
+
+## Adding a New Google Authenticator User
+
+Then for each user:
+
+```bash
+sudo su - $USER
+google-authenticator
+```
+
+With the following responses:
+
+```txt
+Do you want authentication tokens to be time-based (y/n) y
+Update your ".google-authenticator" file? (y/n) y
+Disallow multiple uses...(y/n) y
+Increase token time window...?(y/n) n
+Rate limiting...?(y/n) n
+```
 
 ## Connecting Through a Bastion
 

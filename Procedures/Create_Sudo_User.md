@@ -15,10 +15,17 @@ Set `USER` to the user name and `PASSWORD` to the desired password.  Add the new
 
 ```sh
 adduser  --disabled-password --gecos "<Full Name>" $USER
+```
+
+Add the users full name at a minimum as GECOS (`finger`) information.
+
+You can set a password for the user, but it is not required if you are using PPK:
+
+```sh
 chpasswd <<<"$USER:$PASSWORD"
 ```
 
-Use [Strong Password Generator](https://strongpasswordgenerator.com/).  Add the users full name at a minimum as GECOS (`finger`) information.
+Use [Strong Password Generator](https://strongpasswordgenerator.com/).
 
 Add to the `sudo` group:
 
@@ -41,7 +48,7 @@ Do some testing:
 ```sh
 getent group sudo
 su - $USER
-sudo whoami
+whoami
 ```
 
 If `getent` does not return anything, the user was not added to the `sudo` group.  `whoami` should return `root`.
@@ -50,7 +57,7 @@ While still impersonating `$USER`:
 
 ```bash
 mkdir ~/.ssh
-chmod u=rwx,go= .ssh
+chmod u=rwx,go= ~/.ssh
 cd ~/.ssh
 touch authorized_keys
 chmod u=rw authorized_keys
@@ -119,6 +126,8 @@ sudo passwd -l root
 ```
 
 This will allow people to become root with `sudo` but logging in with `root` account is no longer possible, including through the ProxMox console.  Do this as a _last step_ after IPTables and SSH lock down have been done.  It's really frustrating to be locked out of a system and have to rebuild it from scratch.
+
+Check if the password for an account is locked with `sudo passwd -S $USER`.  There should be an `L` in the resulting listing.
 
 ## Notes
 
