@@ -1,20 +1,19 @@
 # Install Fail2Ban
 
 ```bash
+sudo -s
 apt install fail2ban
-systemctl enable fail2ban
-systemctl start fail2ban
 ```
 
+Make a backup of the original configuration:
+
 ```sh
-sudo apt install fail2ban
-# Make a backup of the original configuration
-sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 ```
 
 Note that `sshd` is protected by default and does not need additional configuration.
 
-## For ProxMox
+## For ProxMox Web Interface
 
 Create `/etc/fail2ban/jail.d/proxmox.conf`:
 

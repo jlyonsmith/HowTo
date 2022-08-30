@@ -42,7 +42,7 @@ EOF
 
 Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`.
 
-NOTE: The `-w 15` option is useful on systems where other services like `fail2ban` are also setting the IPTables as it will cause the
+NOTE: The retry `-w 15` option is useful on systems where other services like `fail2ban` are also setting the IPTables.
 
 ## CentOS
 

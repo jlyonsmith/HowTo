@@ -14,7 +14,7 @@ The following must be run as `root`.
 Set `USER` to the user name and `PASSWORD` to the desired password.  Add the new user:
 
 ```sh
-adduser  --disabled-password --gecos "<Full Name>" $USER
+adduser --disabled-password --gecos "<Full Name>" $USER
 ```
 
 Add the users full name at a minimum as GECOS (`finger`) information.

@@ -1,14 +1,75 @@
 # Build a Network Router
 
-This assumes an system similar to
+## Install Ubuntu from a USB Stick
 
-Use these IPTables rules:
+[Download the latest Ubuntu Server ISO](https://releases.ubuntu.com/).  Grab a minimum 2GB USB stick and create a bootable installer.  The [instructions for macOS are here](https://ubuntu.com/tutorials/create-a-usb-stick-on-macos#1-overview)
+
+Different devices have different ways to select the boot device.  Some will do it automatically. Other devices have to be specifically told what device to use.  My [Protectli](https://protectli.com/kb/coreboot-on-the-vp2410/) requires you to push `F11` during the device boot.
+
+The Ubuntu install will have you create an admin user.  You'll finish setting up that user up in the next step.
+
+## Enable Changing the Machine Name
+
+To be able to change the machine name with `hostnamectl` do the following:
+
+1. Set `preserve_hostname true` in `/etc/cloud/cloud.cfg`
+2. Update hostname with `sudo hostnamectl set-hostname $NEW_HOSTNAME`
+3. `sudo reboot now`
+
+## Create Admin User & Disable Root Login
+
+[Create Sudo User](Procedures/Create_Sudo_User.md)
+
+## Configure Network Interfaces
+
+Assuming a device with 4 network interfaces, you could configure them as follows:
+
+1. WAN
+2. LAN
+3. Direct (for emergencies)
+4. Not used
+
+The `/etc/netplan/` file would be as follows:
+
+```yaml
+network:
+  ethernets:
+    enp1s0:
+      dhcp4: false # Start with this set to false
+    enp2s0:
+      dhcp4: false
+      addresses: [192.168.0.1/22]
+    enp3s0:
+      dhcp4: false
+      addresses: [172.16.0.1/24]
+      nameservers:
+        addresses: [1.1.1.1,1.0.0.1]
+    enp4s0:
+      optional: true
+  version: 2
+```
+
+[`optional`](https://manpages.ubuntu.com/manpages/kinetic/en/man5/netplan.5.html) prevents the system from waiting for the interface while booting.
+
+Do `netplan apply` after changing the config and re-connect if necessary.
+
+## Setup the IPTables
+
+## Set up Fail2Ban
+
+[fail2ban](Install/Fail2Ban.md)
+
+## Set Time Zone
+
+[Set Timezone](Procedures/Set_Locale_Ubuntu.md)
+
+For the Protectli device mentioned above, place these rules in `/etc/iptables.rules`:
 
 ```rules
 # Interfaces:
 #
 # enp1s0: WAN
-# enp2s0: 192.168.1.0/24 (LAN)
+# enp2s0: 192.168.0.0/22 (LAN)
 # enp3s0: 172.16.0.0/24 (Diagnostic LAN)
 # enp4s0: Not used
 
@@ -34,6 +95,9 @@ COMMIT
 # Allow in from loopback
 -A INPUT -i lo -j ACCEPT
 
+# Allow SSH in from WAN
+-A INPUT -i enp1s0 -p tcp -m tcp --dport 22 -j ACCEPT
+
 # Allow in from LAN
 -A INPUT -i enp2s0 -j ACCEPT
 
@@ -52,15 +116,8 @@ COMMIT
 -A INPUT -i enp1s0 -p icmp -m icmp --icmp-type 11 -j ACCEPT
 -A INPUT -i enp1s0 -p icmp -m icmp --icmp-type 12 -j ACCEPT
 
-# Allow in IPsec VPN from WAN
--A INPUT -i enp1s0 -p udp -m udp --dport 500 -j ACCEPT
--A INPUT -i enp1s0 -p udp -m udp --dport 4500 -j ACCEPT
-
-# SSH from WAN
--A INPUT -i enp1s0 -p tcp -m tcp --dport 22 -j ACCEPT
-
 # DROP everything else
--A INPUT -i enp1s0 -j DROP
+-A INPUT -j DROP
 
 ## FORWARD rules
 
@@ -79,21 +136,26 @@ COMMIT
 COMMIT
 ```
 
-## Diagnostic Procedure
+## Diagnostic Procedures
 
-- Can you ping? `ping 192.168.1.1`
-- Can you SSH in? `ssh ...`
-- Kea-DHCP running? `systemctl status isc-kea-dhcp4-server`
-- Bind9 DNS running? `systemctl status named`
-- Do you have an public IP address? `ip addr`
-- External DNS working? `ping www.google.com`
-- Connect via diagnostic LAN?  Set manual IP of `172.16.0.2` and `ssh user@172.16.0.1`
-- Cannot connect to cable modem? Set manual IP of `192.168.100.2` and `ping 192.168.100.1` then use browser to connect to `http://192.168.100.1` with modem password.
-- Modem not responding to `ping 192.168.100.1`? Reboot the modem.
+In case everything stops working:
 
-The cable modem has a diagnostic IP of `192.168.100.1`  Even though this isn't on the `192.168.1.0/24` subnet you can get to it normally because it looks like any other Internet address.  You know it's a private IP, but the routing tables don't care.  It hits the default routing table to the Internet and gets caught on the first hop.
+- Can you ping? `ping 192.168.0.1`
+- If not, can you connect via diagnostic LAN?  Set manual IP of `172.16.0.2` and `ssh user@172.16.0.1`
+- Can you SSH in? `ssh 192.168.0.1`
+- Is Kea-DHCP running? `systemctl status isc-kea-dhcp4-server`
+- Is Bind9 DNS running? `systemctl status named`
+- Do you have a public IP address? `ip addr`
+- Is external DNS working? `ping www.google.com`
 
-The problem is, when the interface can't get an address from the modem it doesn't add a default route.  You can add one manually with `route add 192.168.100.1 dev enp1s0`.  This will get overwritten when the interface eventually comes up.
+### Comcast Modem
+
+Diagnostic questions for the Comcast modem:
+
+- Can you connect to Comcast cable modem? Set manual IP of `192.168.100.2` and `ping 192.168.100.1` then use browser to connect to `http://192.168.100.1` with modem password.
+- Is the Comcast modem responding to `ping 192.168.100.1`? Reboot the modem.
+
+The cable modem has a diagnostic IP of `192.168.100.1`  This isn't on the `192.168.1.0/22` subnet (see [CIDR calculator](http://networkcalculator.ca/cidr-calculator.php) for the range) Normally, DHCP from the Comcast router adds a route that catches it.  The problem is, when the interface can't get an address from the modem it doesn't add a default route.  You can add one manually with `route add 192.168.100.1 dev enp1s0` to allow you to get to the modem.  This will get overwritten when the interface eventually comes up.
 
 ## Configure `systemd-networkd-wait-online.service`
 

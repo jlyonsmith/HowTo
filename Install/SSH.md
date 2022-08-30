@@ -81,7 +81,7 @@ Edit `/etc/pam.d/sshd`.  Comment out `@include common-auth`.  Add `auth required
 
 Restart SSH with `systemctl restart sshd`.
 
-Now edit `/etc/ssh/sshd_config` and change the following lines:
+Now edit `/etc/ssh/sshd_config` and change the following lines:0
 
 ```conf
 UsePAM yes
@@ -108,11 +108,20 @@ With the following responses:
 
 ```txt
 Do you want authentication tokens to be time-based (y/n) y
-Update your ".google-authenticator" file? (y/n) y
-Disallow multiple uses...(y/n) y
-Increase token time window...?(y/n) n
-Rate limiting...?(y/n) n
 ```
+
+Copy the code into your password manager, and enter the first code to confirm it.  Then:
+
+```txt
+Do you want me to update your "/home/$USER/.google_authenticator" file?(y/n) y
+Do you want to disallow multiple uses of the same authentication
+token? ...(y/n) y
+By default, a new token is generated every 30 seconds by the mobile app. ... (y/n) n
+If the computer that you are logging into isn't hardened against brute-force
+login attempts, ... (y/n) n
+```
+
+Have the user save the key, verification code and emergency codes in their password vault.
 
 ## Connecting Through a Bastion
 
