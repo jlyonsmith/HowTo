@@ -1,3 +1,7 @@
+---
+name: "Change User Name"
+---
+
 # Rename Ubuntu
 
 Log in as `root` or a different user and `sudo -s`, then:
