@@ -102,7 +102,7 @@ If you want to make a wildcard certificate add `*.` to both the `commonName` and
 
 In theory, other people generate the `.csr` using the steps above then give it to you for signing. Your job is to prove you can trust them.  That's what being a Certificate Authority *is* after all.
 
-> NOTE: there is an issue with CSR's that include *extensions* (not file name extensions). Any extensions specified in the CSR are not automatically copied over to a signed certificate. You need to create an extension file (`.ext`), a subset of the full `.cnf` file, and provide it to the `openssl x509` command with the `-extfile` flag and `-extensions`. For our own certificates, it's easiest to do that by using the `.cnf` file as the `.ext` file!
+> NOTE: there is an issue with CSR's that include *extensions*. These are extensions to the original CSR format. Any extensions specified in the CSR are not automatically copied over to a signed certificate. You need to create an extension file (`.ext`), a subset of the full `.cnf` file, and provide it to the `openssl x509` command with the `-extfile` flag and `-extensions`. For our own certificates, it's easiest to do that by using the `.cnf` file as the `.ext` file as `openssl` will ignore any sections it does not recognize for one format or the other!
 
 The final step is to generate a signed `.crt` file to use for your internal site. You use the `x509` command to generate the certificate:
 
@@ -110,11 +110,11 @@ The final step is to generate a signed `.crt` file to use for your internal site
 openssl x509 -req -in my.domain.csr -CA ../root/myCA.crt -CAkey ../root/myCA.key -CAcreateserial -out my.domain.crt -days 730 -sha256 -extfile my.domain.cnf -extensions v3_req
 ```
 
-`-CAcreateserial` just causes a random number to be used as the certificate serial number.
+`-CAcreateserial` just causes a random number to be used as the certificate serial number. It will get written to a file named `.srl` in the same directory.
 
-This certificate lasts 2 years. You'll take the files `my.domain.key` and `my.domain.crt` and install them on your server.
+This certificate lasts 2 years. You'll take the files `my.domain.key` and `my.domain.crt` and install them on your server. You can use this exact same command to renew a certificate when the old one expires, using any new `.cnf` file that the requester sent, or the old one if that's all you have.  Note, there is no date information in the `.cnf` file.
 
-Don't forget that for web servers such as `nginx`, this certificate needs to be concatenated together into a _chained certificate bundle_ before deployment. You do this by concatenating the site certificate with the CA certificate (in that order), e.g.:
+Don't forget that for web servers such as `nginx`, this certificate needs to be concatenated together into a *chained certificate bundle* before deployment. You do this by concatenating the site certificate with the CA certificate (in that order), e.g.:
 
 ```sh
 cat my.domain.crt ../root/MyCA.crt > my.domain/my.domain.fullchain.crt
