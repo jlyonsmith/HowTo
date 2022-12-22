@@ -1,9 +1,6 @@
 # Installing ProxMox
 
-[How to set up your first machine](https://forum.proxmox.com/threads/proxmox-beginner-tutorial-how-to-set-up-your-first-virtual-machine-on-a-secondary-hard-disk.59559/)
-[`pointopoint` network configuration on Hetzner with Debian](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian)
-
-[ProxMox Service Daemons](https://pve.proxmox.com/wiki/Service_daemons) is useful for when things stop working, such as the web interface.
+This document talks about installing ProxMox both on cloud servers and on physical servers.
 
 ## Install on Existing Debian
 
@@ -13,7 +10,7 @@ If using Hetzner, [use the Rescue O/S to install Debian](https://docs.hetzner.co
 - [Hetzner - Install and Configure Proxmox VE](https://community.hetzner.com/tutorials/install-and-configure-proxmox_ve)
 - [ProxMox network configuration](https://dominicpratt.de/hetzner-proxmox-network-configuration/)
 
-You'll want to use LXC (containers) virtualization instead of KVM where you are using Linux as the hosted O/S.  Used routed networking for machines that need to go on the Internet.
+You'll want to use LXC (containers) virtualization instead of KVM where you are using Linux as the hosted O/S.  Use routed networking for machines that need to go on the Internet.
 
 Install [fail2ban](https://pve.proxmox.com/wiki/Fail2ban) to protect against brute force attacks.  Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
 
@@ -101,3 +98,12 @@ Set your subscription key on the machine with:
 ```bash
 pvesubscription set <key>
 ```
+
+## References
+
+- [Web Interface Via Nginx Proxy - Proxmox VE](https://pve.proxmox.com/wiki/Web_Interface_Via_Nginx_Proxy)
+- [How to set up your first machine](https://forum.proxmox.com/threads/proxmox-beginner-tutorial-how-to-set-up-your-first-virtual-machine-on-a-secondary-hard-disk.59559/)
+- [`pointopoint` network configuration on Hetzner with Debian](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian)
+- The [ProxMox Service Daemons](https://pve.proxmox.com/wiki/Service_daemons) article is useful for when things stop working, such as the web interface.
+- [Install Proxmox VE [A Step By Step Guide] - OSTechNix](https://ostechnix.com/install-proxmox-ve/)
+- [Package Repositories - Proxmox VE](https://pve.proxmox.com/wiki/Package_Repositories)
