@@ -1,12 +1,15 @@
 # Add a disk to a proxmox VM
 
-### Step 1: add disk through proxmox web UI
+## Step 1: add disk through proxmox web UI
+
   - vm -> Hardware -> Add -> Hard disk
   - ![box](hdd.jpeg)
 
-### Step 2: Partition the disk
+## Step 2: Partition the disk
+
   - SSH into the server
   - `sudo fdisk -l` to list the drives. The one just created should be on the bottom. In this case it is /dev/sdb
+
 ```
     darrenj@build1:~$ sudo fdisk -l
     Disk /dev/sda: 32 GiB, 34359738368 bytes, 67108864 sectors
@@ -67,7 +70,8 @@ Now when you run `sudo fdisk -l` you will see the new partition.
     /dev/sdb1        2048 50331647 50329600  24G 83 Linux
 ```
 
-### Step 3: Format the disk
+## Step 3: Format the disk
+
   - `sudo mkfs.xfs /dev/sdb1` (To make ext4 partition, use `mkfs.ext4` etc. Check [manpage](https://linux.die.net/man/8/mkfs)
 ```
     darrenj@build1:~$ sudo mkfs.xfs /dev/sdb1
@@ -82,13 +86,15 @@ Now when you run `sudo fdisk -l` you will see the new partition.
     realtime =none                   extsz=4096   blocks=0, rtextents=0
 ```
 
-### Step 4: Add entry into fstab and mount
+## Step 4: Add entry into fstab and mount
+
 - We will mount disk this into /data
-- Make a directory at /data: `sudo mkdir /data`
+- Make a directory `sudo mkdir /data`
 - Add the following line to the bottom of /etc/fstab
   - `/dev/sdb1 /data xfs defaults 0 0`
 - Mount the drive: `sudo mount /data`
 - Now you can use the drive and it will remount when the vm is rebooted
+
 ```
 darrenj@build1:/$ df -h
 Filesystem      Size  Used Avail Use% Mounted on

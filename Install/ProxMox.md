@@ -83,6 +83,16 @@ Create an `admin` group, add users to the group, then on the command line make m
 pveum acl modify / -group admin --roles Administrator
 ```
 
+## Proxy Issues
+
+Use:
+
+```bash
+ss -tlpn
+```
+
+to see what addresses are being listened too. `*:8006` indicates the proxy is listening on all interfaces.
+
 ## Subscriptions
 
 Check your machines socket count with:

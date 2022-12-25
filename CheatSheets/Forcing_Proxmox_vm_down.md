@@ -1,16 +1,10 @@
-# Forcing a Proxmox vm instance down.
+# Forcing a Proxmox vm instance down
 
-Occasionally a Proxmox vm will hang and can't be killed through the web interface. You can still kill it through the CLI. 
+Occasionally a Proxmox vm will hang and can't be killed through the web interface. You can still kill it through the CLI
 
 1. Log on to the proxmox server that is hosting the vm
-
 2. Issue the `qm list` to confirm your vm ID
-
-3. As root, issue the `qm shutdown <vmid> --forceStop` 
-
-.
-
-
+3. As root, issue the `qm shutdown <vmid> --forceStop`
 
 ```
 root@compute1:~# qm list

@@ -31,7 +31,8 @@ Now go to `/etc/bind` and edit `named.conf.options` and make it look like:
 
 ```conf
 acl "trusted" {
-  192.168.1.0/24;
+  192.168.0.0/24; # Your local IPv4 domain
+  2a02:842b:8ce6:2001::/64; # Your local IPv6 domain
   localhost;
   localnets;
 };
@@ -43,14 +44,17 @@ options {
   allow-query { trusted; };
   allow-transfer { none; }; # disable zone transfers
 
-  forwarders {
+  forwarders { # These are the Cloudflare IP addresses
     1.1.1.1;
     1.0.0.1;
+    2606:4700:4700::1111;
+    2606:4700:4700::1001;
   };
 
   dnssec-validation yes;
 
-  listen-on { 192.168.1.1; };
+  listen-on { any; };
+  listen-on-v6 { any; };
 
   auth-nxdomain no; # conform to RFC1035
 };
@@ -63,14 +67,15 @@ Run `named-checkconf` and ensure there are no errors.  Then restart the service 
 Go to another machine and run:
 
 ```sh
-dig @192.168.1.1 linuxfoundation.org
+dig @192.168.0.2 linuxfoundation.org
+dig -6 @192.168.0.2 linuxfoundation.org
 ```
 
 and you should get an A record for the domain name from the local server.
 
 ## Adding Zones
 
-Let's say that our internal network is `192.168.1.1` and we want it to correspond to the domain `private.example.com`.  Let's say that our name server is on the machine `ns1`.  First we create a _forward zone_ entry.
+Let's say that our internal network address is `192.168.1.1` and we want it to correspond to the domain `private.example.com`.  Let's say that our DNS server is on the machine `ns1`.  First we create a _forward zone_ entry.
 
 ```sh
 sudo mkdir /etc/bind/zones
@@ -93,7 +98,7 @@ $ORIGIN private.example.com.
 ns1    60 IN A   192.168.1.1
 ```
 
-Next, you can chose to add a *reverse zone* for the domain. Create and edit a file for the zone:
+Next, you can chose to add a _reverse zone_ for the domain. Create and edit a file for the zone:
 
 ```sh
 sudo vi /etc/bind/db.192.168.1
@@ -119,7 +124,7 @@ In both of the above the `@` symbol can be read as the `$ORIGIN` value.  DNS rec
 
 - Blank lines are ignored
 - Use spaces not tabs, but the number of spaces doesn't generally matter.
-- **IMPORTANT:** You must increment the *serial* value every time you update a zone file, or all downstream cached copies of this record will not be flushed.
+- **IMPORTANT:** You must increment the _serial_ value **every time you update a zone file**, or all downstream cached copies of this record will not be flushed.
 - `$ORIGIN` is optional and sets the FQDN for the zone; if not used then fully qualify all left side names on each record.
 - Be sure to terminate all FQDN's with a period.
 - `$TTL` is the default if new TTL is given on each record.
