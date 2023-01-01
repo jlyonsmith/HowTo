@@ -8,29 +8,19 @@ If using Hetzner, [use the Rescue O/S to install Debian](https://docs.hetzner.co
 
 - [Trajche Kralev](https://tj.mk/install-proxmox-4-hetzner-debian/)
 - [Hetzner - Install and Configure Proxmox VE](https://community.hetzner.com/tutorials/install-and-configure-proxmox_ve)
-- [ProxMox network configuration](https://dominicpratt.de/hetzner-proxmox-network-configuration/)
+- [How to setup Proxmox on dedicated Hetzner Server](https://www.indivar.com/blog/how-to-setup-proxmox-on-hetzner-dedicated-server/)
 
 You'll want to use LXC (containers) virtualization instead of KVM where you are using Linux as the hosted O/S.  Use routed networking for machines that need to go on the Internet.
 
 Install [fail2ban](https://pve.proxmox.com/wiki/Fail2ban) to protect against brute force attacks.  Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
 
-## Create a Private Network
+## Create a Private IPv4 Network
 
-See [this article](https://blog.jenningsga.com/private-network-with-proxmox/)
+See [this article](https://blog.jenningsga.com/private-network-with-proxmox/) and this one [Proxmox 5 on Hetzner Root-Server with Dual-Stack IPv4/IPv6 for Host and Guests](https://www.sysorchestra.com/proxmox-5-on-hetzner-root-server-with-ipv4/)
 
-You DO NOT need to use the NATS approach to give access to the public network.
+Use the IP address sharing approach not the NATS approach to give access to the public network.
 
 For LXC containers, networking is configured by ProxMox. You can find the network configuration files in `/etc/systemd/network/eth0.network`, etc..  If you change these files in the ProxMox UI they will change here without requiring a reboot.
-
-Network configuration for the internal `10.x.x.x` network in `/etc/systemd/network/eth1.network` should look like:
-
-```ini
-[Network]
-Description = Interface eth1 autoconfigured by PVE
-Address = 10.10.10.3/24
-DHCP = no
-IPv6AcceptRA = false
-```
 
 ## Adding an XFS Drive to an Existing Node
 

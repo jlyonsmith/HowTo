@@ -1,6 +1,6 @@
 # Install `iptables`
 
-`iptables` is the built-in firewall on Ubuntu, Debian and CentOS.
+`iptables` is the built-in firewall on Ubuntu, Debian and CentOS. `ip6tables` is the IPv6 equivalent.
 
 Heres a handy diagram to understand how it works:
 
@@ -43,6 +43,8 @@ EOF
 Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`.
 
 NOTE: The retry `-w 15` option is useful on systems where other services like `fail2ban` are also setting the IPTables.
+
+Do the same for `ip6tables` to set up IPv6 rules.  Don't forget to allow `ipv6-icmp` on all interfaces or IPv6 SLAAC and other protocols will break.
 
 ## CentOS
 
