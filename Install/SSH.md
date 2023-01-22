@@ -79,7 +79,7 @@ sudo apt install libpam-google-authenticator
 
 Edit `/etc/pam.d/sshd`.  Comment out `@include common-auth`.  Add `auth required pam_google_authenticator.so` at the end of the file.
 
-Restart SSH with `systemctl restart sshd`.
+Restart SSH with `systemctl restart ssh`.
 
 Now edit `/etc/ssh/sshd_config` and change the following lines:0
 
