@@ -22,7 +22,63 @@ All the documentation you need is at [fishshell.com](https://fishshell.com/).
 
 The default configuration file is `~/.config/fish/config.fish` which is created the first time you run `fish`.
 
-There is not separate interactive vs. non-interactive config. Use the `is-interactive` built-in instead.
+There is no separate interactive vs. non-interactive configuration as with `bash`. Just use the `is-interactive` built-in to check if the shell is being used interactively.
+
+### Basic Configuration
+
+Install [Starship](https://starship.rs/).  Configure `~/.config/starship.toml` with:
+
+```toml
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+[container]
+disabled=true
+```
+
+Start `fish` once, then `exit` and edit `~/.config/fish/config.fish` with:
+
+```fish
+if status is-interactive
+  # Commands to run in interactive sessions can go here
+  set FISH_COMPLETIONS "$HOME/.config/fish/completions"
+
+  # Set the terminal title to the basename of the directory
+  function fish_title
+      echo (basename (pwd))
+  end
+
+  # Set tab color e.g. tab-color -r255 -g0 -b0
+  function tab-color
+      argparse r/red= g/green= b/blue= -- $argv
+      or return
+      printf '\x1b]6;1;bg;red;brightness;%s\x7' $_flag_r
+      printf '\x1b]6;1;bg;green;brightness;%s\x7' $_flag_g
+      printf '\x1b]6;1;bg;blue;brightness;%s\x7' $_flag_b
+  end
+end
+
+set -gx EDITOR 'vim'
+
+# Aliases
+alias egrep 'egrep --color=auto'
+alias fgrep 'fgrep --color=auto'
+alias grep 'grep --color=auto'
+alias l 'ls -CF'
+alias la 'ls -A'
+alias ll 'ls -al'
+alias ls 'ls --color=auto'
+alias edit "vi"
+alias bn "babel-node"
+alias ipts "iptables-save"
+alias iptn "iptables -t nat"
+alias iptf "iptables -t filter"
+alias iptr "iptables -t raw"
+alias sc "systemctl"
+alias jc "journalctl"
+
+starship init fish | source
+```
 
 ### Examples
 
@@ -33,7 +89,7 @@ set FISH_COMPLETIONS ~/.config/fish/completions
 
 ```fish
 # Local bin
-fish_add_path "~/bin"
+fish_add_path "$HOME/bin"
 ```
 
 ```fish
@@ -101,7 +157,11 @@ end
 
 ## Change Default Shell
 
-Edit the `/etc/shells` file to add `(/usr/local/bin/fish)` (or whatever 'which fish' shows on your system) as a valid option. Set as default shell with `chsh`.
+Ensure the `/etc/shells` file has `(/usr/local/bin/fish)` (or whatever `which fish` shows on your system) as a valid option. Set `fish` default shell with:
+
+```sh
+sudo chsh -s $(which fish) $USER
+```
 
 ## Use the Hashbang
 
