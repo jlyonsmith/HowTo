@@ -27,6 +27,8 @@ OPTIONS="-u bind -4"
 
 Here we are adding the `-4` to the `OPTIONS` environment variable.
 
+> NOTE: In version 9.18.11-1 I had to set `Type=forking` and remove the `-f` to get `systemd` to see the service as active.
+
 Now go to `/etc/bind` and edit `named.conf.options` and make it look like:
 
 ```conf
