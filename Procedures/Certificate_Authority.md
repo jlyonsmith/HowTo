@@ -12,8 +12,8 @@ cd ca/root
 Create private key for the CA:
 
 ```sh
-openssl genrsa -des3 -out myCA.key 2048
-chmod u=rwx,go= myCA.key
+openssl genrsa -des3 -out MyCA.key 2048
+chmod u=rwx,go= MyCA.key
 ```
 
 *Give it a pass-phrase for security. Write that down and keep it safe.*
@@ -45,32 +45,31 @@ The most important field is the Common Name (CN), which should be a company or o
 Now generate the *root certificate*:
 
 ```sh
-openssl req -x509 -new -nodes -extensions v3_req -key myCA.key -sha256 -days 1825 -config MyCA.cnf -out myCA.crt
+openssl req -x509 -new -nodes -extensions v3_req -key MyCA.key -sha256 -days 1825 -config MyCA.cnf -out MyCA.crt
 ```
 
-The file `myCA.crt` is your CA certificate in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
+The file `MyCA.crt` is your CA certificate in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
 
 ## Installing the Root Certificate
 
 Now you have the CA certificate you can install it once on every client that you will be accessing servers using certificates signed with this root one.  The server certificates will be trusted, and you will not get any more browser warnings. How you install depends on your O/S.
 
-For example, on macOS `scp` the `myCA.crt` file or otherwise copy it to the machine. The run `open myCA.crt` in a terminal, or drag and drop the file to the **Keychain Access** app. This will add it to the **login** key chain under **Certificates**.  Right click on it, **Get Info** then select **Always trust**.
+For example, on macOS `scp` the `MyCA.crt` file or otherwise copy it to the machine. The run `open MyCA.crt` in a terminal, or drag and drop the file to the **Keychain Access** app. This will add it to the **login** key chain under **Certificates**.  Right click on it, **Get Info** then select **Always trust**.
 
 ## Sign Certificates For Internal Sites
 
 At this point you are ready to sign your own TLS/SSL certificates for any servers on your internal network.
 
-First, create a working directory and generate a key for the certificate:
+First, create a working directory for the domain referred to as `{{DOMAIN}}` below:
 
 ```sh
-mkdir -p ca/my.domain
-cd ca/my.domain
-openssl genrsa -out my.domain.key 2048
+mkdir -p ca/{{DOMAIN}}
+cd ca{{DOMAIN}}
 ```
 
 Now, you must create a *Certificate Signing Request* (CSR) for the Fully Qualified Domain Name (FQDN). We do this by creating a *signing configuration file* which we can then use to generate the binar CSR.
 
-> The signing configuration file is a file containing the signing information and extended information about how the certificate can be used.  Signing information contains things like Common Name (CN), Organization Name, etc.. In older certificates you used the CN field to specify the FQDN, but for newer certificates Subject Alternate Name is how you are supposed to specify the domains you are allowed to sign.  This is since [RFC2818](https://tools.ietf.org/html/rfc2818), written in 2000.  If you don't give this file you'll get prompted for some of the information, but you'll still need to provide *extended signing information* (a subset of the configuration file) to generate the certificate properly.
+> The signing configuration file is a file containing the signing information as well as *extended* information about how the certificate can be used.  Signing information contains things like Common Name (CN), Organization Name, etc.. In older certificates you used the CN field to specify the FQDN, but for newer certificates Subject Alternate Name is how you are supposed to specify the domains you are allowed to sign.  This is since [RFC2818](https://tools.ietf.org/html/rfc2818), written in 2000.  If you don't supply this file to OpenSSL you'll get prompted for some of the information, but you'll still need to provide the *extended* signing information, i.e. a subset of the configuration file, ino order to generate the certificate properly.  So it's best to just create this file and make life easier.
 
 So, create a file, `my.domain.cnf`, containing the following content:
 
@@ -95,29 +94,51 @@ subjectAltName=DNS:my.domain
 Now you have the configuration, here's the command to generate the `.csr` and a private `.key` file in one shot, using the `.cnf` file:
 
 ```sh
-openssl req -out my.domain.csr -new -newkey rsa:2048 -keyout my.domain.key -nodes -config my.domain.cnf -extensions v3_req
+openssl req -out {{DOMAIN}}.csr -new -newkey rsa:2048 -keyout {{DOMAIN}}.key -nodes -config {{DOMAIN}}.cnf -extensions v3_req
 ```
 
-If you want to make a wildcard certificate add `*.` to both the `commonName` and the `DNS.0` name.
+The `-nodes` prevents DES encryption of the private key.  If you want to make a wildcard certificate, prefix both the `commonName` and the `DNS.0` name with `*.`.
 
-In theory, other people generate the `.csr` using the steps above then give it to you for signing. Your job is to prove you can trust them.  That's what being a Certificate Authority *is* after all.
+> You can also generate a private key with the command `openssl genrsa -out {{DOMAIN}}.key 2048` and skip the `-newkey`, `-keyout`, `-nodes` arguments.
+
+In theory, other people generate the `.csr` using the steps above then give it to you for signing. Your job is to prove you can trust them.  That's what being a Certificate Authority *is* after all.  You do the validation, then give them back a certificate, root certificate and a private key.  And maybe a shiney badge for their website.
 
 > NOTE: there is an issue with CSR's that include *extensions*. These are extensions to the original CSR format. Any extensions specified in the CSR are not automatically copied over to a signed certificate. You need to create an extension file (`.ext`), a subset of the full `.cnf` file, and provide it to the `openssl x509` command with the `-extfile` flag and `-extensions`. For our own certificates, it's easiest to do that by using the `.cnf` file as the `.ext` file as `openssl` will ignore any sections it does not recognize for one format or the other!
 
 The final step is to generate a signed `.crt` file to use for your internal site. You use the `x509` command to generate the certificate:
 
-```sh
-openssl x509 -req -in my.domain.csr -CA ../root/myCA.crt -CAkey ../root/myCA.key -CAcreateserial -out my.domain.crt -days 730 -sha256 -extfile my.domain.cnf -extensions v3_req
+```bash
+openssl x509 -req -in {{DOMAIN}}.csr -CA ../root/MyCA.crt -CAkey ../root/MyCA.key -CAcreateserial -out {{DOMAIN}}.crt -days 730 -sha256 -extfile {{DOMAIN}}.cnf -extensions v3_req
 ```
 
 `-CAcreateserial` just causes a random number to be used as the certificate serial number. It will get written to a file named `.srl` in the same directory.
 
-This certificate lasts 2 years. You'll take the files `my.domain.key` and `my.domain.crt` and install them on your server. You can use this exact same command to renew a certificate when the old one expires, using any new `.cnf` file that the requester sent, or the old one if that's all you have.  Note, there is no date information in the `.cnf` file.
+This certificate lasts 2 years. You'll take the files `my.domain.key` and `my.domain.crt` and install them on your server.
+
+## Renewing Certificates
+
+When the certificate expires you can renew it.  You can either use the same public/private key pair, or generate a new pair. If you want to use the same key pair again, do the following:
+
+```sh
+openssl req -out {{DOMAIN}}.csr -new -inkey {{DOMAIN}}.key -config {{DOMAIN}}.cnf -extensions v3_req
+```
+
+Otherwise, use the exact same command as when you are generating a certificate for the first time, as given in the previous section. Then, use use the same command as above renew a certificate:
+
+## Concatenating Certificates
 
 Don't forget that for web servers such as `nginx`, this certificate needs to be concatenated together into a *chained certificate bundle* before deployment. You do this by concatenating the site certificate with the CA certificate (in that order), e.g.:
 
-```sh
+```bash
 cat my.domain.crt ../root/MyCA.crt > my.domain/my.domain.fullchain.crt
 ```
 
-Best practice is to just send the requester back your CA certificate along with the signed certificate and remind them of this detail.  It's dependent on where they are using the certificate.
+Best practice is to just send the requester back your CA certificate along with the signed certificate and remind them of this detail.  It  dependends on where they are using the certificate.
+
+## Generating a PKCS12 File
+
+Many systems need a PKCS12 format file to import a certificate.  Generate one with:
+
+```sh
+openssl pkcs12 -export -out {{DOMAIN}}.pfx -inkey {{DOMAIN}}.key -in {{DOMAIN}}.crt -certfile ../root/MyCA.crt
+```

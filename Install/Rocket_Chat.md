@@ -60,18 +60,21 @@ nginx -s reload
 
 Open the firewall for ports `80` and `443` and restrict to your IP.
 
-Install MongoDB 4.0:
+As `sudo`, install MongoDB 6.0:
 
 ```sh
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+apt install gnupg
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+apt update
+apt install -y mongodb-org mongodb-org-mongos mongodb-org-server mongodb-org-shell mongodb-org-tools mongodb-org-database-tools-extra
 ```
 
 Install Node 14.x:
 
 ```sh
 sudo apt-get -y update && sudo apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-sudo apt-get install -y build-essential mongodb-org nodejs graphicsmagick
+sudo apt-get install -y build-essential nodejs graphicsmagick
 sudo npm install -g inherits n && sudo n 14.18.2
 ```
 
@@ -159,6 +162,8 @@ systemctl status rocketchat
 ```
 
 NOTE: Use `n $NEW_VERSION` and `systemctl restart rocketchat` to upgraded NodeJS.
+
+NOTE: The MongoDB database uses sharding with one shart `rs01`.  You need to run the server with the `--replSet rs01` flag.
 
 ## Configuration
 

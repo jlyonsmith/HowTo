@@ -45,22 +45,9 @@ First, configure an S3 bucket, create a backup user and get the access & secret 
 }
 ```
 
-### Configure SystemD for Users
-
-This document assumes you will be configuring Restic for a specific user, in this case a user called `git`.  We also assume that you have `systemd` installed and are using that for a running Restic (not `cron`).
-
-First, become the `git` user with `sudo su git`.
-
-Then, ensure that you have the required variables to run `systemd --user`.  Add the following to `.bashrc`:
-
-```bash
-export XDG_RUNTIME_DIR="/run/user/$UID"
-export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
-```
-
 ### Configure Files to Backup
 
-Create `~/.config/files-to-backup` with:
+Create a file `~/.config/files-to-backup` containing what you want to back up, e.g.:
 
 ```txt
 /etc/gitea/app.ini
@@ -70,11 +57,9 @@ Create `~/.config/files-to-backup` with:
 /home/git/gitea-repositories
 ```
 
-These files are just an example for backing up a Gitea instance.
-
 ### Configure Restic Environment
 
-Create `~/.config/restic-environment` with:
+Create a file `~/.config/restic-environment` with the desired backup schedule and other information:
 
 ```conf
 RETENTION_DAYS=7
@@ -89,7 +74,7 @@ RESTIC_PASSWORD=...
 
 Generate a `RESTIC_PASSWORD` with your favorite password generator and paste in the AWS access key information, and the correct bucket name for `your-backup-bucket`.
 
-### Initialize the Repo
+### Initialize the Repo on S3
 
 Run `export $(grep -v '^#' .config/restic-environment | xargs)` in your shell to get the needed environment variables, then run:
 
@@ -97,13 +82,26 @@ Run `export $(grep -v '^#' .config/restic-environment | xargs)` in your shell to
 restic init
 ```
 
-to initialize the repository for the first use.
+This will initialize the repository for use.
 
-### Test Backup
+### Do a Test Backup
 
-Do a test backup with `restic backup`.  Then do a `restic snapshots` and ensure your backup looks correct.
+Do a test backup with `restic backup`.  Then do a `restic snapshots` and ensure your backup looks correct (don't forget to set the necessary environment variables as mentioned above.)
 
-### Create Backup Service and Timer
+### Configure 'systemd' for Users
+
+This section assumes you want to configure Restic for a specific user, not the entire system. In our example a user called `git`.
+
+While running as `root` become the `git` user with `su git`.
+
+Then, ensure that you have the required variables to run `systemd --user`.  Add the following to `.bashrc`:
+
+```bash
+export XDG_RUNTIME_DIR="/run/user/$UID"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+```
+
+### Create a Backup Timer
 
 Create a file `~/.config/systemd/user/restic-backup.service` with:
 
@@ -141,7 +139,7 @@ Enable the time with `systemctl --user enable restic-backup.timer`.
 
 Check with `systemctl --user list-timers`.
 
-### Create Prune Service and Timer
+### Create a Prune Timer
 
 Add a separate pruning service that runs less frequently.  Add a file `~/.config/systemd/user/restic-prune.service`:
 
@@ -172,6 +170,10 @@ EnvironmentFile=/home/git/.config/restic-environment
 Enable the time with `systemctl --user enable restic-prune.timer`.
 
 Check with `systemctl --user list-timers`.
+
+### Configuring for System Backups
+
+Systems backups will run as `root` and follow the exact same steps as above, only you don't need to add `--user` the `systemctl` commands,  `.timer` files will go in the `/etc/systemd/system/` directory, and configuration files will go under `/root` or wherever the `root` users home directory is.
 
 ## References
 

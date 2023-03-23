@@ -13,9 +13,9 @@ Apple provisioning provides four ways to share apps:
 
 The UDID is not visible on the phone. It has to be revealed in iTunes, and it cannot be highlighted and copied like normal text. To retrieve the UDID you would need to do the following:
 
-1. Connect the device to the computer, and run iTunes. 
+1. Connect the device to the computer, and run iTunes.
 2. Select the device in the Device list. On the right side the device information will be visible.
-3. Click the Serial Number. It will switch to displaying the UDID. 
+3. Click the Serial Number. It will switch to displaying the UDID.
 4. Press **&#8984;C** to copy the UDID to the clipboard.
 
 The site [What's my UDID?](http://whatsmyudid.com/) has a nice walk through.
@@ -28,7 +28,7 @@ Provisioning profiles contain a cryptographically signed collection of:
 - A team ID
 - One or more certificates (usually developer and team)
 - A list of devices (ad-hoc and developer profiles only)
-- A list of capabilities 
+- A list of capabilities
 - A list of entitlements
 
 It's installed on the device to allow an app to run on that device.  It can be installed separatedly for ad-hoc releases, or bundled with the app for production releases.
@@ -39,9 +39,9 @@ It's installed on the device to allow an app to run on that device.  It can be i
 
 ## Identifying Xcode-managed Provisioning Profiles
 
-Xcode-managed provisioning profiles in the member center using an explicit App ID begin with the `iOS Team Provisioning Profile:` and are followed by the bundle ID. 
+Xcode-managed provisioning profiles in the member center using an explicit App ID begin with the `iOS Team Provisioning Profile:` and are followed by the bundle ID.
 
-The name of a distribution provisioning profile begins with the text `XC:` followed by the App ID. 
+The name of a distribution provisioning profile begins with the text `XC:` followed by the App ID.
 
 If you are using a wildcard App ID, the name of the distribution provisioning profile is `XC:*`.
 
@@ -73,8 +73,8 @@ Within the Keychain Access drop down menu, select _Keychain Access > Certificate
 You'll need to manually move both the certificate and the generated private key around to any machine that needs to build production packages.  Do this by exporting a `.p12` file from `Keychain Access.app`.
 
 - After the first download, the _Download_ button in the developer portal only brings down the certificate and not the private key.
-- Make sure the private key shows as a child of the certificate in _Keychain Access_.  
-- The certificate needs to be on the **login** keychain. 
+- Make sure the private key shows as a child of the certificate in _Keychain Access_.
+- The certificate needs to be on the **login** keychain.
 - When exporting, make sure to expand the certificate and select both the certificate and the private key.
 - You can leave the password blank but _don't_, just use something easy to type.
 - Give the `codesign` tool access to the private key by going to **Get Info** and `+` then **Shift+&#8984;+G**, paste in `/usr/bin/codesign` then **Add**, **Save** &amp; type admin password.
@@ -84,3 +84,6 @@ You'll need to manually move both the certificate and the generated private key 
 ---
 
 [QA1814]: https://developer.apple.com/library/content/qa/qa1814/_index.html
+
+Notes on CFBundleVersion and CFBundleShortVersion:
+https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-111349

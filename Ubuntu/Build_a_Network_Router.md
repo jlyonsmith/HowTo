@@ -8,17 +8,17 @@ Different devices have different ways to select the boot device.  Some will do i
 
 The Ubuntu install will have you create an admin user.  You'll finish setting up that user up in the next step.
 
-## Enable Changing the Machine Name
+## Change the Machine Name
 
-To be able to change the machine name with `hostnamectl` do the following:
-
-1. Set `preserve_hostname true` in `/etc/cloud/cloud.cfg`
-2. Update hostname with `sudo hostnamectl set-hostname $NEW_HOSTNAME`
-3. `sudo reboot now`
+Update hostname with `sudo hostnamectl set-hostname $NEW_HOSTNAME` and `sudo reboot now`.
 
 ## Create Admin User & Disable Root Login
 
 [Create Sudo User](Procedures/Create_Sudo_User.md)
+
+## Configure `ddclient`
+
+`ddclient` ensures that any public DNS entries for the router are correct.
 
 ## Configure Network Interfaces
 
@@ -53,8 +53,6 @@ network:
 
 Do `netplan apply` after changing the config and re-connect if necessary.
 
-## Setup the IPTables
-
 ## Set up Fail2Ban
 
 [fail2ban](Install/Fail2Ban.md)
@@ -62,6 +60,8 @@ Do `netplan apply` after changing the config and re-connect if necessary.
 ## Set Time Zone
 
 [Set Timezone](Procedures/Set_Locale_Ubuntu.md)
+
+## Configure IPTables
 
 For the Protectli device mentioned above, place these rules in `/etc/iptables.rules`:
 
@@ -153,9 +153,9 @@ In case everything stops working:
 Diagnostic questions for the Comcast modem:
 
 - Can you connect to Comcast cable modem? Set manual IP of `192.168.100.2` and `ping 192.168.100.1` then use browser to connect to `http://192.168.100.1` with modem password.
-- Is the Comcast modem responding to `ping 192.168.100.1`? Reboot the modem.
+- Is the Comcast modem responding to `ping 192.168.100.1`? If not, reboot the modem.
 
-The cable modem has a diagnostic IP of `192.168.100.1`  This isn't on the `192.168.1.0/22` subnet (see [CIDR calculator](http://networkcalculator.ca/cidr-calculator.php) for the range) Normally, DHCP from the Comcast router adds a route that catches it.  The problem is, when the interface can't get an address from the modem it doesn't add a default route.  You can add one manually with `route add 192.168.100.1 dev enp1s0` to allow you to get to the modem.  This will get overwritten when the interface eventually comes up.
+The cable modem has a diagnostic IP of `192.168.100.1`  This isn't on the `192.168.0.0/22` subnet (see [CIDR calculator](http://networkcalculator.ca/cidr-calculator.php) for the range), so the router will route it out over the Internet to die.  See `route` on the router.
 
 ## Configure `systemd-networkd-wait-online.service`
 
