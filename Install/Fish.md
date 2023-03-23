@@ -1,6 +1,8 @@
 # Install & Use the Fish Shell
 
-An easy to learn and use shell that sacrifices a some POSIX compliance for consistency & simplicity, without sacrificing functionality. See the [Fish command shell site](https://fishshell.com/) for all the details.  *Yes, they probably should update the headline.  It is a little out-of-date.* You can also look at the [source code on GitHub](https://github.com/fish-shell/fish-shell).
+An easy to learn and use shell that sacrifices a some POSIX compliance for consistency & simplicity, without sacrificing functionality. See the [Fish command shell site](https://fishshell.com/) for all the details.  *Yes, they probably should update the tag line "The shell for the 90's".*
+
+You can look at the [source code on GitHub](https://github.com/fish-shell/fish-shell).
 
 ## Install
 
@@ -33,6 +35,7 @@ Install [Starship](https://starship.rs/).  Configure `~/.config/starship.toml` w
 add_newline = false
 command_timeout = 750
 
+# There's was a bug in AWS support - might be fixed now
 [aws]
 disabled = true
 
@@ -42,7 +45,7 @@ truncation_length = 8
 truncation_symbol = ".../"
 ```
 
-Start `fish` once, then `exit` and edit `~/.config/fish/config.fish` with:
+Start `fish` once, then `exit`, then edit `~/.config/fish/config.fish` to contain:
 
 ```fish
 if status is-interactive
@@ -118,11 +121,6 @@ end
 if which pyenv >/dev/null
     status --is-interactive; and pyenv init - | source
 end
-# docker
-# Run once `fisher install barnybug/docker-fish-completion`
-
-# Araxis
-fish_add_path "/Applications/Araxis Merge.app/Contents/Utilities"
 
 # Android
 alias emulator "$HOME/Library/Android/sdk/emulator/emulator"
