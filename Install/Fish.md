@@ -4,7 +4,7 @@ An easy to learn and use shell that sacrifices a some POSIX compliance for consi
 
 ## Install
 
-On macOS `brew install fish`.
+On macOS `brew install fish`.  Type `which fish` to get the location.  Ensure that the location is at the end of end of `/etc/shells`.  When you are comfortable with fish do `chsh -s <full-path-to-fish-here>` and restart your terminal.
 
 On Ubuntu:
 
@@ -31,56 +31,109 @@ Install [Starship](https://starship.rs/).  Configure `~/.config/starship.toml` w
 ```toml
 # Don't print a new line at the start of the prompt
 add_newline = false
+command_timeout = 750
 
-[container]
-disabled=true
+[aws]
+disabled = true
+
+[directory]
+truncate_to_repo = false
+truncation_length = 8
+truncation_symbol = ".../"
 ```
 
 Start `fish` once, then `exit` and edit `~/.config/fish/config.fish` with:
 
 ```fish
 if status is-interactive
-  # Commands to run in interactive sessions can go here
-  set FISH_COMPLETIONS "$HOME/.config/fish/completions"
+    # Commands to run in interactive sessions can go here
+    set FISH_COMPLETIONS $HOME/.config/fish/completions
 
-  # Set the terminal title to the basename of the directory
-  function fish_title
-      echo (basename (pwd))
-  end
+    # cd shortcuts
+    set -gx CDPATH ".:$HOME/Projects/jlyonsmith:$HOME/Projects/john"
 
-  # Set tab color e.g. tab-color -r255 -g0 -b0
-  function tab-color
-      argparse r/red= g/green= b/blue= -- $argv
-      or return
-      printf '\x1b]6;1;bg;red;brightness;%s\x7' $_flag_r
-      printf '\x1b]6;1;bg;green;brightness;%s\x7' $_flag_g
-      printf '\x1b]6;1;bg;blue;brightness;%s\x7' $_flag_b
-  end
+    # Set the terminal title to the basename of the directory
+    function fish_title
+        echo (basename (pwd))
+    end
+
+    # Set tab color e.g. tab-color -r255 -g0 -b0
+    function tab-color
+        argparse r/red= g/green= b/blue= -- $argv
+        or return
+        printf '\x1b]6;1;bg;red;brightness;%s\x7' $_flag_r
+        printf '\x1b]6;1;bg;green;brightness;%s\x7' $_flag_g
+        printf '\x1b]6;1;bg;blue;brightness;%s\x7' $_flag_b
+    end
 end
 
-set -gx EDITOR 'vim'
+# VSCode
+alias edit code
 
-# Aliases
-alias egrep 'egrep --color=auto'
-alias fgrep 'fgrep --color=auto'
-alias grep 'grep --color=auto'
-alias l 'ls -CF'
-alias la 'ls -A'
-alias ll 'ls -al'
-alias ls 'ls --color=auto'
-alias edit "vi"
-alias bn "babel-node"
-alias ipts "iptables-save"
-alias iptn "iptables -t nat"
-alias iptf "iptables -t filter"
-alias iptr "iptables -t raw"
-alias sc "systemctl"
-alias jc "journalctl"
+# Flutter
+fish_add_path -a "$HOME/Projects/flutter/flutter/bin"
+if not test -e $FISH_COMPLETIONS/flutter.fish
+    curl -Ls https://github.com/qiuxiang/flutter-fish-completions/releases/download/v2.5.1%2B1/flutter.fish -o $FISH_COMPLETIONS/flutter.fish
+end
 
+# Dart
+fish_add_path -a "$HOME/.pub-cache/bin" # Where 'dart global activate' puts binaries
+
+# Get IP address
+set -g LOCAL_IP_ADDR (ipconfig getifaddr en0)
+
+# Homebrew
+fish_add_path /opt/homebrew/bin
+
+# Fisher (Fish package manager)
+# Run once `curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher`
+
+# Cargo/Rust
+fish_add_path "$HOME/.cargo/bin"
+if not test -e $FISH_COMPLETIONS/cargo.fish
+    curl -s https://raw.githubusercontent.com/fish-shell/fish-shell/master/share/completions/cargo.fish -o $FISH_COMPLETIONS/cargo.fish
+end
+
+# Local bin
+fish_add_path "$HOME/bin"
+
+# rbenv
+if which rbenv >/dev/null
+    set -gx RUBY_CONFIGURE_OPTS "--with-openssl-dir="(brew --prefix openssl@1.1)
+    status --is-interactive; and rbenv init - fish | source
+    if not test -e $FISH_COMPLETIONS/rbenv.fish
+      curl -s https://github.com/rbenv/fish-rbenv/blob/master/completions/rbenv.fish -o $FISH_COMPLETIONS/rbenv.fish
+    end
+end
+
+# nodenv
+if which nodenv >/dev/null
+    status --is-interactive; and source (nodenv init - | psub)
+    if not test -e $FISH_COMPLETIONS/nodenv.fish
+        curl -s https://raw.githubusercontent.com/nodenv/nodenv/master/completions/nodenv.fish -o $FISH_COMPLETIONS/nodenv.fish
+    end
+end
+
+# pyenv
+if which pyenv >/dev/null
+    status --is-interactive; and pyenv init - | source
+end
+# docker
+# Run once `fisher install barnybug/docker-fish-completion`
+
+# Araxis
+fish_add_path "/Applications/Araxis Merge.app/Contents/Utilities"
+
+# Android
+alias emulator "$HOME/Library/Android/sdk/emulator/emulator"
+
+# Starship
 starship init fish | source
 ```
 
 ### Examples
+
+Here are some example scripts for you to try out Fish functionality:
 
 ```fish
 # Set completions directory
