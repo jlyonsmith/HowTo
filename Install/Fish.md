@@ -11,24 +11,48 @@ On macOS `brew install fish`.  Type `which fish` to get the location.  Ensure th
 On Ubuntu:
 
 ```sh
+sudo apt install -y software-properties-common
 sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install -y fish
+```
+
+On Debian:
+
+```sh
+echo 'deb http://download.opensuse.org/repositories/shells:/fish/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/shells:fish.list
+curl -fsSL https://download.opensuse.org/repositories/shells:fish/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish.gpg > /dev/null
 sudo apt update
 sudo apt install fish
 ```
 
-## Documentation
-
-All the documentation you need is at [fishshell.com](https://fishshell.com/).
+See [Install package shells:fish / fish](https://software.opensuse.org/download.html?project=shells%3Afish&package=fish).
 
 ## Config
 
-The default configuration file is `~/.config/fish/config.fish` which is created the first time you run `fish`.
+Start `fish` once, then `exit`. The default configuration file is `~/.config/fish/config.fish` which is created the first time you run `fish`.
 
-There is no separate interactive vs. non-interactive configuration as with `bash`. Just use the `is-interactive` built-in to check if the shell is being used interactively.
+Run:
 
-### Basic Configuration
+```sh
+fish_config theme save coolbeans
+```
 
-Install [Starship](https://starship.rs/).  Configure `~/.config/starship.toml` with:
+### Starship Prompt
+
+Install [Starship](https://starship.rs/).  On Ubuntu:
+
+```sh
+curl -sS https://starship.rs/install.sh | sh
+```
+
+On macOS:
+
+```sh
+brew install starship
+```
+
+Configure `~/.config/starship.toml` with:
 
 ```toml
 # Don't print a new line at the start of the prompt
@@ -39,13 +63,20 @@ command_timeout = 750
 [aws]
 disabled = true
 
+[container]
+disabled = true
+
 [directory]
 truncate_to_repo = false
 truncation_length = 8
 truncation_symbol = ".../"
 ```
 
-Start `fish` once, then `exit`, then edit `~/.config/fish/config.fish` to contain:
+## macOS Configuration
+
+There is no separate interactive vs. non-interactive configuration as with `bash`. Just use the `is-interactive` built-in to check if the shell is being used interactively.
+
+Edit `~/.config/fish/config.fish` to contain:
 
 ```fish
 if status is-interactive
@@ -54,11 +85,6 @@ if status is-interactive
 
     # cd shortcuts
     set -gx CDPATH ".:$HOME/Projects/jlyonsmith:$HOME/Projects/john"
-
-    # Set the terminal title to the basename of the directory
-    function fish_title
-        echo (basename (pwd))
-    end
 
     # Set tab color e.g. tab-color -r255 -g0 -b0
     function tab-color
@@ -129,7 +155,60 @@ alias emulator "$HOME/Library/Android/sdk/emulator/emulator"
 starship init fish | source
 ```
 
-### Examples
+## Linux Configuration
+
+Edit `~/.config/fish/config.fish` to contain:
+
+```fish
+if status is-interactive
+  # Commands to run in interactive sessions can go here
+  set FISH_COMPLETIONS "$HOME/.config/fish/completions"
+
+  # Change the greeting to be more useful
+  function fish_greeting
+    fish -N --version
+  end
+end
+
+set -gx EDITOR 'vim'
+
+# Aliases
+alias egrep 'egrep --color=auto'
+alias fgrep 'fgrep --color=auto'
+alias grep 'grep --color=auto'
+alias l 'ls -CF'
+alias la 'ls -A'
+alias ll 'ls -al'
+alias ls 'ls --color=auto'
+alias edit vi
+alias bn babel-node
+alias ipts iptables-save
+alias iptn 'iptables -t nat'
+alias iptf 'iptables -t filter'
+alias iptr 'iptables -t raw'
+alias sc systemctl
+alias jc journalctl
+
+starship init fish | source
+```
+
+## Change Default Shell
+
+Ensure the `/etc/shells` file has `(/usr/local/bin/fish)` (or whatever `which fish` shows on your system) as a valid option. Set `fish` default shell with:
+
+```sh
+sudo chsh -s $(which fish) $USER
+```
+
+## Other Stuff
+
+All the documentation you need is at [fishshell.com](https://fishshell.com/).
+
+Ensure your scripts start with `#!/usr/bin/env <shell>` to ensure that they run with the correct shell.
+
+Don't forget if you use `sudo -s` a lot to set the `config.fish` and `starship.toml` for the `root` user.
+
+## Examples
 
 Here are some example scripts for you to try out Fish functionality:
 
@@ -198,25 +277,6 @@ if which rbenv >/dev/null
     set -gx RUBY_CONFIGURE_OPTS "--with-openssl-dir="(brew --prefix openssl@1.1)
 end
 ```
-
-```fish
-# Starship
-if status is-interactive
-    starship init fish | source
-end
-```
-
-## Change Default Shell
-
-Ensure the `/etc/shells` file has `(/usr/local/bin/fish)` (or whatever `which fish` shows on your system) as a valid option. Set `fish` default shell with:
-
-```sh
-sudo chsh -s $(which fish) $USER
-```
-
-## Use the Hashbang
-
-Ensure your scripts start with `#!/usr/bin/env <shell>` to ensure that they run with the correct shell.
 
 ## Visual Studio Code
 

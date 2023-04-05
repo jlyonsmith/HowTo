@@ -121,7 +121,7 @@ Test with `systemctl --user daemon-reload` then `systemctl --user start restic-b
 
 If a problem is reported set `StandardOutput=file:/home/git/restic-backup.out` and `StandardError=file:/home/git/restic-backup.err` and see what the output and errors are.  You can also try `ExecStart=/bin/bash -c 'env'` to see what the environment is set too.
 
-Create a timer service:
+Create a timer:
 
 ```conf
 [Unit]
@@ -145,7 +145,7 @@ Add a separate pruning service that runs less frequently.  Add a file `~/.config
 
 ```conf
 [Unit]
-Description=Restic pruning service
+Description=Restic backup service (data pruning)
 
 [Service]
 Type=oneshot
@@ -159,12 +159,14 @@ Add a `~/.config/systemd/user/restic-prune.timer`:
 
 ```conf
 [Unit]
-Description=Restic backup service for Gitea (data pruning)
+Description=Prune data from the restic repository monthly
 
-[Service]
-Type=oneshot
-ExecStart=restic prune
-EnvironmentFile=/home/git/.config/restic-environment
+[Timer]
+OnCalendar=monthly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
 ```
 
 Enable the time with `systemctl --user enable restic-prune.timer`.

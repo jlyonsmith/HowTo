@@ -1,19 +1,11 @@
 # Installing and Configuring SSH
 
-## Installing on CentOS
-
-Install the SSH packages:
-
-```sh
-yum install openssh openssh-server openssh-clients openssl-libs
-```
-
 ## Harden the Server
 
 Replace `/etc/ssh/sshd_config` with:
 
 ```conf
-#Harden the ciphers and algorithms
+# Harden the ciphers and algorithms
 HostKey /etc/ssh/ssh_host_ed25519_key
 HostKey /etc/ssh/ssh_host_rsa_key
 KexAlgorithms curve25519-sha256@libssh.org
@@ -25,7 +17,7 @@ PermitRootLogin no
 
 # Only allow PPK
 PasswordAuthentication no
-ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
 
 # For 2FA
 UsePAM yes
@@ -37,7 +29,7 @@ ClientAliveCountMax 0
 # Who's using X11?
 X11Forwarding no
 
-# For security message
+# For security messages
 PrintMotd yes
 
 # Pass in these environment variables
@@ -49,7 +41,7 @@ Subsystem       sftp    /usr/lib/openssh/sftp-server
 
 Run `sshd -t` and confirm no errors. Then restart the SSH daemon again with `systemctl restart sshd`.
 
-NOTE: This will change the fingerprint of the host, so you will need to remove it from your local `~/.ssh/known_hosts` file.
+NOTE: This may change the fingerprint of the host. If so you will need to remove it from your local `~/.ssh/known_hosts` file.
 
 See below for changes needed to use Google Authenticator, which is only required on your SSH bastions.
 
@@ -61,17 +53,9 @@ To view the SSH log use:
 journalctl -u ssh -f
 ```
 
-## Audit your Bastion
-
-On a system connected to the Internet (not the server you are trying to configure), download and run [ssh-audit](https://github.com/arthepsy/ssh-audit) to check that the SSH daemon on the server is properly hardened:
-
-```sh
-./ssh-audit my-server.my-domain.com
-```
-
 ## Install MFA With Google Authenticator
 
-Install Googles PAM module:
+For your Bastion machine, install the Google Authenticator PAM module:
 
 ```sh
 sudo apt install libpam-google-authenticator
@@ -86,7 +70,9 @@ Now edit `/etc/ssh/sshd_config` and change the following lines:0
 ```conf
 UsePAM yes
 
-ChallengeResponseAuthentication yes
+# Pre Ubuntu 22.04
+# ChallengeResponseAuthentication yes
+KbdInteractiveAuthentication yes
 
 AuthenticationMethods publickey,keyboard-interactive
 ```
@@ -137,6 +123,14 @@ Host some-host
 
 Your bastions should be maximally hardened against SSH attacks.  The private machines should only be allowed SSH access via the private network.
 
+## Audit your Bastion
+
+On a system connected to the Internet (not the server you are trying to configure), download and run [ssh-audit](https://github.com/arthepsy/ssh-audit) to check that the SSH daemon on the server is properly hardened:
+
+```sh
+./ssh-audit my-server.my-domain.com
+```
+
 ## Connection Pooling on the Client
 
 Add the following to your `~/.ssh/config` under the bastion entry:
@@ -164,4 +158,12 @@ touch authorized_keys
 chmod u=rw,go= authorized_keys
 chmod u=rw,go= id_rsa
 chmod u=rw,go=r id_rsa.pub
+```
+
+## Installing on CentOS
+
+On CentOS you may have to install SSH with:
+
+```sh
+yum install openssh openssh-server openssh-clients openssl-libs
 ```

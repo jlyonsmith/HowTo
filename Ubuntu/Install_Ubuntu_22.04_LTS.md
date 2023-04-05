@@ -1,10 +1,16 @@
-# Install Ubuntu 22.04 LTS Service Instance
+# Install Ubuntu 22.04 LTS
 
-Log in to system as root using provided password:
+Step-by-step instructions for creating a new Ubuntu 22.04 LTS service instance.
+
+## Initial Steps
+
+Log in to system as root using provided password.  Using SSH:
 
 ```sh
 ssh root@x.mydomain.com
 ```
+
+Or using your virtualization systems console functionality.
 
 Then check the version with `lsb_release -a`:
 
@@ -18,6 +24,16 @@ Codename:       jammy
 
 If host name is not correct use `hostnamectl` to change it.
 
+Do an `apt update; apt upgrade -y`.
+
+## Debian Specific
+
+Install `sudo`:
+
+```sh
+apt install sudo
+```
+
 ## VIM
 
 First, `apt install vim`. Then set defaults in `~/.vimrc`:
@@ -30,13 +46,7 @@ First, `apt install vim`. Then set defaults in `~/.vimrc`:
 
 ## Create New Sudo User
 
-Install `sudo` on Debian:
-
-```sh
-apt install sudo
-```
-
-As `root` add the new user:
+As `root` add the new `USER` with `FULLNAME` and `PASSWORD`:
 
 ```sh
 adduser --disabled-password --gecos "$FULLNAME" $USER
@@ -48,7 +58,7 @@ Set a password for the user, even if you are using PPK's for `ssh`':
 chpasswd <<<"$USER:$PASSWORD"
 ```
 
-Use [Strong Password Generator](https://strongpasswordgenerator.com/).
+Don't add special characters to the password, just alphanumeric.
 
 Add to the `sudo` group:
 
@@ -56,7 +66,7 @@ Add to the `sudo` group:
 usermod -aG sudo $USER
 ```
 
-If desired, add an entry to allow the user to use `sudo` (without entering a password):
+Add an entry to allow the user to use `sudo` without entering a password:
 
 ```sh
 echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
@@ -74,7 +84,7 @@ su - $USER
 whoami
 ```
 
-If `getent` does not return anything, the user was not added to the `sudo` group.  `whoami` should return `root`.
+If `getent` does not return anything, the user was not added to the `sudo` group.  `whoami` should return `$USER`.
 
 While still impersonating `$USER`:
 
@@ -87,9 +97,9 @@ chmod u=rw authorized_keys
 vi authorized_keys
 ```
 
-Paste in the public key (`cat ~/.ssh/id_rsa.pub | pbcopy` from macOS).
+Paste in the $USER public key. You can use `cat ~/.ssh/id_rsa.pub | pbcopy` on macOS.
 
-Test that the user can `ssh` into the machine.
+Test that `USER` can `ssh` into the machine.
 
 ## Disable SSH Password Login
 
@@ -111,6 +121,10 @@ Then:
 sudo systemctl reload sshd
 ```
 
+## Configure IPTables and SSH
+
+Follow the instructions in [Installing and Configuring SSH](../Install/SSH.md) and also [Installing and Configuring IPTables](../Install/IPTables.md)
+
 ## Lock Down `root`
 
 Once you have a working `sudo` user increase system security by disabling the password for the `root` user with:
@@ -124,3 +138,7 @@ This will allow people to become root with `sudo` but logging in with `root` acc
 *Do this as a last step after IPTables and SSH lock down have been done.  It's really frustrating to be locked out of a system and have to rebuild it from scratch.*
 
 Check if the password for an account is locked with `sudo passwd -S $USER`.  There should be an `L` in the resulting listing.
+
+## Snapshot
+
+Now is a good time to take a snapshot of the machine if you are using ProxMox or another virtualization system.

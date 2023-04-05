@@ -3,7 +3,7 @@
 ## Install
 
 ```sh
-curl https://get.acme.sh | sh
+wget -O - https://get.acme.sh | sh -s email=my@example.com
 ```
 
 ## Get a Standalone Certificate
@@ -27,3 +27,5 @@ cd ~
   --capath /etc/pve/local/pveproxy-ssl.pem \
   --reloadcmd "systemctl restart pveproxy"
 ```
+
+See [Using acme.sh with nginx | rmed](https://www.rmedgar.com/blog/using-acme-sh-with-nginx/).
