@@ -118,7 +118,7 @@ An equivalent file for DHCPv6 in `/etc/kea-dhcp6.conf` is:
 }
 ```
 
-Unless you are installing for a large corporation, you do not need to use the PostreSQL or other lease database options.
+Unless you are installing for a large corporation, you do not need to use PostgreSQL or other lease database options.
 
 ## Showing Current Leases
 
@@ -165,7 +165,7 @@ Edit the file `/etc/kea/kea-ctrl-agent.conf`. Change the lines:
 To reflect the system internal IP address. Confirm that the agent API is working with:
 
 ```bash
-http_proxy= curl -X POST -H "Content-Type: application/json" -d '{ "command": "config-get", "service": [ "dhcp4" ] }' http://10.10.1.1:8080/
+http_proxy= curl -X POST -H "Content-Type: application/json" -d '{ "command": "config-get", "service": [ "dhcp4" ] }' http://HOST_IP_ADDR:8080/
 ```
 
 You should see a dump of the DHCPv4 configuration.

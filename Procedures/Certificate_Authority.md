@@ -123,14 +123,14 @@ When the certificate expires you can renew it.  You can either use the same publ
 openssl req -out {{DOMAIN}}.csr -new -inkey {{DOMAIN}}.key -config {{DOMAIN}}.cnf -extensions v3_req
 ```
 
-Otherwise, use the exact same command as when you are generating a certificate for the first time, as given in the previous section. Then, use use the same command as above renew a certificate:
+Otherwise, use the exact same command as when you are generating a certificate for the first time, as given in the previous section. Then, use the command as above to renew a certificate:
 
 ## Concatenating Certificates
 
 Don't forget that for web servers such as `nginx`, this certificate needs to be concatenated together into a *chained certificate bundle* before deployment. You do this by concatenating the site certificate with the CA certificate (in that order), e.g.:
 
 ```bash
-cat my.domain.crt ../root/MyCA.crt > my.domain/my.domain.fullchain.crt
+cat my.domain.crt ../root/MyCA.crt > my.domain/my.domain.chained.crt
 ```
 
 Best practice is to just send the requester back your CA certificate along with the signed certificate and remind them of this detail.  It  dependends on where they are using the certificate.
