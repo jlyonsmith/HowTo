@@ -14,6 +14,10 @@ You'll want to use LXC (containers) virtualization instead of KVM where you are 
 
 Install [fail2ban](https://pve.proxmox.com/wiki/Fail2ban) to protect against brute force attacks.  Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
 
+## Upgrading ProxMox
+
+Run `pveupgrade` which will run the correct `apt` and other commands to upgrade your system.
+
 ## Create a Private IPv4 Network
 
 See [this article](https://blog.jenningsga.com/private-network-with-proxmox/) and this one [Proxmox 5 on Hetzner Root-Server with Dual-Stack IPv4/IPv6 for Host and Guests](https://www.sysorchestra.com/proxmox-5-on-hetzner-root-server-with-ipv4/)

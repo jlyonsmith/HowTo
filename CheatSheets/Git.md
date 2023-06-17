@@ -286,3 +286,19 @@ Remove a sub-module:
 git submodule deinit <submodule>
 git rm <submodule>
 ```
+
+## Add Executable flag on Tracked File
+
+To add the Linux executable flag on a tracked file:
+
+```sh
+git update-index --chmod=+x <file>
+```
+
+or stage and set in one command:
+
+```sh
+git add --chmod=+x <file>
+```
+
+You also need to `chmod ugo+x <file>`.
