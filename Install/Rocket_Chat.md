@@ -167,7 +167,24 @@ NOTE: The MongoDB database uses sharding with one shart `rs01`.  You need to run
 
 ## Configuration
 
-Make sure to set _Manually approve new users_ for any domains that are not in your *Whitelist domains*.
+Make sure to set _Manually approve new users_ for any domains that are not in your _Whitelist domains_.
+
+## MongoDB Replica Set
+
+Rocket.Chat uses a [MongoDB single instance replica set](https://docs.rocket.chat/deploy/rocket.chat-environment-configuration/mongodb-configuration/mongo-replicas).
+
+If the replset gets corrupt, you will see errors in the log with `jc -u rocketchat -r`, maybe about indexes not being able to be re-created.
+
+Delete and re-create the replica set.  Do `systemctl stop mongod`, then 7`mongosh`, then:
+
+```js
+use local
+db.system.replset.find()
+db.system.replset.deleteOne({_id: "rs01"})
+rs.initiate({ _id: 'rs01', members: [{ _id: 0, host: 'localhost:27017' }] })
+```
+
+You may also need to drop corrupt indexes with `use rocketchat; db.XXX.dropIndexes("*")`.
 
 ## Reference
 
