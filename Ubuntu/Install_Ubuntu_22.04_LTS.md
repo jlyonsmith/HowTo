@@ -4,15 +4,9 @@ Step-by-step instructions for creating a new Ubuntu 22.04 LTS service instance.
 
 ## Initial Steps
 
-Log in to system as root using provided password.  Using SSH:
+Log in using virtualization systems console functionality. Remote SSH login will be disabled for root by default.
 
-```sh
-ssh root@x.mydomain.com
-```
-
-Or using your virtualization systems console functionality.
-
-Then check the version with `lsb_release -a`:
+Check the version with `lsb_release -a`:
 
 ```txt
 No LSB modules are available.
@@ -22,55 +16,27 @@ Release:        22.04
 Codename:       jammy
 ```
 
-If host name is not correct use `hostnamectl` to change it.
+If host name is not correct use `hostnamectl hostname XXX` to change it, then:
 
-Do an `apt update; apt upgrade -y`.
+```sh
+apt update; apt upgrade -y`
+```
 
-## Debian Specific
-
-Install `sudo`:
+On Debian, install `sudo`:
 
 ```sh
 apt install sudo
 ```
 
-## VIM
+## Create a New Sudo User
 
-First, `apt install vim`. Then set defaults in `~/.vimrc`:
-
-```vimrc
-:set shiftwidth=2
-:set tabstop=2
-:set expandtab
-```
-
-## Create New Sudo User
-
-As `root` add the new `USER` with `FULLNAME` and `PASSWORD`:
+As `root` set `NEWUSER=` and `FULLNAME=` then:
 
 ```sh
-adduser --disabled-password --gecos "$FULLNAME" $USER
-```
-
-Set a password for the user, even if you are using PPK's for `ssh`':
-
-```sh
-chpasswd <<<"$USER:$PASSWORD"
-```
-
-Don't add special characters to the password, just alphanumeric.
-
-Add to the `sudo` group:
-
-```sh
-usermod -aG sudo $USER
-```
-
-Add an entry to allow the user to use `sudo` without entering a password:
-
-```sh
-echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
-chmod ug=r,o= /etc/sudoers.d/$USER
+adduser --disabled-password --gecos "$FULLNAME" $NEWUSER
+usermod -aG sudo $NEWUSER
+echo "$NEWUSER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$NEWUSER
+chmod ug=r,o= /etc/sudoers.d/$NEWUSER
 visudo -c
 ```
 
@@ -80,7 +46,7 @@ Do some testing:
 
 ```sh
 getent group sudo
-su - $USER
+su - $NEWUSER
 whoami
 ```
 
@@ -101,41 +67,19 @@ Paste in the $USER public key. You can use `cat ~/.ssh/id_rsa.pub | pbcopy` on m
 
 Test that `USER` can `ssh` into the machine.
 
-## Disable SSH Password Login
+## Lock Down the System
 
-Once you are able to login to the system with key authentication, disable password SSH login:
+Configure SSH with [Installing and Configuring SSH](../Install/SSH.md)
 
-```sh
-sudo vi /etc/ssh/sshd_config
-```
+Configure the IPTables with [Installing and Configuring IPTables](../Install/IPTables.md)
 
-Set the following option:
-
-```sh
-PasswordAuthentication no
-```
-
-Then:
-
-```sh
-sudo systemctl reload sshd
-```
-
-## Configure IPTables and SSH
-
-Follow the instructions in [Installing and Configuring SSH](../Install/SSH.md) and also [Installing and Configuring IPTables](../Install/IPTables.md)
-
-## Lock Down `root`
-
-Once you have a working `sudo` user increase system security by disabling the password for the `root` user with:
+Disable the password for the `root` user with:
 
 ```sh
 sudo passwd -l root
 ```
 
-This will allow people to become root with `sudo` but logging in with `root` account is no longer possible, including through the ProxMox console.
-
-*Do this as a last step after IPTables and SSH lock down have been done.  It's really frustrating to be locked out of a system and have to rebuild it from scratch.*
+*This will allow people to become root with `sudo` but logging in with `root` account is no longer possible, including through the ProxMox console! Do this as a last step after IPTables and SSH lock down have been done.  It's really frustrating to be locked out of a system and have to rebuild it from scratch.*
 
 Check if the password for an account is locked with `sudo passwd -S $USER`.  There should be an `L` in the resulting listing.
 

@@ -45,17 +45,9 @@ NOTE: This may change the fingerprint of the host. If so you will need to remove
 
 See below for changes needed to use Google Authenticator, which is only required on your SSH bastions.
 
-## Debug Connections
-
-To view the SSH log use:
-
-```bash
-journalctl -u ssh -f
-```
-
 ## Install MFA With Google Authenticator
 
-For your Bastion machine, install the Google Authenticator PAM module:
+*For your Bastion machine,* install the Google Authenticator PAM module:
 
 ```sh
 sudo apt install libpam-google-authenticator
@@ -166,4 +158,12 @@ On CentOS you may have to install SSH with:
 
 ```sh
 yum install openssh openssh-server openssh-clients openssl-libs
+```
+
+## Debug Connections on a Machine
+
+To view the SSH log use:
+
+```bash
+journalctl -u ssh -f
 ```
