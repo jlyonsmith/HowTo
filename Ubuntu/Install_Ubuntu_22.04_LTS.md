@@ -22,12 +22,6 @@ If host name is not correct use `hostnamectl hostname XXX` to change it, then:
 apt update; apt upgrade -y`
 ```
 
-On Debian, install `sudo`:
-
-```sh
-apt install sudo
-```
-
 ## Create a New Sudo User
 
 As `root` set `NEWUSER=` and `FULLNAME=` then:

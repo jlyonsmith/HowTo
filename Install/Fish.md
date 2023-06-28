@@ -8,24 +8,6 @@ You can look at the [source code on GitHub](https://github.com/fish-shell/fish-s
 
 On macOS `brew install fish`.  Type `which fish` to get the location.  Ensure that the location is at the end of end of `/etc/shells`.  When you are comfortable with fish do `chsh -s <full-path-to-fish-here>` and restart your terminal.
 
-On Ubuntu:
-
-```sh
-sudo apt install -y software-properties-common
-sudo apt-add-repository ppa:fish-shell/release-3
-sudo apt update
-sudo apt install -y fish
-```
-
-On Debian:
-
-```sh
-echo 'deb http://download.opensuse.org/repositories/shells:/fish/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/shells:fish.list
-curl -fsSL https://download.opensuse.org/repositories/shells:fish/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish.gpg > /dev/null
-sudo apt update
-sudo apt install fish
-```
-
 See [Install package shells:fish / fish](https://software.opensuse.org/download.html?project=shells%3Afish&package=fish).
 
 ## Config
@@ -40,7 +22,9 @@ fish_config theme save coolbeans
 
 ### Starship Prompt
 
-Install [Starship](https://starship.rs/).  On Ubuntu:
+Install [Starship](https://starship.rs/).
+
+On Linux:
 
 ```sh
 curl -sS https://starship.rs/install.sh | sh
@@ -194,7 +178,7 @@ starship init fish | source
 
 ## Change Default Shell
 
-Ensure the `/etc/shells` file has `(/usr/local/bin/fish)` (or whatever `which fish` shows on your system) as a valid option. Set `fish` default shell with:
+Ensure the `/etc/shells` file has whatever `which fish` shows on your system as a valid option. Set `fish` default shell with:
 
 ```sh
 sudo chsh -s $(which fish) $USER

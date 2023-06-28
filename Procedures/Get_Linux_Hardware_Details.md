@@ -25,3 +25,8 @@ Modern hard and solid state drives have Self-Monitoring, Analysis and Reporting 
 Run `smartctl --all $DEVICE` to get the device report.  See [Storage Device Health Check](https://www.baeldung.com/linux/storage-device-check-health).  Note that the seeing *Old_age* and *Pre-fail* are indicators that you should be replacing hard drives soon.
 
 Run the short self test with `smartctl -t short $DEVICE`. Results appear in about two minutes.
+
+## References
+
+- [How To Partition and Format Storage Devices in Linux  | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-storage-devices-in-linux)
+- [How To Create RAID Arrays with mdadm on Ubuntu 22.04  | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-create-raid-arrays-with-mdadm-on-ubuntu-22-04)

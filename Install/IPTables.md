@@ -33,7 +33,7 @@ After=network.target
 Type=oneshot
 ExecStart=/bin/sh -c 'iptables-restore -w 15 /etc/iptables.rules'
 RemainAfterExit=true
-ExecStop=/bin/sh -c 'iptables -F; iptables -X'
+ExecStop=/bin/sh -c 'iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X'
 StandardOutput=journal
 
 [Install]
@@ -51,7 +51,7 @@ After=network.target
 Type=oneshot
 ExecStart=/bin/sh -c 'ip6tables-restore -w 15 /etc/ip6tables.rules'
 RemainAfterExit=true
-ExecStop=/bin/sh -c 'ip6tables -F; ip6tables -X'
+ExecStop=/bin/sh -c 'ip6tables -F; ip6tables -X; ip6tables -t nat -F; ip6tables -t nat -X'
 StandardOutput=journal
 
 [Install]
@@ -60,9 +60,7 @@ WantedBy=multi-user.target
 
 NOTE: The retry `-w 15` option is useful on systems where other services like `fail2ban` are also setting the IPTables.
 
-Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`, and `systemctl enable iptables-restore` and `systemctl start iptables-restore`.
-
-> Don't forget to allow `ipv6-icmp` on all interfaces or IPv6 SLAAC and other protocols will break.
+Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`, and `systemctl enable ip6tables-restore` and `systemctl start ip6tables-restore`.
 
 ## Debugging
 
@@ -77,18 +75,14 @@ To see what ports are listening and the network activity that is occurring.
 You can check IPTables when changing with:
 
 ```sh
-ip6tables-restore --test
+iptables-restore --test /etc/iptables.rules
+ip6tables-restore --test /etc/ip6tables.rules
 ```
 
 Debugging IPTables can be tricky.  To see each rule and how many times it has matched, do:
 
 ```sh
 sudo iptables -L -v
-```
-
-or:
-
-```sh
 sudo ip6tables -L -v
 ```
 
@@ -176,6 +170,8 @@ COMMIT
 
 COMMIT
 ```
+
+> Don't forget to allow `ipv6-icmp` on all interfaces or IPv6 SLAAC and other protocols will break.
 
 ## Commands
 

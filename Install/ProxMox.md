@@ -1,18 +1,79 @@
 # Installing ProxMox
 
-This document talks about installing ProxMox both on cloud servers and on physical servers.
+This document describes how to install ProxMox on Debian 12 servers.
 
-## Install on Existing Debian
+## Install on Debian 12
 
 If using Hetzner, [use the Rescue O/S to install Debian](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) adjusting for the most recent version of Debian.
 
 - [Trajche Kralev](https://tj.mk/install-proxmox-4-hetzner-debian/)
 - [Hetzner - Install and Configure Proxmox VE](https://community.hetzner.com/tutorials/install-and-configure-proxmox_ve)
 - [How to setup Proxmox on dedicated Hetzner Server](https://www.indivar.com/blog/how-to-setup-proxmox-on-hetzner-dedicated-server/)
+- [Install ProxMox VE on Debian 12 Booworm](https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm)
 
-You'll want to use LXC (containers) virtualization instead of KVM where you are using Linux as the hosted O/S.  Use routed networking for machines that need to go on the Internet.
 
-Install [fail2ban](https://pve.proxmox.com/wiki/Fail2ban) to protect against brute force attacks.  Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
+Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
+
+Configure IPTables.
+
+## Configure ProxMox SSL Certificates
+
+ProxMox now comes with a built in ACME client for getting SSH certificates for the web interface. You can configure everything on the command line. We'll use the default authentication mechanism, `http-01` challenge.
+
+Add a `defaulh` ACME account, `pvenode acme account register default {{EMAIL}}` and answer the questions.  *You only need the staging endpoint if have to do a lot of testing.*
+
+Set the domain you want a cert for, `pvenode config set --acme domains={{FQDN}}`.
+
+Order the cert, `pvenode acme cert order`.
+
+### SSL References
+
+- [Certificate Management](https://pve.proxmox.com/wiki/Certificate_Management)
+
+## Fail2Ban
+
+Install [fail2ban](https://pve.proxmox.com/wiki/Fail2ban).
+
+Create `/etc/fail2ban/jail.d/proxmox.conf`:
+
+```conf
+[proxmox]
+
+enabled = true
+
+# Ports to be banned
+port = https,8006
+
+# Filter to use
+filter = proxmox
+
+# Ban action
+banaction = iptables
+
+# Filter backend
+backend = systemd
+
+# Maximum allowed retries
+maxretry = 5
+
+# Time to search for max retries
+findtime = 30m
+
+# Time to ban for
+bantime = 10m
+```
+
+Create `/etc/fail2ban/filter.d/proxmox.conf`:
+
+```conf
+[Definition]
+failregex = pvedaemon\[.*authentication (verification )?failure; rhost=<HOST> user=.* msg=.*
+journalmatch = _SYSTEMD_UNIT=pvedaemon.service
+```
+
+Test with `fail2ban-regex -v systemd-journal proxmox`.
+
+Then `systemctl restart fail2ban`.
 
 ## Upgrading ProxMox
 
@@ -20,62 +81,57 @@ Run `pveupgrade` which will run the correct `apt` and other commands to upgrade 
 
 ## Create a Private IPv4 Network
 
-See [this article](https://blog.jenningsga.com/private-network-with-proxmox/) and this one [Proxmox 5 on Hetzner Root-Server with Dual-Stack IPv4/IPv6 for Host and Guests](https://www.sysorchestra.com/proxmox-5-on-hetzner-root-server-with-ipv4/)
+### Network References
 
-Use the IP address sharing approach not the NATS approach to give access to the public network.
+- [Hetzner Network Configuratio Debian/Ubuntu](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian-ubuntu/)
+- [this article](https://blog.jenningsga.com/private-network-with-proxmox/)
+- [Proxmox 5 on Hetzner Root-Server with Dual-Stack IPv4/IPv6 for Host and Guests](https://www.sysorchestra.com/proxmox-5-on-hetzner-root-server-with-ipv4/)
 
-For LXC containers, networking is configured by ProxMox. You can find the network configuration files in `/etc/systemd/network/eth0.network`, etc..  If you change these files in the ProxMox UI they will change here without requiring a reboot.
+Use the `pointopoint` IP address sharing approach not the NATS approach to give access to the public network.
 
-## Adding an XFS Drive to an Existing Node
+> For LXC containers, networking is configured by ProxMox. You can find the network configuration files in `/etc/systemd/network/eth0.network`, etc..  If you change these files in the ProxMox UI they will change here without requiring a reboot.
 
-[Adding storage](https://nubcakes.net/index.php/2019/03/05/how-to-add-storage-to-proxmox/)
+Edit to `/etc/sysctl.conf`,
 
-Add a new raw drive to the node in the ProxMox UI.  Log into the system and find out what the device name is:
-
-```bash
-sudo -s
-fdisk -l
+```conf
+net.ipv4.ip_forward=1
+net.ipv6.conf.all.forwarding=1
 ```
 
-Let's say it's `/dev/sdb`.  Next, partition the disk:
+`sudo sysctl -p /etc/sysctl.conf`
 
-```bash
-cfdisk /dev/sdb
-```
+Restart network, `systemctl restart networking`.
 
-Select `gpt` as the partition type.  Then **New** > **Primary** > **Enter**, **Write**, **Quit**.
+## Using Standard HTTPS port
 
-Now format the new partition:
-
-```bash
-mkfs.xfs /dev/sdb1
-```
-
-Mount the drive:
-
-```bash
-mkdir /data
-mount -t xfs /dev/sdb1 /data
-df -T
-```
-
-Add it to `/etc/fstab` so that it mounts next time:
-
-```sh
-/dev/sdb1 /data xfs defaults,errors=remount-ro 0 1
-```
+https://p3lim.net/2020/05/22/proxmox-acme
 
 ## Adding Users
 
-Note, you can configure 2FA for a PAM user with Google Authenticator and use the key in ProxMox.  Just paste it into the key field when adding 2FA to the account.  2FA for ProxMox is separate from 2FA for SSH.
+Note, you can configure 2FA for a PAM user with Google Authenticator and use the same key in ProxMox.  Just paste it into the key field when adding 2FA to the account.  2FA for ProxMox does not use a PAM module like 2FA for SSH does.
+
+Create an `admin` group, `pveum group add admin -comment "Administrators"`.
+
+Give `admin` group the `Administrator` role, `pveum acl modify / -group admin --roles Administrator`.
+
+List the available realms, `pveum realm list`.
+
+Add users to the group, `pveum add user XXX@pam -email XXX@yourdomain.com`.
+
+The password for a user is set through `passwd`.
+
+Disable the `root` PAM user for ProxMox with `pveum user modify root@pam -enable 0`. Ensure `root` account password is disabled with `passwd -l root`.
+
+Configure TFA for the user in the GUI.
+
+- Edit the user, click Advanced and paste the secret token from Google Authenticator under Key ID
+- Go to Two Factor and add a TOTP key for the user, pasting the GA token over the PVE one.  Enter one key and password to validate.
+
+Log out and log in to test.  *An X will appear in user info Key ID field. Do not delete it.*
+
+### User Reference
 
 [Adding two factor authentication](https://jonspraggins.com/the-idiot-adds-two-factor-authentication-to-proxmox/)
-
-Create an `admin` group, add users to the group, then on the command line make members of that group have the `Administrator` role:
-
-```sh
-pveum acl modify / -group admin --roles Administrator
-```
 
 ## Proxy Issues
 
@@ -97,17 +153,17 @@ lscpu | grep Socket
 
 Then [Purchase a ProxMox subscription](https://www.proxmox.com/en/proxmox-ve/pricing)
 
-Set your subscription key on the machine with:
+Set your subscription key on the machine with, `pvesubscription set {{KEY}}`.
 
-```bash
-pvesubscription set <key>
-```
+## QM
+
+To kill a VM from the CLI  `qm list` to get the ID, then `qm shutdown {{VMID}} --forceStop`.
 
 ## References
 
+- [Proxmox VE with custom ACME providers](https://p3lim.net/2020/05/22/proxmox-acme)
 - [Web Interface Via Nginx Proxy - Proxmox VE](https://pve.proxmox.com/wiki/Web_Interface_Via_Nginx_Proxy)
 - [How to set up your first machine](https://forum.proxmox.com/threads/proxmox-beginner-tutorial-how-to-set-up-your-first-virtual-machine-on-a-secondary-hard-disk.59559/)
-- [`pointopoint` network configuration on Hetzner with Debian](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian)
 - The [ProxMox Service Daemons](https://pve.proxmox.com/wiki/Service_daemons) article is useful for when things stop working, such as the web interface.
 - [Install Proxmox VE [A Step By Step Guide] - OSTechNix](https://ostechnix.com/install-proxmox-ve/)
 - [Package Repositories - Proxmox VE](https://pve.proxmox.com/wiki/Package_Repositories)
