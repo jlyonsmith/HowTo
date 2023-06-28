@@ -83,6 +83,8 @@ Run `pveupgrade` which will run the correct `apt` and other commands to upgrade 
 
 ### Network References
 
+ProxMox will managed the `/etc/network/interfaces` file.  *After installing ProxMox, reboot to have it take over this file.*
+
 - [Hetzner Network Configuratio Debian/Ubuntu](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian-ubuntu/)
 - [this article](https://blog.jenningsga.com/private-network-with-proxmox/)
 - [Proxmox 5 on Hetzner Root-Server with Dual-Stack IPv4/IPv6 for Host and Guests](https://www.sysorchestra.com/proxmox-5-on-hetzner-root-server-with-ipv4/)
@@ -100,7 +102,9 @@ net.ipv6.conf.all.forwarding=1
 
 `sudo sysctl -p /etc/sysctl.conf`
 
-Restart network, `systemctl restart networking`.
+Restart network, `systemctl restart networking` or `ifreload -a`.  Use `ifreload -s -a` to test manual changes.
+
+Add a `vmbr0` (external) and a `vmbr1` (internal) network bridges in the GUI.  Then add the `up route` entries for additional IP addresses to `vmbr0`.  You cannot edit those in the GUI, but ProxMox will preserve them.
 
 ## Using Standard HTTPS port
 
