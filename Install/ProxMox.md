@@ -75,10 +75,6 @@ Test with `fail2ban-regex -v systemd-journal proxmox`.
 
 Then `systemctl restart fail2ban`.
 
-## Upgrading ProxMox
-
-Run `pveupgrade` which will run the correct `apt` and other commands to upgrade your system.
-
 ## Create a Private IPv4 Network
 
 ### Network References
@@ -159,6 +155,39 @@ Then [Purchase a ProxMox subscription](https://www.proxmox.com/en/proxmox-ve/pri
 
 Set your subscription key on the machine with, `pvesubscription set {{KEY}}`.
 
+Then update your sources to the paid repository.  Run `pveupgrade` which will run the correct `apt` and other commands to upgrade your system.
+****
+
+## Migrate LXC Container
+
+Find the ID with `pct list`.
+
+Create a dump directory, `cd ~; mkdir dump; cd dump`.
+
+Backup the container with `vzdump {{ID}} -dumpdir . -compress lzo -mode stop`.
+
+Grap the config with `cp /etc/pve/nodes/{{NODE_NAME}}/lxc/{{ID}}.conf .`.
+
+Create an SSH key on the source machine with `ssh-keygen -t rsa -b 4096 -C "{{USER_EMAIL}}"`.  Copy the public key over to the target machine.
+
+Copy the `.tar.lzo` file over to the target with `scp *.tar.lzo {{USER}}@{{HOSTNAME}}:`.
+
+`ssh` to the target machine and restore the LXC with the details from the `.conf` file, e.g.:
+
+```sh
+pct restore 103 vzdump-lxc-103-2023_06_06-06_06_06.tar.lzo -arch amd64 -cores 2 -cpuunits 2048 -hostname proxy-1 -memory 512 -net0 name=eth1,bridge=vmbr1,firewall=1,ip={{INT_IP4}},ip6={{INT_IP6}},type=veth -net1 name=eth0,bridge=vmbr0,firewall=1,gw={{HOST_IP4}},gw6={{HOST_IP6}},ip={{IP4}},ip6={{IP6}},type=veth -onboot 1 -ostype ubuntu -swap 512 -unprivileged 1
+```
+
+NOTE: IPv4 & IPv6 addresses need a CIDR value.
+
+Start the new container.
+
+From host, ensure you can ping the external IP and the internal (you may need to explicitly specify the interface to ping on).
+
+`pct enter {{ID}}`.  Ensure you can ping host internal and external IP's.
+
+Update documentation and add reverse DNS entries.
+
 ## QM
 
 To kill a VM from the CLI  `qm list` to get the ID, then `qm shutdown {{VMID}} --forceStop`.
@@ -171,3 +200,6 @@ To kill a VM from the CLI  `qm list` to get the ID, then `qm shutdown {{VMID}} -
 - The [ProxMox Service Daemons](https://pve.proxmox.com/wiki/Service_daemons) article is useful for when things stop working, such as the web interface.
 - [Install Proxmox VE [A Step By Step Guide] - OSTechNix](https://ostechnix.com/install-proxmox-ve/)
 - [Package Repositories - Proxmox VE](https://pve.proxmox.com/wiki/Package_Repositories)
+- [Network configuration Debian / Ubuntu - Hetzner Docs](https://docs.hetzner.com/robot/dedicated-server/network/net-config-debian-ubuntu/)
+- [Moving Proxmox-LXC container - Amol Dighe](https://amoldighe.github.io/2018/07/24/proxmox-move/)
+- [Backup and Restore - Proxmox VE](https://pve.proxmox.com/wiki/Backup_and_Restore#vzdump_restore)

@@ -12,6 +12,8 @@ Each colored box is a _table_, each gray box is a _chain_.
 
 ## Ubuntu/Debian
 
+> Use the scripts in this repo [jlyonsmith/systemd-iptables: Example of a persistent firewall based on systemd for Debian Jessie.](https://github.com/jlyonsmith/systemd-iptables) going forward.
+
 `iptables` is installed by default on Debian & Ubuntu. `iptables` do not persist on Ubuntu & Debian by default.  `iptables` are persistent by default on CentOS. You **must** add a persistence mechanism as an extra step.
 
 Remove any old mechanism for persistences:
@@ -136,8 +138,10 @@ COMMIT
 ```rules
 # Interfaces:
 #
-# eth0: WAN
-# eth1: Private LAN
+# enp1s0: WAN
+# enp2s0: LAN
+# enp3s0: LAN (Diagnostic)
+# enp4s0: OFF
 
 *filter
 :INPUT ACCEPT [0:0]
@@ -146,11 +150,23 @@ COMMIT
 
 ## INPUT rules
 
+# fail2ban rule to avoid lockout when changing rules
+-A INPUT -p tcp -m multiport --dports 22 -j f2b-sshd
+
 # Allow in from loopback
 -A INPUT -i lo -j ACCEPT
 
-# Allow IPv6 ICMP
--A INPUT -p ipv6-icmp -j ACCEPT
+# Allow input from LAN
+-A INPUT -i enp2s0 -j ACCEPT
+
+# Allow input from diagnostic LAN
+-A INPUT -i enp3s0 -j ACCEPT
+
+# Allow IPv6 ICMP from WAN
+-A INPUT -i enp1s0 -p ipv6-icmp -j ACCEPT
+
+# Allow SSH from WAN
+-A INPUT -i eth1 -p tcp -m tcp --dport 22 -j ACCEPT
 
 # Allow in established input from WAN
 -A INPUT -i eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
@@ -158,15 +174,17 @@ COMMIT
 # Drop invalid packets from WAN
 -A INPUT -i eth0 -m state --state INVALID -j DROP
 
-# SSH from private subnet only
--A INPUT -i eth1 -p tcp -m tcp --dport 22 -j ACCEPT
+# DROP all other input
+-A INPUT -j DROP
 
-# HTTP/HTTPS in
--A INPUT -i eth0 -p tcp -m tcp --dport 80 -j ACCEPT
--A INPUT -i eth0 -p tcp -m tcp --dport 443 -j ACCEPT
+# Forward all LAN traffic to the WAN
+-A FORWARD -i enp2s0 -o enp1s0 -j ACCEPT
 
-# DROP everything else from WAN
--A INPUT -i eth0 -j DROP
+# Forward all WAN traffic to the LAN if established connection
+-A FORWARD -i enp1s0 -o enp2s0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Other part of fail2ban rules to avoid SSH lockout
+-A f2b-sshd -j RETURN
 
 COMMIT
 ```
