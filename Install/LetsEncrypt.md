@@ -8,7 +8,7 @@ Run:
 
 ```sh
 sudo apt update
-sudo apt install certbot
+sudo apt install -y certbot
 ```
 
 ## Generating Certificates with Nginx

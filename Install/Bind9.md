@@ -100,7 +100,7 @@ $ORIGIN private.example.com.
 ns1    60 IN A   192.168.1.1
 ```
 
-Next, you can chose to add a _reverse zone_ for the domain. Create and edit a file for the zone:
+Next, you can chose to add a _reverse zone_ for the domain. Create and edit a file for the zone, e.g.
 
 ```sh
 sudo vi /etc/bind/db.192.168.1
@@ -122,7 +122,7 @@ $ORIGIN 1.168.192.in-addr.arpa.
 1     IN PTR ns1.private.example.com.
 ```
 
-In both of the above the `@` symbol can be read as the `$ORIGIN` value.  DNS records are *very* sensitive to syntax errors, and at the same time somewhat loose.
+In both of the above the `@` symbol can be read as the `$ORIGIN` value.  DNS records are _very_ sensitive to syntax errors, and at the same time somewhat loose.
 
 - Blank lines are ignored
 - Use spaces not tabs, but the number of spaces doesn't generally matter.
@@ -133,16 +133,16 @@ In both of the above the `@` symbol can be read as the `$ORIGIN` value.  DNS rec
 - Comments noted with semi-colon (`;`) must be at the end of the line.
 - By default times are in seconds. Hours (`h`), minutes (`m`), days (`d`), weeks (`w`) suffixes can be used and are case sensitive.
 
-Check the forward zone file:
+Runs a check on the forward zone file:
 
 ```sh
-named-checkzone private.example.com zones/db.xyz1.example.com
+named-checkzone xyz1.example.com zones/db.xyz1.example.com
 ```
 
 Check the reverse zone file:
 
 ```sh
-named-checkzone 1.168.192.in-addr.arpa db.192.168.1
+named-checkzone 168.192.in-addr.arpa db.192.168
 ```
 
 If all is well (no errors are displayed), restart the service with `sudo systemctl restart named`.

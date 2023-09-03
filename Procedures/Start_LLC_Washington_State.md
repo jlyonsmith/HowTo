@@ -38,6 +38,10 @@ Note, at the end of all this you will end up with *two* online accounts:
 
 The first is for paying your taxes. The second is for managing your business registration.
 
+## Notes
+
+- The company will be administratively closed after two years if you don't make any money.  File that you made $1 if you need too in order to avoid that.
+
 ## Resources
 
 - [Form an LLC in Washington State](https://www.wikihow.com/Form-an-LLC-in-Washington-State)
