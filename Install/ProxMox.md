@@ -194,6 +194,8 @@ To kill a VM from the CLI  `qm list` to get the ID, then `qm shutdown {{VMID}} -
 
 ## References
 
+- [Certificate Management - Official ProxMox](https://pve.proxmox.com/wiki/Certificate_Management)
+- [ProxMox Certificate Management - Cheatsheet](https://github.com/ChristianLempa/cheat-sheets/blob/main/infra/proxmox-certificate-management.md)
 - [Proxmox VE with custom ACME providers](https://p3lim.net/2020/05/22/proxmox-acme)
 - [Web Interface Via Nginx Proxy - Proxmox VE](https://pve.proxmox.com/wiki/Web_Interface_Via_Nginx_Proxy)
 - [How to set up your first machine](https://forum.proxmox.com/threads/proxmox-beginner-tutorial-how-to-set-up-your-first-virtual-machine-on-a-secondary-hard-disk.59559/)
