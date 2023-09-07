@@ -20,7 +20,7 @@ Configure IPTables.
 
 ProxMox now comes with a built in ACME client for getting SSH certificates for the web interface. You can configure everything on the command line. We'll use the default authentication mechanism, `http-01` challenge.
 
-Add a `defaulh` ACME account, `pvenode acme account register default {{EMAIL}}` and answer the questions.  *You only need the staging endpoint if have to do a lot of testing.*
+Add a `default` ACME account, `pvenode acme account register default {{EMAIL}}` and answer the questions.  *You don't need the `staging` endpoint.*
 
 Set the domain you want a cert for, `pvenode config set --acme domains={{FQDN}}`.
 
