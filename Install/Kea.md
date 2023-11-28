@@ -149,6 +149,8 @@ Add a `reservations` array under the subnet:
 
 See [Host Reservation in DHCPv4](https://kea.readthedocs.io/en/latest/arm/dhcp4-srv.html#host-reservation-in-dhcpv4).
 
+Restart Kea with `systemctl restart isc-kea-dhcp4-server`.  Check the status with `systemctl status isc-kea-dhcp4-server` and check for syntax errors in the configuration.
+
 ## High Availability Configuration
 
 To create a high availability hot standby DHCP cluster, do the following.

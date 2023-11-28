@@ -29,6 +29,26 @@ Restart the webcam service if you unplug the camera with:
 sudo systemctl restart webcamd
 ```
 
+For newer OctoPrint systems:
+
+```sh
+libcamera-hello
+libcamera-jpeg -o test.jpg
+```
+
+If there is a `test.jpg` file, then:
+
+```sh
+vi /boot/camera-streamer/libcamera.conf
+```
+
+Edit the file to contain the correct parameters.
+
+```sh
+systemctl enable camera-streamer
+systemctl start camera-streamer
+```
+
 ## Upgrading the Raspberry Pi Distro
 
 Run `sudo apt update && sudo apt dist-upgrade && sudo apt-get autoremove && sudo apt clean && sudo reboot now`
