@@ -175,3 +175,8 @@ systemctl status isc-kea-dhcp4-server
 - [Kea documentation](https://kea.readthedocs.io/en/latest/arm/intro.html)
 - [How to Setup Dynamic DNS (DDNS) Using Kea and Bind on Debian or Ubuntu](https://www.techtutorials.tv/sections/linux/how-to-setup-ddns-using-kea-and-bind)
 - [Why Doesn't Kea Update My DNS?](https://kb.isc.org/v1/docs/en/why-doesnt-my-dns-get-updated-by-kea)
+- https://datatracker.ietf.org/doc/html/rfc6939
+- https://datatracker.ietf.org/doc/html/rfc3315
+- [DHCPv6 and the Trouble with MAC Addresses (Part 1 of 2)](https://blogs.infoblox.com/ipv6-coe/dhcpv6-and-the-trouble-with-mac-addresses-part-1-of-2)
+- [RFC 6355 - Definition of the UUID-Based DHCPv6 Unique Identifier (DUID-UUID)](https://datatracker.ietf.org/doc/html/rfc6355)
+- [Free Online GUID Generator](https://guidgenerator.com)
