@@ -1,6 +1,6 @@
 # DNS Records for Programmers
 
-DNS is an old Internet standard that has some serious quirkiness.  It's also an important aspect of the Internet that many non-technical people have to understand in a small way.  As such there is a shortage of "just tell me the rules" articles that programmers and other technical folks need. So, here goes.
+DNS is an old Internet standard that has some serious quirkiness.  It's also an important aspect of the Internet that many non-technical people have to understand, even in just a small way.  There is a shortage of "just tell me the rules" articles that programmers and other technical folks need. So, here goes.
 
 ## Registrars and Hosting Providers
 

@@ -8,7 +8,7 @@ You can look at the [source code on GitHub](https://github.com/fish-shell/fish-s
 
 On macOS `brew install fish`.  Type `which fish` to get the location.  Ensure that the location is at the end of end of `/etc/shells`.  When you are comfortable with fish do `chsh -s <full-path-to-fish-here>` and restart your terminal.
 
-See [Install package shells:fish / fish](https://software.opensuse.org/download.html?project=shells%3Afish&package=fish).
+On Linuix see [Install package shells:fish / fish](https://software.opensuse.org/download.html?project=shells%3Afish&package=fish).
 
 ## Config
 

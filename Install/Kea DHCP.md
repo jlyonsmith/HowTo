@@ -1,14 +1,12 @@
-# Installing Kea DHCP Server
+## Installation
 
-## Build and Installation
-
-Instructions on how to install Kea DHCP are [here](https://kb.isc.org/docs/isc-kea-packages).
+> Full instructions on how to install Kea DHCP are [here](https://kb.isc.org/docs/isc-kea-packages) and are summarized below.
 
 Install Kea DHCP from Cloudsmith:
 
 ```sh
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/isc/kea-2-4/setup.deb.sh' \
+  'https://dl.cloudsmith.io/public/isc/kea-2-7/setup.deb.sh' \
   | sudo -E bash
 ```
 
@@ -57,7 +55,8 @@ For DHCPv4 see `/etc/kea/kea-dhcp4.conf`:
     ],
     "subnet4": [
       {
-        "pools": [{ "pool": "192.168.1.2-192.168.1.250" }],
+        "id": 1,
+        "pools": [{ "pool": "192.168.1.2-192.168.1.254" }],
         "subnet": "192.168.1.0/24"
       }
     ],
@@ -98,7 +97,19 @@ An equivalent file for DHCPv6 in `/etc/kea-dhcp6.conf` is:
       "persist": true,
       "name": "/var/kea/dhcp6.leases"
     },
-    "subnet6": [],
+    "option-data": [
+      {
+        "name": "dns-servers",
+        "data": "fc00::1"
+      }
+    ],
+    "subnet6": [
+      {
+        "id": 1,
+        "pools": [ { "pool": "fc00:2::/8" } ],
+        "subnet": "fc00::/8"
+      }
+    ],
     "control-socket": {
       "socket-type": "unix",
       "socket-name": "/tmp/kea-dhcp6-ctrl.sock"
@@ -122,10 +133,11 @@ Unless you are installing for a large corporation, you do not need to use Postgr
 
 ## Showing Current Leases
 
-Dump the leases file:
+Dump the leases file(s):
 
 ```bash
 cat /var/kea/dhcp4.leases
+cat /var/kea/dhcp6.leases
 ```
 
 ## Adding Address Reservations
@@ -241,3 +253,7 @@ You should see:
     }
 ]
 ```
+
+## References
+
+- [9. The DHCPv6 Server &mdash; Kea 2.7.1-git documentation](https://kea.readthedocs.io/en/latest/arm/dhcp6-srv.html)

@@ -153,7 +153,7 @@ COMMIT
 
 > Don't forget to allow `ipv6-icmp` on all interfaces or IPv6 SLAAC and other protocols will break.
 
-## Commands
+## Command
 
 See [How to List and Delete iptables Rules](https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules)
 
@@ -168,3 +168,7 @@ iptables -L --line-numbers
 ```sh
 iptables -D $CHAIN $POS
 ```
+
+## References
+
+- [Linux Iptables allow or block ICMP ping request](https://www.cyberciti.biz/tips/linux-iptables-9-allow-icmp-ping.html)

@@ -100,7 +100,7 @@ net.ipv6.conf.all.forwarding=1
 
 Restart network, `systemctl restart networking` or `ifreload -a`.  Use `ifreload -s -a` to test manual changes.
 
-Add a `vmbr0` (external) and a `vmbr1` (internal) network bridges in the GUI.  Then add the `up route` entries for additional IP addresses to `vmbr0`.  You cannot edit those in the GUI, but ProxMox will preserve them.
+Add a `vmbr0` (external) and a `vmbr1` (internal) network bridges in the GUI.  Then add `up ip route add x.x.x.x/32 dev vmbr0` and `down ip route del x.x.x.x/32 dev vmbr0` entries for additional IPv4 addresses to `vmbr0`.  You cannot edit those in the GUI, but ProxMox will preserve them.
 
 ## Using Standard HTTPS port
 
