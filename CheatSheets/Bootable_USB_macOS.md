@@ -75,7 +75,7 @@ And now, the last step:
 ```sh
 sudo dd if=ubuntu-18.04.2-server-amd64.iso of=/dev/disk2
 ```
-
+ 
 This will take some time to finish and provides no output while it's working. A 1GB ISO transferring on USB 2.0 at around 25 Mbps might take 5 minutes, as an example. Don't mess with it and when it is done it will output something like:
 
 ```text
@@ -85,3 +85,11 @@ This will take some time to finish and provides no output while it's working. A 
 ```
 
 And you are done.  You'll get a message that the disk is not readable by macOS, just click the eject button.  Now go forth and install Ubuntu!
+
+## Partition External Drive
+
+Create GUID partition with one APFS volume of 100% of the space.
+
+```sh
+diskutil partitionDisk disk2 1 GPT APFS Brazil 100%
+```

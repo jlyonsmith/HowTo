@@ -91,7 +91,7 @@ ssh -v -o ProxyCommand='nc -X connect -x <proxy-ip-and-port> bitbucket.org 22' g
 
 ### NPM
 
-`npm` should work with the `https_proxy` environement set. You can also do:
+`npm` should work with the `https_proxy` environment set. You can also do:
 
 ```bash
 npm config set proxy $http_proxy
