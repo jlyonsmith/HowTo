@@ -2,13 +2,13 @@
 
 ## Build and Installation
 
-Instructions on how to configure Kea DHCP is available [here](https://kb.isc.org/docs/isc-kea-packages).
+Instructions on how to install Kea DHCP are [here](https://kb.isc.org/docs/isc-kea-packages).
 
 Install Kea DHCP from Cloudsmith:
 
 ```sh
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/isc/kea-1-7/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/public/isc/kea-2-4/setup.deb.sh' \
   | sudo -E bash
 ```
 

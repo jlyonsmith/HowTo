@@ -12,57 +12,17 @@ Each colored box is a _table_, each gray box is a _chain_.
 
 ## Ubuntu/Debian
 
-> Use the scripts in this repo [jlyonsmith/systemd-iptables: Example of a persistent firewall based on systemd for Debian Jessie.](https://github.com/jlyonsmith/systemd-iptables) going forward.
+> Use the scripts in this repo [jlyonsmith/systemd-iptables: Example of a persistent firewall based on systemd for Debian Jessie.](https://gi222665thub.com/jlyonsmith/systemd-iptables) going forward.
 
 `iptables` is installed by default on Debian & Ubuntu. `iptables` do not persist on Ubuntu & Debian by default.  `iptables` are persistent by default on CentOS. You **must** add a persistence mechanism as an extra step.
 
-Remove any old mechanism for persistences:
+Remove any old mechanism for persistence before starting:
 
 ```sh
 apt remove iptables-persistent netfilter-persistent
 ```
 
-Place the your rule in `/etc/iptables.rules` for IPv4, and `/etc/ip6tables.rules` for IPv6:
-
-Then in `/etc/systemd/system/iptables-restore.service` put:
-
-```toml
-[Unit]
-Description=Apply iptables rules
-After=network.target
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c 'iptables-restore -w 15 /etc/iptables.rules'
-RemainAfterExit=true
-ExecStop=/bin/sh -c 'iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X'
-StandardOutput=journal
-
-[Install]
-WantedBy=multi-user.target
-```
-
-and for IPv6, `/etc/systemd/system/ip6tables-restore.service`:
-
-```toml
-[Unit]
-Description=Apply iptables rules
-After=network.target
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c 'ip6tables-restore -w 15 /etc/ip6tables.rules'
-RemainAfterExit=true
-ExecStop=/bin/sh -c 'ip6tables -F; ip6tables -X; ip6tables -t nat -F; ip6tables -t nat -X'
-StandardOutput=journal
-
-[Install]
-WantedBy=multi-user.target
-```
-
-NOTE: The retry `-w 15` option is useful on systems where other services like `fail2ban` are also setting the IPTables.
-
-Then `systemctl enable iptables-restore` and `systemctl start iptables-restore`, and `systemctl enable ip6tables-restore` and `systemctl start ip6tables-restore`.
+Edit `/etc/iptables/iptables.rules` for IPv4, and `/etc/iptables/ip6tables.rules` for IPv6:
 
 ## Debugging
 
@@ -88,7 +48,9 @@ sudo iptables -L -v
 sudo ip6tables -L -v
 ```
 
-## Rules
+## Example Rules
+
+These are example rules for a router.
 
 ### IPv4
 
@@ -195,7 +157,7 @@ COMMIT
 
 See [How to List and Delete iptables Rules](https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules)
 
-### Git Line Numbers
+### Show Line Numbers
 
 ```sh
 iptables -L --line-numbers

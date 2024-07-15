@@ -83,7 +83,7 @@ For internal releases, simply update the patch number, release and tag.  The pat
 
 Semantic versioning allows additional metadata after the patch number separated by a `-` or `+` depending on the type of data.  I use the `+` option to add a _revision number_ which is the date and a sequence number.  The sequence number allows multiple revisions in a single day.
 
-I recommend updating the revision number right before doing the release build, as it will help you identify when a build was created. Revision numbers are mostly helpful in complex products with complicated build & test cycles, where builds or tests may fail and need to be repeated before release.
+I recommend updating the revision number right before doing the release build, as it will help you identify when a build was created. Revision numbers are mostly helpful in products with complicated build & test cycles, where builds or tests may fail and need to be repeated before release.
 
 It's also handy if you want to do releases from the main branch, but don't want to update the patch numbers.  Make sure the revision goes into you tag descriptions.
 
@@ -91,4 +91,4 @@ It's also handy if you want to do releases from the main branch, but don't want 
 
 Releasing software is not a perfect art. There will be bugs and last minute gotchas that will crop up. The approach outlined above is flexible enough to adapt to odd eventualities, but simple enough that you won't get yourself in a horrible mess.
 
-Don't forget to encourage engineers to rebase their commits to simplify your commit logs. Lastly, if things go horribly wrong, you can usually fix things with some interactive rebasing and merging.
+Don't forget to encourage engineers to rebase, i.e. squash, their commits to simplify your commit logs.  Lastly, if things go horribly wrong, you can usually fix things with some interactive rebasing and merging.
