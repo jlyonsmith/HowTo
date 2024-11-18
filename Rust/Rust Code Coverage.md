@@ -1,10 +1,16 @@
-# Installing the Rust Code Coverage Tools
+## Configuration
 
-To install Rust's native LLVM based code coverage tools:
+You may need the nightly build:
 
-```zsh
+```bash
 rustup install nightly
 rustup default nightly
+
+```
+
+Then install Rust's native LLVM based code coverage tools:
+
+```bash
 rustup component add llvm-tools-preview
 cargo install grcov
 ```
