@@ -12,3 +12,8 @@ sudo apt install caddy
 ```
 
 Update `/etc/caddy/Caddyfile` with site details.
+
+## References
+
+- https://caddyserver.com/docs/running
+- 

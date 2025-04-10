@@ -1,5 +1,3 @@
-# Configure Client Side Authentication with nginx and OpenSSL on macOS
-
 ## Pre-requisites
 
 This how-to is based on [Securing Websites With Nginx And Client-Side Certificate Authentication On Linux](https://arcweb.co/securing-websites-nginx-and-client-side-certificate-authentication-linux/)

@@ -33,6 +33,7 @@ Use associated type when there is a one-to-one relationship between the type imp
 - [GCC/LLVM Code Coverage](https://doc.rust-lang.org/nightly/unstable-book/compiler-flags/source-based-code-coverage.html)
 - [Tarpaulin Code Coverage Tool](https://github.com/xd009642/tarpaulin)
 - [Moves, copies and clones in Rust](https://hashrust.com/blog/moves-copies-and-clones-in-rust/)
+- `rustup component add rust-doc` then `rustup doc` for offline documentation
 
 ## Programming
 

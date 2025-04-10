@@ -2,13 +2,32 @@
 
 An easy to learn and use shell that sacrifices a some POSIX compliance for consistency & simplicity, without sacrificing functionality. See the [Fish command shell site](https://fishshell.com/) for all the details.  *Yes, they probably should update the tag line "The shell for the 90's".*
 
-You can look at the [source code on GitHub](https://github.com/fish-shell/fish-shell).
+You can look at the [source code on GitHub](https://github.com/fish-shell/fish-shell).  It's written in Rust!
 
 ## Install
 
 On macOS `brew install fish`.  Type `which fish` to get the location.  Ensure that the location is at the end of end of `/etc/shells`.  When you are comfortable with fish do `chsh -s <full-path-to-fish-here>` and restart your terminal.
 
-On Linuix see [Install package shells:fish / fish](https://software.opensuse.org/download.html?project=shells%3Afish&package=fish).
+On Ubuntu:
+
+```bash
+sudo -Es
+apt-add-repository ppa:fish-shell/release-3
+apt update
+apt install fish
+```
+
+On Debian/Raspian:
+
+```bash
+apt install fish
+```
+
+Then to set as the login shell for a user:
+
+```bash
+chsh -s /usr/bin/fish $USER
+```
 
 ## Config
 

@@ -21,13 +21,7 @@
 
 [Backup existing settings](https://docs.octoprint.org/en/master/bundledplugins/backup.html) in case you lose your Raspberry Pi for some reason.
 
-## Restart Webcam
-
-Restart the webcam service if you unplug the camera with:
-
-```sh
-sudo systemctl restart webcamd
-```
+## Start or Restart Webcam
 
 For newer OctoPrint systems:
 
@@ -42,7 +36,7 @@ If there is a `test.jpg` file, then:
 vi /boot/camera-streamer/libcamera.conf
 ```
 
-Edit the file to contain the correct parameters.
+Edit the file to contain the correct parameters.  Then:
 
 ```sh
 systemctl enable camera-streamer

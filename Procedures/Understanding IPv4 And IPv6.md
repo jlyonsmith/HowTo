@@ -98,6 +98,10 @@ To use DHCPv6 the M bit must be on (`AdvManagedFlag on`) and the A bit off.  See
 
 - https://www.youtube.com/watch?v=6g_DEcwNgp0
 - https://www.youtube.com/watch?v=ZGnTd-10q9w&t=1310s
+
+### Testing Router Advertisements
+
+You can use `radvdump` which should be included in the `radvd` package.
 ## macOS
 
 Disable IPv6 temporary address assignment:
@@ -111,9 +115,11 @@ See https://www.reddit.com/r/ipv6/comments/nnscnk/macos_big_sur_slaac_or_static_
 
 ## Research Notes
 
+### Home Network
+
 After investigation, I found that there were router advertisement packets coming from the external network interface. I added a firewall rule to block them (using `ip6tables`)
 
-Currently, I can see the router solicitation message hitting the router, and a router advertisement packet being returned. However, the MacBook does not receive an IP address from the DHCP server as it should.
+Currently, I can see the router solicitation message hitting the router (Ubuntu host), and a router advertisement packet being returned. However, the MacBook does not receive an IP address from the DHCPv6 server as it should.
 
 Next steps:
 
@@ -140,4 +146,10 @@ Next steps:
 - [RFC 8415: Dynamic Host Configuration Protocol for IPv6 (DHCPv6)](https://www.rfc-editor.org/rfc/rfc8415.html)
 - [Radvd and DHCPv6 Server Configuration for Dynamic DNS - SophieDogg](https://sophiedogg.com/radvd-and-dhcpd6-server-configuration-for-dynamic-dns)
 - [How to: IPv6 Neighbor Discovery | APNIC Blog](https://blog.apnic.net/2019/10/18/how-to-ipv6-neighbor-discovery)
-- [DHCPv6 and the Trouble with MAC Addresses (Part 1 of 2)](https://blogs.infoblox.com/ipv6-coe/dhcpv6-and-the-trouble-with-mac-addresses-part-1-of-2)/
+- [DHCPv6 and the Trouble with MAC Addresses (Part 1 of 2)](https://blogs.infoblox.com/ipv6-coe/dhcpv6-and-the-trouble-with-mac-addresses-part-1-of-2)
+- [IPv6 - How DHCPv6 works? - YouTube](https://www.youtube.com/watch?v=6g_DEcwNgp0)
+- [Example IPv6 configuration for DHCP and Router Advertisement](https://knowledge.broadcom.com/external/article/328201/example-ipv6-configuration-for-dhcp-and.html)
+- https://knowledge.broadcom.com/external/article/328201/example-ipv6-configuration-for-dhcp-and.html
+- https://www.mattb.nz/w/2011/05/11/linux-ignores-ipv6-router-advertisements-when-forwarding-is-enabled/
+- https://forum.proxmox.com/threads/ipv6-dhcpv6-routing-issue.121711
+- https://saudiqbal.github.io/Proxmox/proxmox-IPv6-interface-setup-DHCPv6-or-static.html

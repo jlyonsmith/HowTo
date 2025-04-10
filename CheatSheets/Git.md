@@ -1,5 +1,9 @@
-# Git
 
+## Update Submodules Recursively
+
+```sh
+git submodule update --init --recursive
+```
 ## Git aware prompt and auto-complete
 
 Copy [git-aware.sh and git-completion.sh](https://github.com/git/git/tree/master/contrib/completion) scripts from the Git repo on GitHub.

@@ -1,7 +1,3 @@
-<<<<<<<< HEAD:Procedures/Configure IPv6 Prefix Delegation on Ubuntu.md
-========
-
->>>>>>>> 2e63673 (vault backup: 2024-07-02 14:33:59):Procedures/Enable IPv6 Prefix Delegation on Ubuntu.md
 Run `dhclient -d -6 -P -v -lf /var/lib/dhcp/dhclient6-pd.leases {{EXT_IFACE}}` then Ctrl+C and `cat /var/lib/dhcp/dhclient6-pd.leases` to find out what the IPv6 lease CIDR range is.
 
 On Ubuntu 22 `netplan` controls and dynamically creates `systemd-networkd` configuration.  You can browse the current configuration - `ls -al /run/systemd/network`

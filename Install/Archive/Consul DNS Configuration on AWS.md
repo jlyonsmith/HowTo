@@ -1,5 +1,3 @@
-# Consul DNS Configuration on AWS
-
 _These instructions are specifically for AWS based machines._
 
 This document describes how to get DNS configured on an Ubuntu machine so that the `consul` services is consulted first for DNS lookups. This means that names ending in `.consul` will be resolved by the `consul` system.

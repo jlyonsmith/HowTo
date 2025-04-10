@@ -39,12 +39,10 @@ Instead of the last `ALL` you can add a comma separated list of commands (includ
 Do some testing:
 
 ```sh
-getent group sudo
+getent group sudo # if this returns nothing, user is not in the sudo group
 su - $NEWUSER
-whoami
+whoami # should return $NEWUSER
 ```
-
-If `getent` does not return anything, the user was not added to the `sudo` group.  `whoami` should return `$USER`.
 
 While still impersonating `$USER`:
 

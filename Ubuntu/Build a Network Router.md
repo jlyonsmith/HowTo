@@ -1,5 +1,3 @@
-# Build a Network Router
-
 ## Install Ubuntu from a USB Stick
 
 [Download the latest Ubuntu Server ISO](https://releases.ubuntu.com/).  Grab a minimum 2GB USB stick and create a bootable installer.  The [instructions for macOS are here](https://ubuntu.com/tutorials/create-a-usb-stick-on-macos#1-overview)

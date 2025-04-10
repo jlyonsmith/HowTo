@@ -1,6 +1,4 @@
-# Simulators
-
-## Start iOS Simulator from the Commend Line
+## Start iOS Simulator from the Command Line
 
 Use the `simctl` tool.
 

@@ -1,5 +1,3 @@
-# Install Ubuntu 1204 LTS Service Instance
-
 ### Adding 'ubuntu' User (non-EC2)
 
 We use an `ubuntu` user which has root access, like Amazon does with EC2.  First, `ssh` to the system as `root`, logging on with the provided password.

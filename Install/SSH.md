@@ -170,3 +170,7 @@ To view the SSH log use:
 ```bash
 journalctl -u ssh -f
 ```
+
+## References
+
+- https://medium.com/@ansxuman/how-to-secure-ssh-on-any-linux-server-using-pam-and-google-authenticator-783891141fe4

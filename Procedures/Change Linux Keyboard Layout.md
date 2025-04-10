@@ -1,9 +1,6 @@
-# Changing Keyboard Layout
-
 ## Default Keyboard
 
 The default keyboard for the system, including logins is stored in `/etc/default/keyboard` in the `XKBLAYOUT` variable.
-
 ## CentOS
 
 Install `kbd` package:
@@ -14,12 +11,13 @@ sudo loadkeys us-dvorak
 ```
 
 For the of supported key maps look under `/lib/kbd/keymaps/xkb`.
-
 ## Ubuntu
 
 The `kbd` package should already be installed
 
 ```sh
+apt update
+apt install kbd -y
 loadkeys dvorak
 ```
 

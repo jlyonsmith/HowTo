@@ -1,5 +1,3 @@
-# How to Change DHCP IP Address Range
-
 ## Status Quo
 
 Let's say your network is:

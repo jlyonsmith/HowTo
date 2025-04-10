@@ -1,5 +1,3 @@
-# Install CentOS 7 Service Instance
-
 ## General
 
 Install the service instance.  It should have a `centos` user with sudo permissions and the root account should be disabled.
