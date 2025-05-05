@@ -1,4 +1,3 @@
-# Installing ProxMox
 
 This document describes how to install ProxMox on Debian 12 servers.
 
@@ -162,7 +161,7 @@ Then update your sources to the paid repository.  Run `pveupgrade` which will ru
 
 Find the ID with `pct list`.
 
-Create a dump directory, `cd ~; mkdir dump; cd dump`.
+Create a snapshot directory, `cd ~; mkdir dump; cd dump`.
 
 Backup the container with `vzdump {{ID}} -dumpdir . -compress lzo -mode stop`.
 

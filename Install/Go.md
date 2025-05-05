@@ -1,30 +1,35 @@
-# Install Go
+## Summary
 
-## Ubuntu Instructions
+Install the Go programming language tools.
+## Installation
 
-```bash
-cd ~
-curl -O https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz
-tar xvf go1.12.4.linux-amd64.tar.gz
-sudo chown -R root:root ./go
-sudo mv ./go /usr/local
+### Linux
+
+```fish
+#!/usr/bin/fish
+
+set -l GOLANG "$(curl -s https://go.dev/dl/ | awk -F[\>\<] '/linux-arm64/ && !/beta/ {print $5;exit}')"
+wget https://golang.org/dl/$GOLANG
+sudo rm -r /usr/local/go
+sudo tar -C /usr/local -xzf $GOLANG
+rm $GOLANG
 ```
 
-Then add to `.bashrc`:
+### macOS
 
-```bash
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-```
-
-## macOS Instructions
-
-```bash
+```fish
 brew install go
 ```
 
-And add a `GOPATH` environment variable in `.bashrc`:
+## Configuration
 
-```bash
-export GOPATH=$HOME/go
+Add to your `~/.config/fish/config.fish` file:
+
+```fish
+fish_add_path /usr/local/go/bin
+fish_add_path -P $HOME/go/bin
 ```
+
+## References
+
+- [The Go Programming Language](https://go.dev)

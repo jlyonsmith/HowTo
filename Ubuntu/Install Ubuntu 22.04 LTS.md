@@ -1,7 +1,4 @@
-# Install Ubuntu 22.04 LTS
-
 Step-by-step instructions for creating a new Ubuntu 22.04 LTS service instance.
-
 ## Initial Steps
 
 Log in using virtualization systems console functionality. Remote SSH login will be disabled for root by default.
@@ -59,22 +56,14 @@ Paste in the $USER public key. You can use `cat ~/.ssh/id_rsa.pub | pbcopy` on m
 
 Test that `USER` can `ssh` into the machine.
 
+## Shell and Prompt
+
+Install the `fish` shell and `starship`.
 ## Lock Down the System
 
 Configure SSH with [Installing and Configuring SSH](../Install/SSH.md)
 
-Configure the IPTables with [Installing and Configuring IPTables](../Install/IPTables.md)
-
-Disable the password for the `root` user with:
-
-```sh
-sudo passwd -l root
-```
-
-*This will allow people to become root with `sudo` but logging in with `root` account is no longer possible, including through the ProxMox console! Do this as a last step after IPTables and SSH lock down have been done.  It's really frustrating to be locked out of a system and have to rebuild it from scratch.*
-
-Check if the password for an account is locked with `sudo passwd -S $USER`.  There should be an `L` in the resulting listing.
-
+Configure the NFTables for Internet facing machines with a public IP address by [Installing and Configuring NFTables](../Install/NFTables.md)
 ## Snapshot
 
 Now is a good time to take a snapshot of the machine if you are using ProxMox or another virtualization system.

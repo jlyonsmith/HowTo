@@ -113,6 +113,7 @@ sysctl -w net.inet6.ip6.use_tempaddr=0
 
 See https://www.reddit.com/r/ipv6/comments/nnscnk/macos_big_sur_slaac_or_static_dhcpv6/.
 
+
 ## Research Notes
 
 ### Home Network
@@ -124,6 +125,10 @@ Currently, I can see the router solicitation message hitting the router (Ubuntu 
 Next steps:
 
 - Turn of DHCPv6 and configure `radvd` to return an IPv6 prefix.  See if that sets the Macbook IP address correctly. If so, the problem is with DHCPv6, either the Macbook does not support it or the server is misconfigured.
+
+### Debugging
+
+You can use `systemctl install ndisc6` and then run `rdisc6` to check that you have a router responding to RA packets.
 ## References
 
 - [DHCPv6 - The Absolute Guide](https://www.rapidseedbox.com/blog/guide-to-dhcpv6)

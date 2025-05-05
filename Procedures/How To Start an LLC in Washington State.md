@@ -1,5 +1,3 @@
-# How To Start an LLC in Washington State
-
 ## Introduction
 
 Setting up an LLC in Washington State is, like many things, a sequence of simple steps that added together take a while to complete and must be done in the right order.  Make sure you have the following available:
@@ -36,10 +34,8 @@ Order a [Dun & Bradstreet DUNS number](https://www.dnb.com/duns-number/get-a-dun
 
 Note, at the end of all this you will end up with *two* online accounts with two separate passwords:
 
-1. A [Department of Revenue (DOR)](https://secure.dor.wa.gov) account
-2. A [Secretary of State (SOS)](https://ccfs.sos.wa.gov/#/) account
-
-The first is for paying your taxes. The second is for managing your business registration.
+1. A [Department of Revenue (DOR)](https://secure.dor.wa.gov) account (for licensing and city and county taxes)
+2. A [Secretary of State (SOS)](https://ccfs.sos.wa.gov/#/) account (for managing your state registration)
 
 Note that the a WA company will be administratively closed after two years if you don't make any money.  File that you made $1 if you need too in order to avoid that and pay the few pennies in tax yourself (yes, it's perfectly legal to overpay your taxes).
 ## Resources

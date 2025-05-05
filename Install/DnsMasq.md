@@ -1,8 +1,25 @@
 ## Installation
 
+```bash
+apt install dnsmasq
+```
 
+## Debugging
+
+Trace all IPv6 packets:
+
+```bash
+tcpdump -i eth0 -vv ip6
+```
+
+Debug `dnsmasq` queries:
+
+```bash
+dnsmasq --log-queries --log-debug -d -C /etc/dnsmasq.conf
+```
 ## References
 
+- [Man Page - dnsmasq - A lightweight DHCP and caching DNS server](https://manpages.ubuntu.com/manpages/trusty/man8/dnsmasq.8.html)
 - [Configuring Dnsmasq](https://dnsmasq.org/docs/setup.html) 
 - [How to Run a Local Network DHCP Server with Dnsmasq](https://www.howtogeek.com/devops/how-to-run-a-local-network-dhcp-server-with-dnsmasq)
 - [DNS and DHCP with Dnsmasq - Linux.com](https://www.linux.com/topic/networking/dns-and-dhcp-dnsmasq)
@@ -18,3 +35,4 @@
 - [How to Run Your Own DNS Server on Your Local Network](https://www.howtogeek.com/devops/how-to-run-your-own-dns-server-on-your-local-network)
 - [How to Run a Local Network DHCP Server with Dnsmasq](https://www.howtogeek.com/devops/how-to-run-a-local-network-dhcp-server-with-dnsmasq)
 - [Ubuntu 24.04 : Dnsmasq : Install : Server World](https://www.server-world.info/en/note?os=Ubuntu_24.04&p=dnsmasq&f=1)
+- [Using dnsmasq for dhcpv6](https://hveem.no/using-dnsmasq-for-dhcpv6)

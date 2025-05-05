@@ -1,4 +1,6 @@
-# Installing and Configuring SSH
+## Installation
+
+Built into all Linux and macOS distros.
 
 ## Harden the Server
 
@@ -34,9 +36,6 @@ PrintMotd yes
 
 # Pass in these environment variables
 AcceptEnv LANG LC_*
-
-# For remote file transfer on Ubuntu
-Subsystem       sftp    /usr/lib/openssh/sftp-server
 ```
 
 Run `sshd -t` and confirm no errors. Then restart the SSH daemon again with `systemctl restart sshd`.

@@ -22,16 +22,15 @@ Go to [Homebrew](https://brew.sh), copy the line and run it:
 
 Add `brew` to the path with `export PATH=$PATH:/opt/homebrew/bin`. Run `brew doctor` and _fix all the problems that it tells you about_.
 
-> You do not need to or want to be `sudo` when you install Homebrew. If you have installed Homebrew with `sudo`, uninstall it and re-install as yourself.
+> You *do not need to or want* to be `sudo` when you install Homebrew. If you have installed Homebrew with `sudo`, uninstall it and re-install as yourself.
 
 ## SSH
 
-Copy your SSH key from your previous machine backup.
-
-If you need to create a 4096 bit RSA key with a passphrase:
+Copy your SSH key from your previous machine backup or  generate a new one with a passphrase:
 
 ```sh
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f <your-alias>
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
 ```
 
 Then add the private key to your local `ssh-agent` with:
@@ -49,7 +48,7 @@ Install:
 
 ## Install VSCode
 
-Install [VSCode](https://code.visualstudio.com/).  Do **&#8984; Shift  P** and run "Install code to PATH".
+Install [VSCode](https://code.visualstudio.com/).  Do **⌘ Shift  P** and run "Install code to PATH".
 
 ## Install Browsers
 

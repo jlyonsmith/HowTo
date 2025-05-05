@@ -1,8 +1,8 @@
-# SSH Key Setup
+## SSH Key Setup
 
-## Signing Up for Userify
+### Signing Up for Userify
 
-![Userify](images/userify-main.png)
+![[userify-main.png]]
 
 Get an invitation to [Userify](https://userify.com). Click on the link email, set your password. Fill in your desired Linux user name. Also, as a policy we want you to set up [two-factor authentication for logging in to Userify](https://userify.com/docs/multifactor-authentication/).
 
@@ -10,7 +10,7 @@ You can use the [Google Authenticator iOS App](https://itunes.apple.com/us/app/g
 
 Another good option for a MFA store is [Authy](https://authy.com/).
 
-## Creating Your SSH Key & Environment
+### Creating Your SSH Key & Environment
 
 First, you need to create the `~/.ssh` directory:
 
@@ -44,7 +44,7 @@ Now go to Userify and paste the public key into your profile:
 
 ![Userify Public Key](images/userify-public-key.png)
 
-## Adding Your SSH key to the Keychain
+### Adding Your SSH key to the Keychain
 
 Run:
 
@@ -54,7 +54,7 @@ ssh-add -K ~/.ssh/
 
 Enter the key password. The key will be stored in your macOS SSH_Key_Setup/ and you should no longer have to enter the password when you use this new SSH key.
 
-## SSH Configuration File
+### SSH Configuration File
 
 Create configuration file. Run `edit ~/.ssh/config`. The add an entry for each system you want to connect to:
 

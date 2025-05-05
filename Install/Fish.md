@@ -1,4 +1,4 @@
-# Install & Use the Fish Shell
+## Install and Use the Fish Shell
 
 An easy to learn and use shell that sacrifices a some POSIX compliance for consistency & simplicity, without sacrificing functionality. See the [Fish command shell site](https://fishshell.com/) for all the details.  *Yes, they probably should update the tag line "The shell for the 90's".*
 

@@ -1,4 +1,4 @@
-# Certificates, Identifiers &amp; Profiles
+# Certificates, Identifiers and Profiles
 
 # General
 

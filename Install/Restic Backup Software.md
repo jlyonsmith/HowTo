@@ -1,7 +1,4 @@
-# Restic Backup Software
-
 Restic is a free, modern and easy to use Linux backup tool.
-
 ## Installation
 
 ```sh
@@ -88,20 +85,20 @@ This will initialize the repository for use.
 
 Do a test backup with `restic backup`.  Then do a `restic snapshots` and ensure your backup looks correct (don't forget to set the necessary environment variables as mentioned above.)
 
-### Configure 'systemd' for Users
+### Configure for Specific User
 
 This section assumes you want to configure Restic for a specific user, not the entire system. In our example a user called `git`.
 
 While running as `root` become the `git` user with `su git`.
 
-Then, ensure that you have the required variables to run `systemd --user`.  Add the following to `.bashrc`:
+Then, ensure that you have the required variables to run `systemctl --user`.  Add the following to `.bashrc`:
 
 ```bash
 export XDG_RUNTIME_DIR="/run/user/$UID"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 ```
 
-### Create a Backup Timer
+### Create a Backup Service and Timer
 
 Create a file `~/.config/systemd/user/restic-backup.service` with:
 
@@ -117,11 +114,9 @@ WorkingDirectory=/home/git
 EnvironmentFile=/home/git/.config/restic-environment
 ```
 
-Test with `systemctl --user daemon-reload` then `systemctl --user start restic-backup.service`.
+> Test with `systemctl --user daemon-reload` then `systemctl --user start restic-backup.service`.  If a problem is reported set `StandardOutput=file:/home/git/restic-backup.out` and `StandardError=file:/home/git/restic-backup.err` and see what the output and errors are.  You can also try `ExecStart=/bin/bash -c 'env'` to see what the environment is set too.
 
-If a problem is reported set `StandardOutput=file:/home/git/restic-backup.out` and `StandardError=file:/home/git/restic-backup.err` and see what the output and errors are.  You can also try `ExecStart=/bin/bash -c 'env'` to see what the environment is set too.
-
-Create a timer:
+Create a timer to start the service:
 
 ```conf
 [Unit]
@@ -135,11 +130,11 @@ Persistent=true
 WantedBy=timers.target
 ```
 
-Enable the time with `systemctl --user enable restic-backup.timer`.
+Enable the timer with `systemctl --user enable restic-backup.timer`.
 
 Check with `systemctl --user list-timers`.
 
-### Create a Prune Timer
+### Create a Prune Service and Timer
 
 Add a separate pruning service that runs less frequently.  Add a file `~/.config/systemd/user/restic-prune.service`:
 
@@ -172,6 +167,16 @@ WantedBy=timers.target
 Enable the time with `systemctl --user enable restic-prune.timer`.
 
 Check with `systemctl --user list-timers`.
+
+## Debugging
+
+To read Restic environment into the local shell for testing:
+
+```bash
+set -a
+. ./.config/restic-backup.conf
+set +a
+```
 
 ### Configuring for System Backups
 
