@@ -93,14 +93,6 @@ truncation_length = 8
 truncation_symbol = ".../"
 ```
 
-## Install Deno
-
-Install [Deno](https://deno.land/)
-
-```sh
-brew install deno
-```
-
 ## Install Node.js
 
 Upgrade default [Node.js](https://nodejs.org/en/).

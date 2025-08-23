@@ -20,3 +20,14 @@ end
 ```
 
 This will add Rust tooling to the `PATH` and shell completions for the Fish shell.
+
+### Code Coverage
+
+Install Rust's native LLVM based code coverage tools:
+
+```bash
+rustup component add llvm-tools
+cargo install grcov
+```
+
+The run `./get-coverage.sh` to generate a `.profraw` file in the `/scratch` directory, and HTML coverage report. Open it with `open ./target/debug/coverage/*.html`.

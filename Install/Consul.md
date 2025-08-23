@@ -1,5 +1,6 @@
-# Install Consul
+## Summary
 
+Consul is as distributed cloud monitoring and configuration solution.
 ## Ubuntu
 
 ```bash
@@ -14,7 +15,7 @@ Add group and user:
 
 ```bash
 sudo groupadd --system consul
-sudo useradd -s /sbin/nologin --system -g consul consul
+sudo useradd --shell /sbin/nologin --system --gid consul consul
 ```
 
 Create consul configuration directory:
