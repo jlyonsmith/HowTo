@@ -12,7 +12,7 @@ On Ubuntu:
 
 ```bash
 sudo -Es
-apt-add-repository ppa:fish-shell/release-3
+apt-add-repository ppa:fish-shell/release-4
 apt update
 apt install fish
 ```

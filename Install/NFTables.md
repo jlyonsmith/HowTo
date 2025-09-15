@@ -1,4 +1,13 @@
 
+## Installation
+
+NFTables is the default firewall on Debian 13 and Ubuntu 24.04.
+
+Don't forget to uncomment the following line in `/etc/sysctl.conf` to enable IPv4 forwarding:
+
+```sh
+net.ipv4.ip_forward=1
+```
 ## Introduction
 
 NFTables is the replacement for IPTables for packet filtering on Linux machines.  Going forward IPTables will likely be implemented using NFTables on Linux machines.  It is a significant improvement in terms of rule readability, however, there is a learning curve for the new syntax.
@@ -12,7 +21,9 @@ NF tables functions similarly in that you create chains containing rules. Each c
 
 ![[netfilter-hooks.png]]
 
-There are two types of chains, base chains and regular chains.  A base chain is tied into a network hook (see the above diagram).  Base chains have a priority (low to high) to help when there are multiple chains attached to a hook.
+There are two types of chains, base-chains and sub-chains.  A base-chain is tied into a network hook (see the above diagram).  Base-chains have a priority (low to high) to help when there are multiple chains attached to a hook.   Sub-chains are called from base-chains to handle specific special cases.
+
+Chains consist of a sequence of rules.
 
 Note that bridge interfaces have their own set of hooks.  Packets may traverse up to the IP layer from bridge interfaces, or they may pass through.  Bridge packets only go up to the IP layer when they need to be handled by a local process or passed to a physical network interface to leave the machine.
 
@@ -32,6 +43,13 @@ If you are using `fail2ban` then you need to change all instances of `iptables` 
 
 Flush `iptables -F`, remove any persistence mechanisms, then remove `iptables` with `sudo apt remove iptables`
 ## Debugging
+
+To see the NFTables and the ruleset for a table:
+
+```sh
+sudo nft list tables # Shows all tables
+sudo nft list table global # Assuming a table called `global`
+```
 
 To avoid problems with bad tables, run the following to check them for errors before loading:
 

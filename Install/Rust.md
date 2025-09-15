@@ -31,3 +31,20 @@ cargo install grcov
 ```
 
 The run `./get-coverage.sh` to generate a `.profraw` file in the `/scratch` directory, and HTML coverage report. Open it with `open ./target/debug/coverage/*.html`.
+
+## Linking
+
+The native linker on most platforms is really slow.  The `lld` linker which is part of LLVM is faster.  Install it on macOS with `homebrew install lld` and on Linux with `apt install lld`.
+
+You can get Rust to use it by doing:
+
+```sh
+RUSTFLAGS="-Clinker-args=-fuse-ld=lld" cargo build
+```
+
+Or by adding a `.cargo/config.toml` file with:
+
+```toml
+[build]
+rustflags = ["-Clink-args=-fuse-ld=lld"]
+```

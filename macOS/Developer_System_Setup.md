@@ -22,7 +22,7 @@ Go to [Homebrew](https://brew.sh), copy the line and run it:
 
 Add `brew` to the path with `export PATH=$PATH:/opt/homebrew/bin`. Run `brew doctor` and _fix all the problems that it tells you about_.
 
-> You *do not need to or want* to be `sudo` when you install Homebrew. If you have installed Homebrew with `sudo`, uninstall it and re-install as yourself.
+> You *do not want* to be `sudo` when you install Homebrew. If you have installed Homebrew with `sudo`, uninstall it and re-install as yourself.
 
 ## SSH
 
@@ -30,7 +30,6 @@ Copy your SSH key from your previous machine backup or  generate a new one with 
 
 ```sh
 ssh-keygen -t ed25519 -C "your_email@example.com"
-```
 ```
 
 Then add the private key to your local `ssh-agent` with:

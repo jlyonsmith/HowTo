@@ -28,7 +28,6 @@ Create a config file:
 
 ```bash
 sudo touch /etc/nats-server.conf
-sudo chown root:root /etc/nats-server.conf
 ```
 
 Create file `/etc/systemd/system/nats.service:
@@ -65,7 +64,53 @@ systemctl start nats
 For the command line tool you can configure *contexts* which is basically a server/user to communicate with when running commands:
 
 ```bash
-nats context add controller --server nats.my.domain.com:4222 --description "My NATS server" --select
+nats context create admin
+vi $HOME/.config/nats/admin.txt
 nats context list
 ```
-`--select` makes this context the default.
+
+You need to create some users.  Edit `/etc/nats/nats-server.conf`:
+
+```conf
+accounts: {
+    USERS: {
+        users: [
+            {user: user1, password: ...}
+            {user: user2, password: ...}
+        ]
+    },
+    SYS: { 
+        users: [
+            {user: admin, password: ...}
+           ]
+    },
+}
+system_account: SYS
+```
+
+Now `sudo systemctl restart nats`.  Then:
+
+```sh
+nats context create admin
+```
+
+Edit `$HOME/.config/nats/context/admin.json` and add:
+
+```json
+accounts: {
+    USERS: {
+        users: [
+            {user: propctrl, password: odie}
+            {user: propsrv, password: garfield}
+        ]
+    },
+    SYS: { 
+        users: [
+            {user: admin, password: arbuckle}
+           ]
+    },
+},
+system_account: SYS
+```
+
+Do a `nats context select` to pick the default context.  Then you can do things like `nats server info`.

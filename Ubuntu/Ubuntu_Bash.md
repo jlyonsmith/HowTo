@@ -1,4 +1,3 @@
-# Settings for Ubuntu Bash Shell
 
 ## Clean Up Message-of-the-Day
 

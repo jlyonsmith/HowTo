@@ -1,14 +1,15 @@
 
 This document describes how to install ProxMox on Debian 12 servers.
 
-## Install on Debian 12
+## Install on Debian
 
 If using Hetzner, [use the Rescue O/S to install Debian](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) adjusting for the most recent version of Debian.
 
 - [Trajche Kralev](https://tj.mk/install-proxmox-4-hetzner-debian/)
 - [Hetzner - Install and Configure Proxmox VE](https://community.hetzner.com/tutorials/install-and-configure-proxmox_ve)
 - [How to setup Proxmox on dedicated Hetzner Server](https://www.indivar.com/blog/how-to-setup-proxmox-on-hetzner-dedicated-server/)
-- [Install ProxMox VE on Debian 12 Booworm](https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm)
+- [Install ProxMox VE on Debian 12 Bookworm](https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm)
+- [Install ProxMox VE on Debian 13 Trixie](https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_13_Trixie)
 
 
 Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
@@ -19,11 +20,13 @@ Configure IPTables.
 
 ProxMox now comes with a built in ACME client for getting SSH certificates for the web interface. You can configure everything on the command line. We'll use the default authentication mechanism, `http-01` challenge.
 
-Add a `default` ACME account, `pvenode acme account register default {{EMAIL}}` and answer the questions.  *You don't need the `staging` endpoint.*
+1. Add a `default` ACME account, `pvenode acme account register default {{EMAIL}}` and answer the questions.  *You don't need the `staging` endpoint.*
+2. Set the domain you want a cert for, `pvenode config set --acme domains={{FQDN}}`.
+3. Order the cert with `pvenode acme cert order`.  
+ 
+To renew a certificate, use `pvenode acme cert renew`.  
 
-Set the domain you want a cert for, `pvenode config set --acme domains={{FQDN}}`.
-
-Order the cert, `pvenode acme cert order`.
+>     Note that if you have a firewall blocking port 80, then you will have to stop it before ordering or renewal, e.g. `systemctl stop nftables`, and then start it afterwards.  The `pvenode`  command will try and start a web server to validate the domain with the ACME server which needs to be accessible.  You can also add/remove firewall rules to allow access to the web server, but those would be dependent on your specific setup.
 
 ### SSL References
 
