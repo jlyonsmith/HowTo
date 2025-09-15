@@ -1,4 +1,4 @@
-# Installation
+## Installation
 
 Rust installation involves first installing the `rustup` tool which bootstraps and manages the Rust toolchain.
 ### Linux and macOS
@@ -34,7 +34,7 @@ The run `./get-coverage.sh` to generate a `.profraw` file in the `/scratch` dire
 
 ## Linking
 
-The native linker on most platforms is really slow.  The `lld` linker which is part of LLVM is faster.  Install it on macOS with `homebrew install lld` and on Linux with `apt install lld`.
+The native linker on most platforms is slow.  The `lld` linker which is part of LLVM is faster.  Install it on macOS with `homebrew install lld` and on Linux with `apt install lld`.
 
 You can get Rust to use it by doing:
 
