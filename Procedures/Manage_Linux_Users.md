@@ -6,7 +6,7 @@ This document describes managing users and groups on Linux.
 
 ```bash
 sudo groupadd --system <group-name>
-sudo useradd -s /sbin/nologin --system -g <group-name> <user-name>
+sudo useradd -s /sbin/nologin --system -G <group-name> <user-name>
 ```
 
 ## Changing User/Group ID's

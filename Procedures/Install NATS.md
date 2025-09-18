@@ -1,7 +1,6 @@
 ## CLI
 
 Install with:
-
 ```bash
 curl -sf https://binaries.nats.dev/nats-io/natscli/nats@latest | sh
 sudo chown root:root nats
@@ -11,27 +10,23 @@ sudo mv nats /usr/bin
 
 > NOTE: There is a bug in the script to install the latest NAT.  Instead go to [NATS Server Releasen](https://github.com/nats-io/nats-server/releases) and find the latest release (without `-binary` at the end) and use that if the `curl` command below fails, e.g. `v2.11.0`
 
+Create a `nats` user and group:
+```bash
+sudo useradd --system --no-create-home --shell=/sbin/nologin -G nats
+```
 Install server tool:
 ```bash
 curl -sf https://binaries.nats.dev/nats-io/nats-server/v2@latest | sh
 sudo chown root:root nats-server
 sudo mv nats-server /usr/bin
+sudo mkdir /var/log/nats
+sudo chown nats:nats /var/log/nats
 ```
-
-Create a `nats` user and group:
-
-```bash
-sudo useradd --system --no-create-home --shell=/sbin/nologin -G nats
-```
-
 Create a config file:
-
 ```bash
 sudo touch /etc/nats-server.conf
 ```
-
 Create file `/etc/systemd/system/nats.service:
-
 ```toml
 [Unit]
 Description=NATS Server
