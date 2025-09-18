@@ -21,7 +21,7 @@ sudo mv nats-server /usr/bin
 Create a `nats` user and group:
 
 ```bash
-sudo useradd --system --no-create-home --shell=/sbin/nologin -G sudo nats
+sudo useradd --system --no-create-home --shell=/sbin/nologin -G nats
 ```
 
 Create a config file:
