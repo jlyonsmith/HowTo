@@ -12,7 +12,8 @@ sudo mv nats /usr/bin
 
 Create a `nats` user and group:
 ```bash
-sudo useradd --system --no-create-home --shell=/sbin/nologin -G nats
+sudo groupadd --system nats
+sudo useradd --system --no-create-home --shell=/sbin/nologin -G nats nats
 ```
 Install server tool:
 ```bash
