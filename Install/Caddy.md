@@ -12,7 +12,7 @@ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo 
 sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update
-sudo apt install caddy
+sudo apt install -y caddy
 ```
 
 Update `/etc/caddy/Caddyfile` with site details.
