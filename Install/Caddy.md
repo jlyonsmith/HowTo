@@ -32,5 +32,4 @@ sudo systemctl disable nginx
 ```
 ## References
 
-- https://caddyserver.com/docs/running
-- 
+- [Running Caddy](https://caddyserver.com/docs/running)
