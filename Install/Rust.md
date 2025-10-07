@@ -49,6 +49,33 @@ Or by adding a `.cargo/config.toml` file with:
 rustflags = ["-Clink-args=-fuse-ld=lld"]
 ```
 
+## Modules
+
+Remember this about modules:
+```rust
+// src/lib.rs
+mod foo {
+    fn test() {}
+}
+```
+Is exactly the same as this:
+```rust
+// src/lib.rs
+mod foo;
+
+// src/foo.rs
+fn test() {}
+```
+Which is exactly the same as this:
+```rust
+// src/lib.rs
+mod foo;
+
+//src/foo/mod.rs
+fn test() {}
+```
+
+and this can be repeated down the directory tree.  It's easiest to use `include!` to avoid making new modules.
 ## Books
 
 - [Rust Standard Library](https://doc.rust-lang.org/std/index.html)
