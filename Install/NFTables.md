@@ -17,13 +17,12 @@ The best source of information for understanding NFTables is the [nftables Wiki]
 Ensure you are running the latest version of `nftables` with `apt update; apt install nftables`.
 ## Rulesets, Chains, Expressions and Hooks
 
-NF tables functions similarly in that you create chains containing rules. Each chain is hooked into a specific phase in the Linux net filtering pipeline. See the following diagram for better understanding:
+NF tables functions similarly in that you create chains containing rules. Each chain is hooked into a specific phase in the Linux net filtering pipeline.  There are two types of chains, base-chains and sub-chains.  A base-chain is tied into a network hook (see the above diagram).  Base-chains have a priority (low to high) to help when there are multiple chains attached to a hook.   Sub-chains are called from base-chains to handle specific special cases.  Chains consist of a sequence of rules.
+
+See the following diagram for better understanding of the different base chain hook points:
 
 ![[netfilter-hooks.png]]
 
-There are two types of chains, base-chains and sub-chains.  A base-chain is tied into a network hook (see the above diagram).  Base-chains have a priority (low to high) to help when there are multiple chains attached to a hook.   Sub-chains are called from base-chains to handle specific special cases.
-
-Chains consist of a sequence of rules.
 
 Note that bridge interfaces have their own set of hooks.  Packets may traverse up to the IP layer from bridge interfaces, or they may pass through.  Bridge packets only go up to the IP layer when they need to be handled by a local process or passed to a physical network interface to leave the machine.
 

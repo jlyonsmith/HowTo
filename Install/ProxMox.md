@@ -12,9 +12,7 @@ If using Hetzner, [use the Rescue O/S to install Debian](https://docs.hetzner.co
 - [Install ProxMox VE on Debian 13 Trixie](https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_13_Trixie)
 
 
-Install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth).
-
-Configure IPTables.
+First, install Google Authenticator for 2FA and [configure it in ProxMox](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#pveum_tfa_auth). The configure NFTables for the server.
 
 ## Configure ProxMox SSL Certificates
 
@@ -26,7 +24,7 @@ ProxMox now comes with a built in ACME client for getting SSH certificates for t
  
 To renew a certificate, use `pvenode acme cert renew`.  
 
->     Note that if you have a firewall blocking port 80, then you will have to stop it before ordering or renewal, e.g. `systemctl stop nftables`, and then start it afterwards.  The `pvenode`  command will try and start a web server to validate the domain with the ACME server which needs to be accessible.  You can also add/remove firewall rules to allow access to the web server, but those would be dependent on your specific setup.
+>     Note that if you have a firewall blocking port 80, then you will have to enable port 80 it before ordering or renewal, e.g. `systemctl stop nftables`, and then start it afterwards.  The `pvenode`  command will try and start a web server to validate the domain with the ACME server which needs to be accessible.  You can also add/remove firewall rules to allow access to the web server, but those would be dependent on your specific setup.
 
 ### SSL References
 
