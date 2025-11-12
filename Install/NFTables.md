@@ -56,6 +56,13 @@ Then use `nft -a list ...` to find the handle(s) of the rule ($HANDLE) and remov
 ```sh
 sudo nft delete rule inet firewall inbound handle $HANDLE
 ```
+
+## Temporarily Disable
+
+```
+sudo systemctl stop nftables
+
+```
 ## Debugging
 
 To see the NFTables and the ruleset for a table:
