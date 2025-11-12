@@ -57,11 +57,19 @@ Then use `nft -a list ...` to find the handle(s) of the rule ($HANDLE) and remov
 sudo nft delete rule inet firewall inbound handle $HANDLE
 ```
 
+> For ProxMox this won't work if you have a `prerouting` rule that forwards all port 80 traffic to port 8006.  It's easiest just to disable the firewall temporarily (see below)
 ## Temporarily Disable
 
 ```
+sudo nft flush ruleset
 sudo systemctl stop nftables
+```
 
+Do the thing, then:
+
+```
+sudo systemctl start nftables
+sudo nft -f /etc/nftables.conf
 ```
 ## Debugging
 
