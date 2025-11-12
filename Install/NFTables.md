@@ -41,6 +41,10 @@ See [Moving from iptables to nftables](https://wiki.nftables.org/wiki-nftables/i
 If you are using `fail2ban` then you need to change all instances of `iptables` to `nftables` in the Fail2ban configuration files under `/etc/fail2ban`.  Stop `fail2ban` before you do that and restart it afterward.
 
 Flush `iptables -F`, remove any persistence mechanisms, then remove `iptables` with `sudo apt remove iptables`
+
+## Adding Temporary Rules
+
+
 ## Debugging
 
 To see the NFTables and the ruleset for a table:
