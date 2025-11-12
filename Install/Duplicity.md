@@ -24,8 +24,9 @@ sudo apt-get install -y \
         rdiff \
         tzdata
 sudo python3 -m pip install --upgrade pip pipx
-which duplicity # should return nothing; if not uninstall with `apt remove`
+which -a duplicity # should return nothing; if not uninstall with `apt remove`
 sudo -Es
+export PIPX_GLOBAL_BIN_DIR=/usr/local/bin
 export PIPX_BIN_DIR=/usr/local/bin
 export PIPX_HOME=/opt/pipx
 pipx install --global duplicity
