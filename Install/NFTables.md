@@ -44,7 +44,17 @@ Flush `iptables -F`, remove any persistence mechanisms, then remove `iptables` w
 
 ## Adding Temporary Rules
 
+Allow port 80 connections temporarily:
 
+```sh
+sudo nft insert rule inet firewall inbound tcp dport 80 counter accept comment \"Temporarily allow HTTP\"
+```
+
+Then use `nft -a list ...` to find the handle of the rule and remove it with:
+
+```sh
+sudo nft delete rule inet firewall inbound handle 
+```
 ## Debugging
 
 To see the NFTables and the ruleset for a table:
@@ -52,6 +62,9 @@ To see the NFTables and the ruleset for a table:
 ```sh
 sudo nft list tables # Shows all tables
 sudo nft list table global # Assuming a table called `global`
+sudo nft list chains # List all chains
+sudo nft list tables # List all tables
+sudo nft -a list chain inet firewall inbound # List table `inet firewall` with `inbound` chain with handles
 ```
 
 To avoid problems with bad tables, run the following to check them for errors before loading:
