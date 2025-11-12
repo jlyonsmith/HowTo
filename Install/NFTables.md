@@ -48,12 +48,13 @@ Allow port 80 connections temporarily:
 
 ```sh
 sudo nft insert rule inet firewall inbound tcp dport 80 counter accept comment \"Temporarily allow HTTP\"
+sudo nft insert rule inet firewall inbound tcp dport 443 counter accept comment \"Temporarily allow HTTPS\"
 ```
 
-Then use `nft -a list ...` to find the handle of the rule and remove it with:
+Then use `nft -a list ...` to find the handle(s) of the rule ($HANDLE) and remove with one or more commands:
 
 ```sh
-sudo nft delete rule inet firewall inbound handle 
+sudo nft delete rule inet firewall inbound handle $HANDLE
 ```
 ## Debugging
 
