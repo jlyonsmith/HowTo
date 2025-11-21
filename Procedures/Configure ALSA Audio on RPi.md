@@ -6,10 +6,13 @@ Get a list of ALSA audio devices:
 aplay -l
 ```
 
+The device name is in square brackets, e.g. `[`
+
 Play WAV audio:
 
 ```sh
-aplay -D 
+aplay something.wav # To play on default device
+aplay -D device something.wav # For a specific device
 ```
 
 Bring up interactive audio mixer:
