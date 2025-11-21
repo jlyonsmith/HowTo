@@ -6,7 +6,8 @@ Get a list of ALSA audio devices:
 aplay -l
 ```
 
-The device name is in square brackets, e.g. `[`
+The device name is given inside square brackets, e.g. `[bcm2835 headphones]` for the `bcm2835 headphones` device.
+
 
 Play WAV audio:
 
