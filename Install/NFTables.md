@@ -75,7 +75,8 @@ sudo nft -f /etc/nftables.conf
 ## Expose Internal Hosts to Outside
 
 ```sh
-nft add table ip nat # `nat` is the table name
+# Add a `nat` table
+nft add table ip nat
 # Add pre and post routing chains
 nft add chain ip nat prerouting { type nat hook prerouting priority -100; }
 nft add chain ip nat postrouting { type nat hook postrouting priority 100; }
