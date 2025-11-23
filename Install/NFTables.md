@@ -51,7 +51,7 @@ sudo nft insert rule inet firewall inbound tcp dport 80 counter accept comment \
 sudo nft insert rule inet firewall inbound tcp dport 443 counter accept comment \"Temporarily allow HTTPS\"
 ```
 
-Then use `nft -a list ...` to find the handle(s) of the rule ($HANDLE) and remove with one or more commands:
+Then use `nft -a list ...` to find the handle(s) of the rule (`$HANDLE`) and remove with:
 
 ```sh
 sudo nft delete rule inet firewall inbound handle $HANDLE
@@ -60,28 +60,35 @@ sudo nft delete rule inet firewall inbound handle $HANDLE
 > For ProxMox this won't work if you have a `prerouting` rule that forwards all port 80 traffic to port 8006.  It's easiest just to disable the firewall temporarily (see below)
 ## Temporarily Disable
 
-```
+```sh
 sudo nft flush ruleset
 sudo systemctl stop nftables
 ```
 
 Do the thing, then:
 
-```
+```sh
 sudo systemctl start nftables
 sudo nft -f /etc/nftables.conf
 ```
 
 ## Expose Internal Hosts to Outside
 
-```
+```sh
 nft add table ip nat # `nat` is the table name
 # Add pre and post routing chains
 nft add chain ip nat prerouting { type nat hook prerouting priority -100; }
 nft add chain ip nat postrouting { type nat hook postrouting priority 100; }
-# Expose the interal host on external port
+# Expose the internal host port on external port
 nft add rule ip nat prerouting tcp dport $PUBLIC_PORT dnat to $INTERNAL_IP:$INTERNAL_PORT
+# Allow reverse communications from internal to external
 nft add rule ip nat postrouting oifname $YOUR_EXTERNAL_INTERFACE masquerade
+```
+
+Ensure IP forwarding is allowed by the system with 
+
+```sh
+echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 ## Debugging
 
