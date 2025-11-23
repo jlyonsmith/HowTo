@@ -71,6 +71,18 @@ Do the thing, then:
 sudo systemctl start nftables
 sudo nft -f /etc/nftables.conf
 ```
+
+## Expose Internal Hosts to Outside
+
+```
+nft add table ip nat # `nat` is the table name
+# Add pre and post routing chains
+nft add chain ip nat prerouting { type nat hook prerouting priority -100; }
+nft add chain ip nat postrouting { type nat hook postrouting priority 100; }
+# Expose the interal host on external port
+nft add rule ip nat prerouting tcp dport $PUBLIC_PORT dnat to $INTERNAL_IP:$INTERNAL_PORT
+nft add rule ip nat postrouting oifname $YOUR_EXTERNAL_INTERFACE masquerade
+```
 ## Debugging
 
 To see the NFTables and the ruleset for a table:
