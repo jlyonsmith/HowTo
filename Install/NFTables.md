@@ -74,6 +74,7 @@ sudo nft -f /etc/nftables.conf
 
 ## Expose Internal Hosts to Outside
 
+The `nat` table is special and get's checked before internal routing:
 ```sh
 # Add a `nat` table
 nft add table ip nat
@@ -81,9 +82,11 @@ nft add table ip nat
 nft add chain ip nat prerouting { type nat hook prerouting priority -100; }
 nft add chain ip nat postrouting { type nat hook postrouting priority 100; }
 # Expose the internal host port on external port
-nft add rule ip nat prerouting tcp dport $PUBLIC_PORT dnat to $INTERNAL_IP:$INTERNAL_PORT
+nft add rule ip nat prerouting tcp dport $EXT_PORT dnat to $INT_IP:$INT_PORT
+# Add a forward rule
+nft add rule nat forward iifname $EXT_IFACE oifname $INT_IFACE tcp dport $INT_PORT accept
 # Allow reverse communications from internal to external
-nft add rule ip nat postrouting oifname $YOUR_EXTERNAL_INTERFACE masquerade
+nft add rule ip nat postrouting oifname $EXT_IFACE masquerade
 ```
 
 Ensure IP forwarding is allowed by the system with 
