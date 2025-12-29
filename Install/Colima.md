@@ -40,3 +40,5 @@ colima ssh -p aarch64
 ```
 
 Without the `-p` you will access the `default` instance profile.
+
+## Setting Up
