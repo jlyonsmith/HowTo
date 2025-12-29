@@ -28,7 +28,7 @@ colima start aarch64 --arch aarch64 --ssh-port 2223
 To create an `x86_64` VM:
 
 ```sh
-colima start x86_64 --arch x86_64 --vz-rosetta --ssh-port 2222
+colima start x86 --arch x86_64 --vz-rosetta --ssh-port 2222
 ```
 
 ## Accessing
@@ -41,4 +41,19 @@ colima ssh -p aarch64
 
 Without the `-p` you will access the `default` instance profile.
 
-## Setting Up
+## Setting Up Rust on Instance
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Then each time:
+
+```sh
+. "$HOME/.cargo/env"
+sudo apt update
+sudo apt install build-essential pkg-config
+# Install any other needed libraries
+CARGO_TARGET_DIR="./target/$(rustc --print host-tuple)/" cargo build
+```
+
