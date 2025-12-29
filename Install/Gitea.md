@@ -99,6 +99,26 @@ sudo chmod 750 /etc/gitea
 sudo chmod 640 /etc/gitea/app.ini
 ```
 
+## Upgrade Script
+
+```fish
+#!/usr/bin/fish
+
+set VERSION 1.25.3
+set DOWNLOAD_FILE /tmp/gitea
+set DOWNLOAD_URL https://dl.gitea.io/gitea/$VERSION/gitea-$VERSION-linux-amd64
+
+if not fish_is_root_user
+    echo "This script must be run as root."
+    exit 1
+end
+rm $DOWNLOAD_FILE
+wget -4 -O $DOWNLOAD_FILE $DOWNLOAD_URL
+mv $DOWNLOAD_FILE /usr/local/bin
+chown root:root /usr/local/bin/gitea
+chmod +x /usr/local/bin/gitea
+systemctl restart gitea
+```
 ## References
 
 - [How to Install Gitea on Ubuntu](https://linuxize.com/post/how-to-install-gitea-on-ubuntu-18-04/)
