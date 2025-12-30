@@ -83,19 +83,9 @@ Building code for a different architecture requires a _cross-compiler_ or _linke
 
 For Debian/Ubuntu-based systems (e.g., Raspberry Pi OS):
 
-bash
-
-```
+```bash
 sudo apt update
 sudo apt install gcc-x86-64-linux-gnu binutils-x86-64-linux-gnu
-```
-
-For Arch Linux ARM:
-
-bash
-
-```
-sudo pacman -S x86_64-linux-gnu-gcc
 ```
 
 #### Step 3: Configure Your Rust Project 
