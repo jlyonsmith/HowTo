@@ -161,3 +161,86 @@ Filter items from an iterator - `iter1.filter(|&item| item != 0)`
 
 - [lazy_static](https://docs.rs/lazy_static/1.1.1/lazy_static/)
 - [regex](https://docs.rs/regex/1.4.2/regex/index.html)
+
+## Cross Compile x86_64 on AArch64
+
+To cross-compile a Rust project from AArch64 Linux (like a Raspberry Pi or an Apple Silicon Mac running Linux in a VM) to x86_64 Linux, you need to follow these steps:
+
+1. **Install the necessary target and linker.**
+2. **Configure your Rust project for cross-compilation.**
+3. **Build the project.** 
+
+Here is a detailed guide:
+
+### Prerequisites
+
+You need a Rust toolchain installed, typically managed via `rustup`. 
+
+#### Step 1: Install the x86_64 Linux Target 
+
+You need to tell `rustup` that you intend to build for the `x86_64-unknown-linux-gnu` target. 
+
+bash
+
+```
+rustup target add x86_64-unknown-linux-gnu
+```
+
+#### Step 2: Install the Cross-Compilation Toolchain (Linker) 
+
+Building code for a different architecture requires a _cross-compiler_ or _linker_ for that specific target. The exact command depends on your AArch64 Linux distribution: 
+
+For Debian/Ubuntu-based systems (e.g., Raspberry Pi OS):
+
+bash
+
+```
+sudo apt update
+sudo apt install gcc-x86-64-linux-gnu binutils-x86-64-linux-gnu
+```
+
+For Arch Linux ARM:
+
+bash
+
+```
+sudo pacman -S x86_64-linux-gnu-gcc
+```
+
+#### Step 3: Configure Your Rust Project 
+
+Rust needs to know which linker to use when compiling for the target architecture. You can do this globally or per-project. 
+
+Per-Project Configuration (Recommended)
+
+Navigate to the root directory of your Rust project and create a `.cargo` directory if it doesn't exist. Inside `.cargo`, create a file named `config.toml`: 
+
+bash
+
+```
+mkdir -p .cargo
+nano .cargo/config.toml
+```
+
+Add the following configuration to `config.toml`, which tells Rust to use the newly installed `gcc-x86-64-linux-gnu` as the linker for the `x86_64-unknown-linux-gnu` target:
+
+toml
+
+```
+[target.x86_64-unknown-linux-gnu]
+linker = "x86_64-linux-gnu-gcc"
+```
+
+#### Step 4: Build Your Project
+
+Now you can build your Rust project specifically for the x86_64 target using the `--target` flag:
+
+bash
+
+```
+cargo build --target=x86_64-unknown-linux-gnu
+# or for a release build:
+cargo build --release --target=x86_64-unknown-linux-gnu
+```
+
+The resulting executable file will be located in the `target/x86_64-unknown-linux-gnu/debug/` or `target/x86_64-unknown-linux-gnu/release/` directory. This binary can be run on any x86_64 Linux system.
