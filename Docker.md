@@ -10,4 +10,5 @@ You don't SSH into a docker container.  You can run an instance of bash in a con
 docker exec -it $CONTAINER_ID /bin/bash
 ```
 
-You can use the 
+You can use the ID number or the name, e.g. `gifted_davinci`, that is listed when you do `docker ps`.
+
