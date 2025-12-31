@@ -75,6 +75,8 @@ Then edit `~/.docker/config.json` and add:
 ```
 
 Then run `docker buildx` to test.
+
+Also, you may need to remove the Docker Desktop credential store from the `~/.docker/config.json` file.  Remove the line starting with `"credsStore":...`.
 ## Cross Compile `x86_64` on `aarch64` Linux
 
 To cross-compile a Rust project from AArch64 Linux (like a Raspberry Pi or an Apple Silicon Mac running Linux in a VM) to x86_64 Linux, you need to follow these steps:
