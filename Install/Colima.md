@@ -57,6 +57,24 @@ sudo apt install build-essential pkg-config
 CARGO_TARGET_DIR="./target/$(rustc --print host-tuple)/" cargo build
 ```
 
+## Install Docker BuildX
+
+```sh
+brew install docker-buildx
+```
+
+Then edit `~/.docker/config.json` and add:
+
+```json
+{
+  ...
+  "cliPluginsExtraDirs": [
+    "/opt/homebrew/lib/docker/cli-plugins"
+  ]
+}
+```
+
+Then run `docker buildx` to test.
 ## Cross Compile `x86_64` on `aarch64` Linux
 
 To cross-compile a Rust project from AArch64 Linux (like a Raspberry Pi or an Apple Silicon Mac running Linux in a VM) to x86_64 Linux, you need to follow these steps:
