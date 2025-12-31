@@ -53,8 +53,7 @@ Then each time:
 . "$HOME/.cargo/env"
 sudo apt update
 sudo apt install build-essential pkg-config
-# Install any other needed libraries for your project, then...
-CARGO_TARGET_DIR="./target/$(rustc --print host-tuple)/" cargo build
+# Install any other needed libraries for your project...
 ```
 
 ## Install Docker BuildX
