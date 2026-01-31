@@ -17,7 +17,7 @@ Play WAV audio:
 
 ```sh
 aplay something.wav # To play on default device
-aplay -D hw:1,0 something.wav # To play to card 1, device 0
+aplay  -D plughw:3,0 -c 1 -f S16_LE -r 22050 something.wav # To play to card 1, device 0, specifying channels, format, and sample rate
 ```
 
 Bring up interactive audio mixer:
@@ -32,6 +32,3 @@ Playing MP3:
 apt install mpg123
 mpg123 something.mp3
 ```
-
-## Configuration
-
