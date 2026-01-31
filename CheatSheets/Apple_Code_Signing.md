@@ -106,6 +106,43 @@ If you are using a wildcard App ID, the name of the distribution provisioning pr
 
 See [QA1814].
 
+## Using the Command Line (For Advanced/Automated Workflows)
+
+This method provides more control and is essential for automation scripts. 
+
+### 1. Build the Flutter app
+
+```bash
+flutter build macos
+```
+### 2. Locate your signing identity
+
+Find the exact name of your "Developer ID Application" certificate using the terminal:
+
+```bash
+security find-identity -p codesigning -v
+```
+
+Look for an entry like `"Developer ID Application: Team Name (Team ID)"`.
+
+### 3. Sign the app bundle
+
+Navigate to your project root and run the `codesign` command, replacing `"Developer ID Application: Team Name (Team ID)"` with your actual identity and `AppName.app` with your app's name:
+
+```bash
+codesign --options=runtime --deep --force --verbose --sign "Developer ID Application: Team Name (Team ID)" "build/macos/Build/Products/Release/AppName.app"
+```
+   
+The `--options=runtime` flag enables the Hardened Runtime, a requirement for notarization.
+
+### 4. Verify the signature
+
+```bash
+codesign -dvv "build/macos/Build/Products/Release/AppName.app"
+```
+   
+After signing, if you plan to distribute your app outside the Mac App Store, the final and crucial step is **notarization** by Apple to ensure it's free of malware. This involves packaging the app (e.g., into a zip or a `.pkg` installer) and submitting it to Apple's notary service using the `xcrun notarytool` command.
+
 ---
 
 [qa1814]: https://developer.apple.com/library/content/qa/qa1814/_index.html
