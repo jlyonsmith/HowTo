@@ -6,14 +6,18 @@ Get a list of ALSA audio devices:
 aplay -l
 ```
 
-The device name is given inside square brackets, e.g. `[bcm2835 headphones]` for the `bcm2835 headphones` device.
+Look for the card number and device number, for example: 
 
+```
+card 1: USB [USB Audio], device 0: USB Audio [USB Audio]
+...
+```
 
 Play WAV audio:
 
 ```sh
 aplay something.wav # To play on default device
-aplay -D device something.wav # For a specific device
+aplay -D hw:1,0 something.wav # To play to card 1, device 0
 ```
 
 Bring up interactive audio mixer:
