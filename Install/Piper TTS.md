@@ -18,3 +18,4 @@ echo 'Welcome to the world of speech synthesis!' | ./piper --model en_US-amy-med
 - [Hugging Face - Piper Voices](https://huggingface.co/rhasspy/piper-voices)
 - [`piper-rs`](https://github.com/thewh1teagle/piper-rs)
 - [Piper Test Page](https://rhasspy.github.io/piper-samples/)
+- [Piper TTS Main Repo](https://github.com/OHF-Voice/piper1-gpl)
