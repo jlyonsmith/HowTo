@@ -76,6 +76,13 @@ fn test() {}
 ```
 
 and this can be repeated down the directory tree.  It's easiest to use `include!` to avoid making new modules.
+
+
+| Code      | Meaning                                                              |
+| --------- | -------------------------------------------------------------------- |
+| `mod`     | Declares and compiles a new module, making it private to it's parent |
+| `pub mod` | Declares and compiles a new module, making it public to              |
+
 ## Books
 
 - [Rust Standard Library](https://doc.rust-lang.org/std/index.html)
