@@ -78,10 +78,10 @@ fn test() {}
 and this can be repeated down the directory tree.  It's easiest to use `include!` to avoid making new modules.
 
 
-| Code      | Meaning                                                              |
-| --------- | -------------------------------------------------------------------- |
-| `mod`     | Declares and compiles a new module, making it private to it's parent |
-| `pub mod` | Declares and compiles a new module, making it public to              |
+| Code      | Meaning                                                                                                                                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mod`     | Declares and compiles a new module, making it private to it's parent                                                                                                                                          |
+| `pub mod` | Declares and compiles a module as public, allowing it and its public contents to be accessed by parent modules or external code outside its immediate scope. By default, modules are private to their parent. |
 
 ## Books
 
