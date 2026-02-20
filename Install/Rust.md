@@ -82,7 +82,21 @@ and this can be repeated down the directory tree.  It's easiest to use `include!
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mod`     | Declares and compiles a new module, making it private to it's parent                                                                                                                                          |
 | `pub mod` | Declares and compiles a module as public, allowing it and its public contents to be accessed by parent modules or external code outside its immediate scope. By default, modules are private to their parent. |
+If you do: 
 
+```rust
+mod foo;
+
+pub use foo::*;
+```
+
+Then all the public `foo::*` types will be exposed at the `crate::` level.  But if you do:
+
+```rust
+pub mod foo;
+```
+
+Then all the `foo::*` types will be exposed as `crate::foo::**`, keeping the `ast` module name.
 ## Books
 
 - [Rust Standard Library](https://doc.rust-lang.org/std/index.html)
