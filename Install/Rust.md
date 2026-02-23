@@ -108,7 +108,8 @@ Then all the `foo::*` types will be exposed as `crate::foo::**`, keeping the `as
 - [The Little Book of Rust Macros](https://veykril.github.io/tlborm/macros/macro_rules.html)
 - [Half an Hour to Learn Rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
 - [Rust Unstable Book](https://doc.rust-lang.org/nightly/unstable-book/the-unstable-book.html)
-
+- [Rust Project Primer](https://rustprojectprimer.com/title.html)
+- [The Rustdoc Book](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html)
 ## Articles
 
 - [Arrays, References and Slices in Rust](https://hashrust.com/blog/arrays-vectors-and-slices-in-rust/)
