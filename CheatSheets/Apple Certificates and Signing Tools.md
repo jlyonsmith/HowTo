@@ -34,8 +34,13 @@ macOS has a system called Gatekeeper that checks apps when they are opened.  A w
 
 DMG files (`.dmg`) are the simplest way to distribute apps on macOS.  You only need to use packages (`.pkg`) if you special installation requirements, such as installing drivers.
 
-> If you are building a [Flutter]() desktop app, you first need to go into Xcode and ensure that there is a bund build the `.app` file with  `flutter build macos`. 
-1. 
+> If you are building a [Flutter]() desktop app, you first need to go into Xcode with `open macos/Runner.xcworkspace` and ensure that there is a bundle identifier and a team selected on the **Signing & Capabilities** tab.  Ensure that you have all the needed app capabilities and permissions in the `.plist` file. 
+> 
+> Then build the `.app` file with  `flutter build macos` each time you want to release it.
+
+Here are steps once you have a `.app` file ($APP_FILE):
+
+1. Sign the file with `codesign --option=runtime --deep --force --`
 
 ## References
 
