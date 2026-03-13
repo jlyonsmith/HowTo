@@ -23,8 +23,10 @@ macOS has a system called Gatekeeper that checks apps when they are opened.  A w
 To notarize, you need to create an **app specific password**.  Go to https://account.apple.com, sign in and click on **App-Specific Password**.   Then run the notary tool to save the credentials, 
 
 ```bash
-
+xcrun notarytool store-credentials $PROFILE --apple-id $USER_EMAIL --team-id $TEAM_ID
 ```
+
+This will prompt for your password, the app-specific passward, and then store it in the keychain for future reference.
 ## Tools
 
 | Tool Binary                                      | Description                                                    |
@@ -44,13 +46,22 @@ DMG files (`.dmg`) are the simplest way to distribute apps on macOS.  You only n
 > 
 > Then build the `.app` file with  `flutter build macos` each time you want to release it.
 
-Here are steps once you have a `.app` file.  In the following $APP_FILE is the `.app` file, $ZIP_FILE is the same file with a `.zip` extension:
+Here are steps once you have a `.app` file:
+
+| Variable | Meaning                          |
+| -------- | -------------------------------- |
+| APP_FILE | The `.app` file, e.g. `Cool.app` |
+| ZIP_FILE | `Cool.zip`                       |
+| DMG_FILE | `Cool.dmg`                       |
 
 1. Sign the file with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
 2. Create a zip file for signing with `ditto -c -k --sequesterRsrc --keepParent $APP_FILE $ZIP_FILE`.  The `ditto` tool preserves Apple specific HFS meta-data and resource-forks, as well as appending the parent directory.
-3. 
+3. Then notarize the ZIP file with `xcrun notarytool submit $ZIP_FILE -p $PROFILE --wait`  Once the notarization is done you will get the message `accepted` on the console.
+4. Then staple the notarization to the app with `xcrun stapler staple "scratch/Odin.app"`
+5. Finally, build the `.dmg` with `appdmg appdmg.json $DMG_FILE`
 
 ## References
 
 - [`appdmg`](https://www.npmjs.com/package/appdmg) for creating `.dmg` files.
 - [Packaging and Distributing Flutter Desktop Apps](https://medium.com/@fluttergems/packaging-and-distributing-flutter-desktop-apps-the-missing-guide-part-1-macos-b36438269285)
+- [How to Build DMG and PKG from Flutter Apps](https://gist.github.com/IsmailAlamKhan/c13fde81044ac8930f328b98272e9d97)
