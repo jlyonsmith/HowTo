@@ -16,9 +16,15 @@ The table below defines the different certificate types, names and where they ca
 | Developer ID Installer               | Developer ID Installer: *Team Name* (*Team ID*)            | Yes            | No             |
 To list certificates on the command line do `security find-identity -v`.  This will also give a UID for each of the certificates.
 
-## Gatekeeper
+## Gatekeeper and Notarization
 
 macOS has a system called Gatekeeper that checks apps when they are opened.  A warning message is displayed to recommend the user not run the app.  To avoid this message, you must notarize your app using Apples tooling and your developer account, either personal or team.
+
+To notarize, you need to create an **app specific password**.  Go to https://account.apple.com, sign in and click on **App-Specific Password**.   Then run the notary tool to save the credentials, 
+
+```bash
+
+```
 ## Tools
 
 | Tool Binary                                      | Description                                                    |
@@ -38,9 +44,11 @@ DMG files (`.dmg`) are the simplest way to distribute apps on macOS.  You only n
 > 
 > Then build the `.app` file with  `flutter build macos` each time you want to release it.
 
-Here are steps once you have a `.app` file ($APP_FILE):
+Here are steps once you have a `.app` file.  In the following $APP_FILE is the `.app` file, $ZIP_FILE is the same file with a `.zip` extension:
 
-1. Sign the file with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the 
+1. Sign the file with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
+2. Create a zip file for signing with `ditto -c -k --sequesterRsrc --keepParent $APP_FILE $ZIP_FILE`.  The `ditto` tool preserves Apple specific HFS meta-data and resource-forks, as well as appending the parent directory.
+3. 
 
 ## References
 
