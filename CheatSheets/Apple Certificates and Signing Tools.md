@@ -7,13 +7,13 @@ Confusingly, Apple uses a different name for the certificate in Xcode and on the
 
 The table below defines the different certificate types, names and where they can be used:
 
-| Name in Xcode                        | Name in `security` Tool                                    | Can Sign Code? |
-| ------------------------------------ | ---------------------------------------------------------- | -------------- |
-| _Computer Name_                      | Apple Development: *User Name* (*User ID*)                 | Yes            |
-| Apple Distribution                   | Apple Distribution: *Team Name* (*Team ID*)                | Yes            |
-| Mac Installer Distribution           | 3rd Party Mac Developer Installer: *Team Name* (*Team ID*) | No             |
-| Developer ID Application Certificate | Developer ID Application: *Team Name* (*Team ID*)          | No             |
-| Developer ID Installer               | Developer ID Installer: *Team Name* (*Team ID*)            | No             |
+| Name in Xcode                        | Name in `security` Tool                                    | Can Distribute | Can Sign Code? |
+| ------------------------------------ | ---------------------------------------------------------- | -------------- | -------------- |
+| _Computer Name_                      | Apple Development: *User Name* (*User ID*)                 | No             | Yes            |
+| Apple Distribution                   | Apple Distribution: *Team Name* (*Team ID*)                | No             | Yes            |
+| Mac Installer Distribution           | 3rd Party Mac Developer Installer: *Team Name* (*Team ID*) | Yes            | No             |
+| Developer ID Application Certificate | Developer ID Application: *Team Name* (*Team ID*)          | Yes            | No             |
+| Developer ID Installer               | Developer ID Installer: *Team Name* (*Team ID*)            | Yes            | No             |
 To list certificates on the command line do `security find-identity -v`.  This will also give a UID for each of the certificates.
 
 ## Gatekeeper
@@ -40,7 +40,7 @@ DMG files (`.dmg`) are the simplest way to distribute apps on macOS.  You only n
 
 Here are steps once you have a `.app` file ($APP_FILE):
 
-1. Sign the file with `codesign --option=runtime --deep --force --`
+1. Sign the file with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the 
 
 ## References
 
