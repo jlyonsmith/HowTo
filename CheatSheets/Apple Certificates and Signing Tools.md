@@ -18,6 +18,13 @@ To list certificates on the command line do `security find-identity -v`.  This w
 
 ## Tools
 
+
+| Tool Binary                                      | Description                                                    |
+| ------------------------------------------------ | -------------------------------------------------------------- |
+| [`appdmg`](https://www.npmjs.com/package/appdmg) | Generates DMG files                                            |
+| `security`                                       | Built-in macOS tool for manipulating keychain and certificates |
+| `spctl`                                          | Security assessment tool (used to check )                      |
+
 ## References
 
 - [`appdmg`](https://www.npmjs.com/package/appdmg) for creating `.dmg` files.
