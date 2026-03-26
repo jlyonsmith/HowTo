@@ -60,6 +60,9 @@ Here are steps once you have a `.app` file:
 4. Then staple the notarization to the app with `xcrun stapler staple "scratch/Odin.app"`
 5. Finally, build the `.dmg` with `appdmg appdmg.json $DMG_FILE`
 
+## Creating PKG's
+
+`.pkg` files are an advanced way to install apps on macOS.  Because `.pkg` files have metadata, MDM solutions can do a better job of tracking versioning information and automatically updating programs.
 ## References
 
 - [`appdmg`](https://www.npmjs.com/package/appdmg) for creating `.dmg` files.
