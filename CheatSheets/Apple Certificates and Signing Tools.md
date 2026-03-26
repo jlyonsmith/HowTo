@@ -55,7 +55,7 @@ Here are steps once you have a `.app` file:
 | DMG_FILE | `Cool.dmg`                       |
 
 1. Build the app with `flutter build macos`.
-2. Sign the file with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
+2. Sign the app with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
 3. Create a zip file for signing with `ditto -c -k --sequesterRsrc --keepParent $APP_FILE $ZIP_FILE`.  The `ditto` tool preserves Apple specific HFS meta-data and resource-forks, as well as appending the parent directory.
 4. Then notarize the ZIP file with `xcrun notarytool submit $ZIP_FILE -p $PROFILE --wait`  Once the notarization is done you will get the message `accepted` on the console.
 5. Then staple the notarization to the app with `xcrun stapler staple "scratch/Odin.app"`
@@ -66,10 +66,11 @@ Here are steps once you have a `.app` file:
 `.pkg` files are an advanced way to install apps on macOS.  Because `.pkg` files have metadata, MDM solutions can do a better job of tracking versioning information and automatically updating programs.
 
 1. Build the app with `flutter build macos`
-2. Build the package `xcrun productbuild --component "build/macos/Build/Products/Release/Odin.app" /Applications scratch/Odin-unsigned.pkg`
-3. Sign the package `xcrun productsign --sign "Developer ID Installer: Mozayik, LLC (3Y86SR3KTD)" scratch/Odin-unsigned.pkg scratch/Odin.pkg`.
-4. Submit for notarization `xcrun notarytool submit scratch/Odin.pkg -p Mozayik --wait`.
-5. Check the notarized package is good to install ``.
+2. Sign the app with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Mozayik, LLC (3Y86SR3KTD)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
+3. Build the package `xcrun productbuild --component "build/macos/Build/Products/Release/Odin.app" /Applications scratch/Odin-unsigned.pkg`
+4. Sign the package `xcrun productsign --sign "Developer ID Installer: Mozayik, LLC (3Y86SR3KTD)" scratch/Odin-unsigned.pkg scratch/Odin.pkg`.
+5. Submit for notarization `xcrun notarytool submit scratch/Odin.pkg -p Mozayik --wait`.
+6. Check the notarized package is good to install ``.
 ## References
 
 - [`appdmg`](https://www.npmjs.com/package/appdmg) for creating `.dmg` files.
