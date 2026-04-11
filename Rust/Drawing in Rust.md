@@ -1,4 +1,3 @@
-# Drawing in Rust
 
 - [Cairo graphics tutorial](https://zetcode.com/gfx/cairo/)
 - [cairographics.org](https://www.cairographics.org/)
