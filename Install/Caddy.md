@@ -30,6 +30,36 @@ sudo systemctl disable certbot.timer
 sudo systemctl stop nginx
 sudo systemctl disable nginx
 ```
+
+## Hosting  Password Protected File
+
+Hosting a password-protected file with Caddy is achieved by using the `basic_auth` directive within your `Caddyfile` to protect a `file_server` instance. Caddy requires that passwords be hashed for security. 
+
+1. **Generate a Hashed Password.** Caddy does not accept plaintext passwords in the configuration file. You must generate a hashed password using the Caddy CLI `caddy hash-password --plaintext "your_chosen_password"`
+   
+   **Example output:** `$2a$14$Zkx19XLiW6VYouLHR5NmfOFU0z2GTNmpkT/5qqR7hx4IjWJPDhjvG` 
+
+2. **Configure the Caddyfile.** Create or edit your `Caddyfile` to define your domain, the root directory of your file, and apply the `basic_auth` rule. 
+
+```caddy
+example.com {
+    # Set the root directory where your files are located
+    root * /var/www/myfiles
+
+    # Enable file browsing
+    file_server browse
+
+    # Protect all files with basic authentication
+    basic_auth * {
+        # Username   Hashed_Password_From_Step_1
+        username     $2a$14$Zkx19XLiW6VYouLHR5NmfOFU0z2GTNmpkT/5qqR7hx4IjWJPDhjvG
+    }
+}
+```
+
+3. **Apply Changes and Test.** Reload Caddy to apply the configuration `caddy reload`
+
+Now, when navigating to `example.com`, the browser will prompt for the username and password created above.
 ## References
 
 - [Running Caddy](https://caddyserver.com/docs/running)
