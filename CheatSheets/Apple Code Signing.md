@@ -29,7 +29,7 @@ The site [What's my UDID?](http://whatsmyudid.com/) has a nice walk through.
 
 ## Certificates
 
-There are two categories of certicate; **development** and **production** (also referred to as **distribution** in Xcode).
+There are two categories of certificate; **development** and **production** (also referred to as **distribution** in Xcode).
 
 Development certificates for iOS development allow you to debug apps with Xcode and they are managed by Xcode. There are also sandbox Apple Push Notification certificates which you manage yourself. Production certificates are for distribution and push notifications, and are created using a signing request.
 

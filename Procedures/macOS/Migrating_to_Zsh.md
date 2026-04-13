@@ -31,7 +31,7 @@ export RPROMPT=''
 
 It looks like this:
 
-![Zsh Git Completion](images/Zsh_Git_Completion.png)
+![Zsh Git Completion](Zsh_Git_Completion.png)
 
 You can remove any old `git-prompt` commands.
 

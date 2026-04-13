@@ -1,4 +1,4 @@
-# Create a bootable USB stick on macOS
+# Overview
 
 If you have a Mac with an up-to-date version of macOS (previously OSX), you have everything you need to make bootable Ubuntu USB sticks (drives). Don't bother downloading any of the "make a boot disk" utilities, you don't need 'em.  Here are the simple steps to creating a bootable Ubuntu USB stick on macOS.
 
@@ -93,3 +93,4 @@ Create GUID partition with one APFS volume of 100% of the space.
 ```sh
 diskutil partitionDisk disk2 1 GPT APFS Brazil 100%
 ```
+

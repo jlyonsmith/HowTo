@@ -1,5 +1,3 @@
-# Add a disk to a proxmox VM
-
 ## Step 1: Add disk through proxmox web UI
 
 - vm -> Hardware -> Add -> Hard disk

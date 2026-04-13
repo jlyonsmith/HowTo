@@ -61,9 +61,9 @@ Test that `USER` can `ssh` into the machine.
 Install the `fish` shell and `starship`.
 ## Lock Down the System
 
-Configure SSH with [Installing and Configuring SSH](../Install/SSH.md)
+Configure SSH with [Installing and Configuring SSH](SSH.md)
 
-Configure the NFTables for Internet facing machines with a public IP address by [Installing and Configuring NFTables](../Install/NFTables.md)
+Configure the NFTables for Internet facing machines with a public IP address by [Installing and Configuring NFTables](NFTables.md)
 ## Snapshot
 
 Now is a good time to take a snapshot of the machine if you are using ProxMox or another virtualization system.

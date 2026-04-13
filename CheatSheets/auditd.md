@@ -1,27 +1,26 @@
 # audit commands - linux
 
-Auditing is run on linux with the auditd daemon. This document is for searching and viewing the audit log. For info on installing and configuring, refer to the audit install page.
+Auditing is run on linux with the `auditd` daemon. This document is for searching and viewing the audit log. For info on installing and configuring, refer to the audit install page.
+### Handy Auditing Commands.
 
-### handy auditing commands.
 All auditing commands need to be run as root
 
-
-| command | notes   | 
-|---|---|
-| aureport  |   |
-| aureport  -ts today  | ts=time stamp  |
-| aureport  -ts this-month|   |
-| aureport  -c | configuration changes  |
-| aureport  -au | authentication   |
-| aureport  -l | logins  |
-| aureport  -f | files  |
-| aureport  -e | events   |
-|   |   |
-| ausearch -a <event id>  | details on an event   |
-|   |   |
-| auditctl -l   | list all audit rules  |
-| auditctl -d  | delete all audit rules  |
-
+| command                  | notes                  |     |
+| ------------------------ | ---------------------- | --- |
+| aureport                 |                        |     |
+| aureport  -ts today      | ts=time stamp          |     |
+| aureport  -ts this-month |                        |     |
+| aureport  -c             | configuration changes  |     |
+| aureport  -au            | authentication         |     |
+| aureport  -l             | logins                 |     |
+| aureport  -f             | files                  |     |
+| aureport  -e             | events                 |     |
+|                          |                        |     |
+| ausearch -a <event id>   | details on an event    |     |
+|                          |                        |     |
+| auditctl -l              | list all audit rules   |     |
+| auditctl -d              | delete all audit rules |     |
+|                          |                        |     |
 ### Example
 ```
 darrenj@mongo1:~$ sudo auditctl -l
@@ -49,10 +48,7 @@ darrenj@mongo1:~$ sudo auditctl -l
 -w /etc/localtime -p wa -k 10.4.2b-time-change
 -w /var/log/audit/ -p wa -k 10.5.5-modification-audit
 
-
-
 darrenj@mongo1:~$ sudo aureport -ts today -f
-
 File Report
 ===============================================
 # date time file syscall success exe auid event
@@ -64,8 +60,6 @@ File Report
 5. 08/16/2019 11:10:23 /var/log/audit/audit.log 257 yes /sbin/aureport 1005 8610
 6. 08/16/2019 11:10:23 /var/log/audit/audit.log 257 yes /sbin/aureport 1005 8611
 
-
-
 darrenj@mongo1:~$ sudo ausearch -a 8482
 ----
 time->Fri Aug 16 06:27:03 2019
@@ -76,10 +70,8 @@ type=CWD msg=audit(1565962023.812:8482): cwd="/etc/netdata"
 type=EXECVE msg=audit(1565962023.812:8482): argc=2 a0="/usr/libexec/netdata/plugins.d/perf.plugin" a1="1"
 type=SYSCALL msg=audit(1565962023.812:8482): arch=c000003e syscall=59 success=yes exit=0 a0=5591e0ed2b80 a1=5591e0ed2be8 a2=5591e25eac18 a3=5591e25ea010 items=2 ppid=24086 pid=24184 auid=4294967295 uid=997 gid=997 euid=0 suid=0 fsuid=0 egid=997 sgid=997 fsgid=997 tty=(none) ses=4294967295 comm="perf.plugin" exe="/usr/libexec/netdata/plugins.d/perf.plugin" key="10.2.5.b-elevated-privs-setuid"
 ```
+### References
 
-
-
-### Docs
-[aureport](https://linux.die.net/man/8/aureport)
-[auditctl](https://linux.die.net/man/8/auditctl)
-[ausearch](https://linux.die.net/man/8/ausearch)
+- [aureport](https://linux.die.net/man/8/aureport)
+- [auditctl](https://linux.die.net/man/8/auditctl)
+- [ausearch](https://linux.die.net/man/8/ausearch)

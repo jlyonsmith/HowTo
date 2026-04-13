@@ -18,7 +18,7 @@ _NOTE: Be careful!!! There is a Trojan Horse site parked at `http://homebrew.sh`
 
 Go to [Homebrew](https://brew.sh), copy the line and run it:
 
-![homebrew](images/homebrew.png)
+![homebrew](Procedures/macOS/images/homebrew.png)
 
 Add `brew` to the path with `export PATH=$PATH:/opt/homebrew/bin`. Run `brew doctor` and _fix all the problems that it tells you about_.
 
@@ -168,7 +168,7 @@ Install [`@johnls/git-extra`](https://www.npmjs.com/package/@johnls/git-extra) w
 
 Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html) by downloading the appropriate installer:
 
-![java](images/java-se-install.png)
+![java](Procedures/macOS/images/java-se-install.png)
 
 ## Install SuperDuper!
 
