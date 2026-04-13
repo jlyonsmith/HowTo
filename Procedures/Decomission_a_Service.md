@@ -1,4 +1,3 @@
-# Decomissioning Services
 
 First task is to make sure that all source is committed and the project is left in a good state.  Don't leave any partially finished commits around or you will be frustrated if you decide to restart the project.
 
