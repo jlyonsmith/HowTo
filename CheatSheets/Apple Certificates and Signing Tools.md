@@ -81,8 +81,10 @@ Here are steps once you have a `.app` file:
 If there is an error notarizing, you can check the log with:
 
 ```sh
-xcrun notarytool log a398c514-9947-416d-af5c-1e347a77c38f -p "Profile"
+xcrun notarytool log $Id -p "$PROFILE"
 ```
+
+Where the `$ID` is displayed after the `Processing complete` message.
 ## References
 
 - [`appdmg`](https://www.npmjs.com/package/appdmg) for creating `.dmg` files.
