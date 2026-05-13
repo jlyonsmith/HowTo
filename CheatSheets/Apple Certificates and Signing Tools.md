@@ -34,17 +34,19 @@ To list certificates on the command line do `security find-identity -v`.  This w
 
 macOS has a system called Gatekeeper that checks apps when they are opened.  A warning message is displayed to recommend the user not run the app.  To avoid this message, you must notarize your app using Apples tooling and your developer account, either personal or team.
 
+## Creating a Profile
+
 To notarize, you need to create an **app specific password**.  Go to https://account.apple.com, sign in and click on **App-Specific Password**.   Then run the notary tool to save the credentials, 
 
 ```bash
 xcrun notarytool store-credentials $PROFILE --apple-id $USER_EMAIL --team-id $TEAM_ID
 ```
 
-This will prompt for your password, the app-specific passward, and then store it in the keychain for future reference.
+This will prompt for your password, the app-specific password, and then store it in the keychain for future reference.
 
 ##  Creating DMG's
 
-DMG files (`.dmg`) are the simplest way to distribute apps on macOS.  You only need to use packages (`.pkg`) if you special installation requirements, such as installing drivers.
+DMG files (`.dmg`) are the simplest way to distribute apps on macOS.  You only need to use packages (`.pkg`) if you have special installation requirements, such as installing drivers.  Some MDM services like Mosyle require PKG's to install.
 
 > If you are building a [Flutter]() desktop app, you first need to go into Xcode with `open macos/Runner.xcworkspace` and ensure that there is a bundle identifier and a team selected on the **Signing & Capabilities** tab.  Ensure that you have all the needed app capabilities and permissions in the `.plist` file.   Check the **Product Name** is set under **Build Settings ▶ Packaging**.
 > 
@@ -73,7 +75,7 @@ Here are steps once you have a `.app` file:
 2. Sign the app with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Team (TeamID)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
 3. Build the package `xcrun productbuild --component "build/macos/Build/Products/Release/MyApp.app" /Applications scratch/MyApp-unsigned.pkg`
 4. Sign the package `xcrun productsign --sign "Developer ID Installer: Team (TeamID)" scratch/MyApp-unsigned.pkg scratch/MyApp.pkg`.
-5. Submit for notarization `xcrun notarytool submit scratch/MyApp.pkg -p "Profile" --wait`.
+5. Submit for notarization `xcrun notarytool submit scratch/MyApp.pkg -p "$PROFILE" --wait`.
 6. Check the notarized package is good to install ``.
 
 If there is an error notarizing, you can check the log with:
