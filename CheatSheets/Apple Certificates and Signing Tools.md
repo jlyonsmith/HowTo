@@ -72,7 +72,7 @@ Here are steps once you have a `.app` file:
 `.pkg` files are an advanced way to install apps on macOS.  Because `.pkg` files have metadata, MDM solutions can do a better job of tracking versioning information and automatically updating programs.
 
 1. Build the app with `flutter build macos`
-2. Sign the app with `codesign --options=runtime --force --verbose --sign "Developer ID Application: Team (TeamID)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, verbose output and uses the distribution certificate.
+2. Sign the app with `codesign --options=runtime --force --verbose --deep --sign "Developer ID Application: Team (TeamID)" $APP_FILE`.  This preserves the harden runtime information, forces a re-sign, ensures all binaries are signed, uses verbose output and uses the distribution certificate.
 3. Build the package `xcrun productbuild --component "build/macos/Build/Products/Release/MyApp.app" /Applications scratch/MyApp-unsigned.pkg`
 4. Sign the package `xcrun productsign --sign "Developer ID Installer: Team (TeamID)" scratch/MyApp-unsigned.pkg scratch/MyApp.pkg`.
 5. Submit for notarization `xcrun notarytool submit scratch/MyApp.pkg -p "$PROFILE" --wait`.
