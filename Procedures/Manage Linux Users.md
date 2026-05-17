@@ -1,6 +1,19 @@
 ---
 name: "Change User Name"
 ---
+## Create a New Sudo User
+
+As `root` set `NEWUSER=` and `FULLNAME=` then:
+
+```sh
+adduser --disabled-password --gecos "$FULLNAME" $NEWUSER
+usermod -aG sudo $NEWUSER
+echo "$NEWUSER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$NEWUSER
+chmod ug=r,o= /etc/sudoers.d/$NEWUSER
+visudo -c
+```
+
+## Change the Name of User
 
 You cannot rename the user you are logged in as.  So either login as root or create a temporary user and use that to rename:
 
