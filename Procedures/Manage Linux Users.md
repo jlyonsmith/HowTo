@@ -22,9 +22,9 @@ cd /home/$NEWUSER
 mkdir .ssh
 chmod u=rwx,go= .ssh
 cd .ssh
-touch authorized_users
-vi authorized_users # Add the public key
-chmod u=rw,go= authorized_user
+touch authorized_keys
+vi authorized_keys # Add the public key
+chmod u=rw,go= authorized_keys
 ```
 ## Change the Name of User
 
