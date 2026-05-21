@@ -21,7 +21,7 @@ These three packages work together to provide a complete database environment:
     - **uuid-ossp**: For generating universally unique identifiers.
     - **citext**: For case-insensitive character strings. 
 
-To use `postgres` interactively, switch to the `postgres` user:
+To use `postgres` interactively, run `psql` as the `postgres` superuser user:
 
 ```sh
 sudo -u postgres psql
@@ -52,7 +52,7 @@ createuser --interactive --pwprompt
 This will prompt you for the new user's name and whether they should have superuser, database creation, or role creation privileges.
 ### Managing Privileges
 
-Once a user is created, they often need permission to interact with specific databases or tables. 
+Once a user is created, they need permission to interact with specific databases or tables. 
 
 Grant permission to a database:
 
