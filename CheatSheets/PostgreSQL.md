@@ -26,9 +26,8 @@ To use `postgres` interactively, switch to the `postgres` user:
 ```sh
 sudo -i -u postgres
 psql
-ALTER USER postgres WITH PASSWORD 'your_secure_password';
-```
 
+```
 ## Authentication
 
 PostgreSQL authentication is described full in the documentation - [Authentication Methods](https://www.postgresql.org/docs/current/static/auth-methods.html)
