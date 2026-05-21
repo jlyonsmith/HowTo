@@ -24,18 +24,56 @@ These three packages work together to provide a complete database environment:
 To use `postgres` interactively, switch to the `postgres` user:
 
 ```sh
-sudo -i -u postgres
-psql
-
+sudo -u postgres psql
 ```
-## Authentication
+## Creating Users
 
-PostgreSQL authentication is described full in the documentation - [Authentication Methods](https://www.postgresql.org/docs/current/static/auth-methods.html)
+To create a PostgreSQL user, you generally use the `CREATE USER` or `CREATE ROLE` SQL command within a database session. In PostgreSQL, a "user" is simply a role that has the `LOGIN` privilege.
+### Using SQL (via `psql`)
 
-## Find database sizes
+The most common way to create a user is through the interactive terminal. You must first connect to your server as a superuser (typically the `postgres` user).
+
+Access the PostgreSQL shell `sudo -u postgres psql`
+    
+1. Run the creation command:
+```sql
+CREATE USER my_new_user WITH PASSWORD 'secure_password';
+```
+    
+NOTE: By default, a user created this way has no permissions beyond basic login.
+### Using the Command Line Utility
+
+PostgreSQL provides a wrapper command called `createuser` that you can run directly from your terminal without entering the SQL shell. 
+
+Standard creation:
+```sql
+createuser --interactive --pwprompt
+```
+This will prompt you for the new user's name and whether they should have superuser, database creation, or role creation privileges.
+### Managing Privileges
+
+Once a user is created, they often need permission to interact with specific databases or tables. 
+
+Grant permission to a database:
+
+```sql
+GRANT ALL PRIVILEGES ON DATABASE my_database TO my_new_user;
+```
+
+Grant specific table access:
+   
+```sql
+GRANT SELECT, INSERT, UPDATE ON my_table TO my_new_user;
+```
+
+ Give "Create Database" permission:
+
+```sql
+ALTER USER my_new_user CREATEDB;
+```
+## Find Database Sizes
 
 Show database sizes with `\l+ <database-name>`.  With a query:
-
 ```sql
 SELECT pg_database.datname as "database_name", pg_size_pretty(pg_database_size(pg_database.datname)) AS size_in_mb FROM pg_database ORDER by size_in_mb DESC;
 ```
