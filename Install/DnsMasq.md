@@ -3,8 +3,8 @@
 Stop and remove `systemd-resolved`:
 
 ```sh
-sudo systemctl disable systemd-resolved
 sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
 ```
 
 Install DNSMasq:
