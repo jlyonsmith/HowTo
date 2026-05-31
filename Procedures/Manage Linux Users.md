@@ -17,7 +17,7 @@ visudo -c
 Then you need to add an SSH key for them.
 
 ```sh
-sudo -Es
+sudo -s -u NEWUSER
 cd /home/$NEWUSER
 mkdir .ssh
 chmod u=rwx,go= .ssh
