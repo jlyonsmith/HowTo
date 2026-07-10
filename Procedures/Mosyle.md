@@ -8,8 +8,8 @@ You perform native account management in Mosyle by deploying explicit payloads f
 Always create a hidden or visible master administrator account during deployment. This ensures you never lose access to the computer.
 
 1. Log into your [Mosyle Portal](https://business.mosyle.com/).
-2. Navigate to **Management** > **Automated Device Enrollment** (under the Setup Assistant section).
-3. Click your active enrollment profile.
+2. Navigate to **Management -> Management Profiles -> Local User**.  If this is not in the list, click **Activate New Profile Type** and add **Local User** profiles.
+3. Navigate to **Local User** and click **Add new profile**
 4. Locate the **Account Settings** tab.
 5. Choose to **Create an additional administrator account**.
 6. Input a universal username (e.g., `localadmin`) and a highly secure password.
