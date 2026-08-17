@@ -1,10 +1,9 @@
-Restic is a free, modern and easy to use Linux backup tool.
+Restic is a free, modern and easy to use Linux backup tool.  Use as an alternative to [[Duplicity]].
 ## Installation
 
 ```sh
 apt install restic
 ```
-
 ## Configuration
 
 ### S3 Bucket

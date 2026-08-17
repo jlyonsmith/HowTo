@@ -32,7 +32,6 @@ GRANT ALL PRIVILEGES ON DATABASE vikunja_db TO vikunja;
 \q
 ```
 
-
 ### Step 2: Establish the System User and Directory Structure
 
 Vikunja should never run as root. Set up an unprivileged system user (`vikunja`) and create the necessary directories for binary files, configurations, and user attachments. [1](https://community.vikunja.io/t/install-vikunja-from-binary-on-ubuntu-server/4353), [2](https://blog.stackademic.com/self-hosting-vikunja-board-project-on-a-raspberry-pi-the-right-way-192fd93d39b5), [3](https://vikunja.io/docs/systemd-hardening/), [4](https://webnestify.cloud/insights/open-source-solutions/vikunja-self-hosted-task-management/)
@@ -60,27 +59,17 @@ sudo mv vikunja /opt/vikunja/
 sudo chmod +x /opt/vikunja/vikunja
 ```
 
-Use code with caution.
-
----
-
-Step 4: Configure the `config.yml` File
+### Step 4: Configure the `config.yml` File
 
 Create a new configuration file inside `/etc/vikunja/config.yml`: [1](https://community.vikunja.io/t/install-vikunja-from-binary-on-ubuntu-server/4353), [2](https://vikunja.io/docs/installing/)
 
-bash
-
-```
+```bash
 sudo nano /etc/vikunja/config.yml
 ```
 
-Use code with caution.
-
 Paste the following configurations into the file, modifying the `publicurl` and database credentials to align with your infrastructure: [1](https://community.vikunja.io/t/db-conversion-sqlite-to-postgresql/3421), [2](https://community.vikunja.io/t/db-migration-failed-when-setting-up-in-a-container-on-an-aws-ec2-instance-with-aws-rds-postgres-db/4303)
 
-yaml
-
-```
+```yaml
 service:
   # The external URL where users will access your UI (Crucial for CORS validation)
   publicurl: "https://example.com"
@@ -107,20 +96,15 @@ log:
   level: INFO
 ```
 
-Use code with caution.
-
 Fix Permissions across Directories
 
 Assign the ownership of configurations and runtime file trees to the system user: [1](https://blog.stackademic.com/self-hosting-vikunja-board-project-on-a-raspberry-pi-the-right-way-192fd93d39b5)
-
-bash
 
 ```bash
 sudo chown -R vikunja:vikunja /etc/vikunja
 sudo chown -R vikunja:vikunja /opt/vikunja
 sudo chown -R vikunja:vikunja /var/lib/vikunja
 ```
-
 
 ### Step 5: Implement a `systemd` Service
 
