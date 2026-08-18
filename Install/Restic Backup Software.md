@@ -88,7 +88,7 @@ Do a test backup with `restic backup`.  Then do a `restic snapshots` and ensure 
 
 This section assumes you want to configure Restic for a specific user, not the entire system. In our example a user called `git`.
 
-While running as `root` become the `git` user with `su git`.
+While running as `root` become the `git` user, e..g. `sudo su git`.
 
 Then, ensure that you have the required variables to run `systemctl --user`.  Add the following to `.bashrc`:
 
