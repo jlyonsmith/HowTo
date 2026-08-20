@@ -1,5 +1,3 @@
-# qpdf
-
 Uncompress a PDF and dump to new file:
 
 ```

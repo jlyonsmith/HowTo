@@ -1,3 +1,3 @@
-# How To
+# What Is This?
 
-This repository is for a "How to do X" documents.
+This is a repository for a how to install things, procedures for doing things and cheatsheets for making things easier. 

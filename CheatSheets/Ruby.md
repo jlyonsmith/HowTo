@@ -1,5 +1,3 @@
-# Ruby
-
 A cheat sheet for [Ruby 2.0](http://rubylang.org).
 ## Comments
 ```ruby

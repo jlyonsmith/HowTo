@@ -1,5 +1,3 @@
-# LibAv
-
 _NOTE_: A 3 hour movie is 10800 seconds.
 
 Extract a section of the video, with audio:

@@ -1,5 +1,3 @@
-# SystemD Services
-
 ## Remove a Service
 
 ```sh

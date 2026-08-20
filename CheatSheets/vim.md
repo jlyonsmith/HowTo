@@ -1,5 +1,3 @@
-# vim
-
 ## Defaults
 
 Here's a good set of defaults for the `~/.vimrc` file:

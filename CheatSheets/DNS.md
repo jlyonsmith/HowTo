@@ -1,4 +1,4 @@
-# DNS Records for Programmers
+# What Is It?
 
 DNS is an old Internet standard that has some serious quirkiness.  It's also an important aspect of the Internet that many non-technical people have to understand, even in just a small way.  There is a shortage of "just tell me the rules" articles that programmers and other technical folks need. So, here goes.
 
