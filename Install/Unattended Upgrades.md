@@ -34,3 +34,31 @@ Optional Settings
 
 See the `man unattended-upgrades` help for more information.
 
+## Testing
+
+```bash
+unattended-upgrade --dry-run -v
+```
+
+And see something like:
+
+```
+Starting unattended upgrades script
+Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security, o=Ubuntu,a=jammy-updates
+Initial blacklist:
+Initial whitelist (not strict):
+No packages found that can be upgraded unattended and no pending auto-removals
+The list of kept packages can't be calculated in dry-run mode.
+```
+
+Check what has been automatically updated:
+
+```bash
+# View the unattended-upgrades log 
+sudo cat /var/log/unattended-upgrades/unattended-upgrades.log
+# Watch it in real time 
+sudo tail -f /var/log/unattended-upgrades/unattended-upgrades.log  # Check the dpkg log for all package changes 
+sudo tail -100 /var/log/dpkg.log  
+# Use journalctl 
+sudo journalctl -u unattended-upgrades --since "7 days ago"
+```
