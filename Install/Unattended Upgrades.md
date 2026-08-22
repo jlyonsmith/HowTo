@@ -12,7 +12,7 @@ Reconfigure the package to activate automatic updates:
 dpkg-reconfigure --priority=low unattended-upgrades
 ```
 
-Run `cat /etc/apt/apt.conf.d/20auto-upgrades` and check that it looks like this:
+Run `vi /etc/apt/apt.conf.d/20auto-upgrades` and check that it looks like this:
 
 ```conf
 APT::Periodic::Update-Package-Lists "1";
@@ -21,19 +21,38 @@ APT::Periodic::AutocleanInterval "7";
 APT::Periodic::Unattended-Upgrade "1";
 ```
 
-Edit `/etc/apt/apt.conf.d/50unattended-upgrades` to adjust whether you want security updates only or regular system upgrades.  
+Run `/etc/apt/apt.conf.d/50unattended-upgrades`:
 
-- Open the settings file: `sudo nano /etc/apt/apt.conf.d/50unattended-upgrades`.
-- Look for `Allowed-Origins` to decide which updates install automatically (security updates are enabled by default).
-- Add package names to `Unattended-Upgrade::Package-Blacklist` if you want to skip updates for specific software. 
+```conf
+Unattended-Upgrade::Allowed-Origins {
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-security";
+        "${distro_id}ESMApps:${distro_codename}-apps-security";
+        "${distro_id}ESM:${distro_codename}-infra-security";
+        "${distro_id}:${distro_codename}-updates";
+};
 
-Optional Settings
+Unattended-Upgrade::Package-Blacklist {
+};
 
-- Set `Unattended-Upgrade::Automatic-Reboot "true";` if you want the server to restart automatically when a new kernel installs.
+Unattended-Upgrade::DevRelease "auto";
+Unattended-Upgrade::Mail "john@mozayik.net";
+Unattended-Upgrade::MailReport "only-on-error";
+Unattended-Upgrade::Automatic-Reboot "true";
+```
+
+Optional settings:
+
+- Set `Unattended-Upgrade::Automatic-Reboot "false";` if you do not want the server to restart automatically when a new kernel installs.
 - Set `Unattended-Upgrade::Automatic-Reboot-Time "02:00";` to pick a specific reboot time.
 
 See the `man unattended-upgrades` help for more information.
 
+## Configure Mail
+
+```bash
+sudo apt install mailutils postfix
+```
 ## Testing
 
 ```bash
@@ -62,3 +81,8 @@ sudo tail -100 /var/log/dpkg.log
 # Use journalctl 
 sudo journalctl -u unattended-upgrades --since "7 days ago"
 ```
+
+## References
+
+- [Configure Unattended Upgrades](https://oneuptime.com/blog/post/2026-03-02-configure-unattended-upgrades-security-patches-ubuntu/view)
+
