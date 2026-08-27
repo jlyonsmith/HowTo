@@ -12,6 +12,12 @@ Reconfigure the package to activate automatic updates:
 dpkg-reconfigure --priority=low unattended-upgrades
 ```
 
+Configure email:
+
+```bash
+sudo apt install mailutils postfix
+```
+
 Run `vi /etc/apt/apt.conf.d/20auto-upgrades` and check that it looks like this:
 
 ```conf
@@ -21,7 +27,7 @@ APT::Periodic::AutocleanInterval "7";
 APT::Periodic::Unattended-Upgrade "1";
 ```
 
-Run `/etc/apt/apt.conf.d/50unattended-upgrades`:
+Run `vi /etc/apt/apt.conf.d/50unattended-upgrades`:
 
 ```conf
 Unattended-Upgrade::Allowed-Origins {
@@ -41,6 +47,8 @@ Unattended-Upgrade::MailReport "only-on-error";
 Unattended-Upgrade::Automatic-Reboot "true";
 ```
 
+Restart the service `systemctl restart unattended-upgrades`.
+
 Optional settings:
 
 - Set `Unattended-Upgrade::Automatic-Reboot "false";` if you do not want the server to restart automatically when a new kernel installs.
@@ -48,11 +56,6 @@ Optional settings:
 
 See the `man unattended-upgrades` help for more information.
 
-## Configure Mail
-
-```bash
-sudo apt install mailutils postfix
-```
 ## Testing
 
 ```bash
