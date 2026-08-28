@@ -1,4 +1,3 @@
-
 ## Update Submodules Recursively
 
 ```sh

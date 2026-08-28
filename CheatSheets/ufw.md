@@ -1,5 +1,3 @@
-# Uncomplicated Firewall
-
 `ufw` is a tool that provides a somewhat simpler interface to the Linux `iptables` tool.
 
 ## Commands

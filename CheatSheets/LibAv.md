@@ -1,4 +1,3 @@
-# LibAv
 
 _NOTE_: A 3 hour movie is 10800 seconds.
 

@@ -1,5 +1,3 @@
-# CSS Cheatsheet
-
 ## CSS Grid
 
 [An Introduction to the `fr` CSS unit](https://css-tricks.com/introduction-fr-css-unit/)
