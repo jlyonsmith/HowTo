@@ -1,6 +1,16 @@
-# Install MAME on macOS
+# MAME on macOS
 
-[MAME](https://www.mamedev.org/index.php)
+## Install
+
+By far the easiest way:
+
+```bash
+brew install mame
+```
+
+The run `mame -cc` to create a `mame.ini` file.  Search for `rompath roms` change `roms` to the location of the matching merged ROM set for this MAME release.
+
+Alternatively, you can do ti manually you can do it this way:
 
 1. Download build from [sdlmame.lngn.net](https://sdlmame.lngn.net/).  Unpack and put in `/Applications`, renaming the folder to just `mame`.
 2. Download [SDL2](http://www.libsdl.org/download-2.0.php), unpack and put into `/Library/Frameworks`
@@ -21,6 +31,10 @@ Run `spctl --disable`, run `M64`, deal with all the warnings.  Go to System Pref
 
 Download a batch of ROMS from a torrent link listed on [The Pirate Bay](https://thepiratebay.org/index.html).
 
+This site provides links to the latest ROMS:
+
+- [Pleasure Dome](https://pleasuredome.github.io/pleasuredome/mame/)
+
 List of sites for downloading individual games:
 
 - [CoolRom](https://coolrom.com.au/roms/mame/)
@@ -38,5 +52,6 @@ Create a `mame/cheat` directory. Run `./mame -createconfig` to create a default 
 
 ## References
 
+- [MAME](https://www.mamedev.org)
 - [Running MAME on macOS](http://bamf2048.github.io/sdl_mame_tut/)
 - [Running MAME arcade emulator on Mac OS X](https://retrogamesultra.com/2019/02/24/running-the-mame-arcade-emulator-on-mac-os-x/)

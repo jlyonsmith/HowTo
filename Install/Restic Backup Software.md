@@ -1,10 +1,9 @@
-Restic is a free, modern and easy to use Linux backup tool.
+Restic is a free, modern and easy to use Linux backup tool.  Use as an alternative to [[Duplicity]].
 ## Installation
 
 ```sh
 apt install restic
 ```
-
 ## Configuration
 
 ### S3 Bucket
@@ -85,11 +84,11 @@ This will initialize the repository for use.
 
 Do a test backup with `restic backup`.  Then do a `restic snapshots` and ensure your backup looks correct (don't forget to set the necessary environment variables as mentioned above.)
 
-### Configure for Specific User
+## Configure for Specific User
 
 This section assumes you want to configure Restic for a specific user, not the entire system. In our example a user called `git`.
 
-While running as `root` become the `git` user with `su git`.
+While running as `root` become the `git` user, e..g. `sudo su git`.
 
 Then, ensure that you have the required variables to run `systemctl --user`.  Add the following to `.bashrc`:
 
@@ -114,9 +113,9 @@ WorkingDirectory=/home/git
 EnvironmentFile=/home/git/.config/restic-environment
 ```
 
-> Test with `systemctl --user daemon-reload` then `systemctl --user start restic-backup.service`.  If a problem is reported set `StandardOutput=file:/home/git/restic-backup.out` and `StandardError=file:/home/git/restic-backup.err` and see what the output and errors are.  You can also try `ExecStart=/bin/bash -c 'env'` to see what the environment is set too.
+ Test with `systemctl --user daemon-reload` then `systemctl --user start restic-backup.service`.  If a problem is reported set `StandardOutput=file:/home/git/restic-backup.out` and `StandardError=file:/home/git/restic-backup.err` and see what the output and errors are.  You can also try `ExecStart=/bin/bash -c 'env'` to see what the environment is set too.
 
-Create a timer to start the service:
+Now create a timer to start the service:
 
 ```conf
 [Unit]
@@ -178,7 +177,7 @@ set -a
 set +a
 ```
 
-### Configuring for System Backups
+## Configuring for System Backups
 
 Systems backups will run as `root` and follow the exact same steps as above, only you don't need to add `--user` the `systemctl` commands,  `.timer` files will go in the `/etc/systemd/system/` directory, and configuration files will go under `/root` or wherever the `root` users home directory is.
 

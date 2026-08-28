@@ -17,7 +17,7 @@ visudo -c
 Then you need to add an SSH key for them.
 
 ```sh
-sudo -s -u NEWUSER
+sudo -s -u $NEWUSER
 cd /home/$NEWUSER
 mkdir .ssh
 chmod u=rwx,go= .ssh
@@ -60,6 +60,11 @@ deluser temp
 rm -r /home/temp
 ```
 
+## List Users
+
+```bash
+getent passwd
+```
 ## Adding Service Groups and Users
 ```bash
 sudo groupadd --system <group-name>

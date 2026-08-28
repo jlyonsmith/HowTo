@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+# Basics
+
+>>>>>>> origin/master
 Auditing is run on linux with the `auditd` daemon. This document is for searching and viewing the audit log. For info on installing and configuring, refer to the audit install page.
 ### Handy Auditing Commands.
 
