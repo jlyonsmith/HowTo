@@ -144,3 +144,11 @@ cargo build --release --target=x86_64-unknown-linux-gnu
 ```
 
 The resulting executable file will be located in the `target/x86_64-unknown-linux-gnu/debug/` or `target/x86_64-unknown-linux-gnu/release/` directory. This binary can be run on any x86_64 Linux system.
+
+## Uninstall Colima
+
+```sh
+colima stop
+colima delete
+brew uninstall colima
+```
