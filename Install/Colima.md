@@ -36,12 +36,14 @@ colima start x86 --arch x86_64 --vz-rosetta --ssh-port 2222
 You can access the instances individually by name using, for example:
 
 ```sh
-colima ssh -p aarch64 
+colima ssh -p $PROFILE
 ```
 
 Without the `-p` you will access the `default` instance profile.
 
 ## Setting Up Rust on Instance
+
+SSH to the instance, then:
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -145,6 +147,9 @@ cargo build --release --target=x86_64-unknown-linux-gnu
 
 The resulting executable file will be located in the `target/x86_64-unknown-linux-gnu/debug/` or `target/x86_64-unknown-linux-gnu/release/` directory. This binary can be run on any x86_64 Linux system.
 
+## Rust Dev Container Images
+
+The Microsoft Artifact Registry contains fully configured [Rust Development Container Images](https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/rust) which you can use in your `Docker`
 ## Uninstall Colima
 
 ```sh
