@@ -89,10 +89,32 @@ DevContainers is Microsofts extensions to VSCode that allow you to build within 
 ```sh
 devcontainer up --workspace-folder .
 devcontainer exec --workspace-folder . cargo build --target aarch64-unknown-linux-gnu --package my-app --release
-# Repeat as many times as you like, then
-docker ps
-# This will give you the devcontainer docker instance runing
-docker stop 
+```
+
+You don't need to stop the instance, but if you want to:
+
+```bash
+docker ps # Find the instance name
+docker stop $INSTANCE_NAME
+```
+
+Run a `bash` shell in the DevContainer docker instance:
+
+```bash
+devcontainer exec --workspace-folder . bash
+# You can also use the plain old docker CLI ...
+```
+
+To rebuild a DevContainer after any `.devcontainer` change, you need to do:
+
+```bash
+devcontainer up --workspace-folder . --remove-existing-container
+```
+
+You can set environment variables in the DevContainer with:
+
+```bash
+devcontainer exec --remote-env RUSTFLAGS=... 
 ```
 ## Uninstall Colima
 
