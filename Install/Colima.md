@@ -84,7 +84,14 @@ The Microsoft Artifact Registry contains fully configured [Rust Development Cont
 
 ## DevContainer Builds
 
-DevContainers is 
+DevContainers is Microsofts extensions to VSCode that allow you to build within Docker containers from inside VSCode.  It's also supported by the Zed editor.  It's important to understand that Docker has two phases: build and run.  With a `Dockerfile` and `devcontainer.json` file defined in the `.devcontainer` directory, you can run build on the command line with:
+
+```sh
+devcontainer up --workspace-folder .
+devcontainer exec --workspace-folder . cargo build --target aarch64-unknown-linux-gnu --package my-app --release
+# Repeat as many times as you like
+devcontainer down --
+```
 ## Uninstall Colima
 
 ```sh
