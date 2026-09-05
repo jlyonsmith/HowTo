@@ -82,7 +82,9 @@ Also, you may need to remove the Docker Desktop credential store from the `~/.do
 
 The Microsoft Artifact Registry contains fully configured [Rust Development Container Images](https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/rust) which you can use in your `Docker`
 
-## Docker Builds
+## DevContainer Builds
+
+DevContainers is 
 ## Uninstall Colima
 
 ```sh
