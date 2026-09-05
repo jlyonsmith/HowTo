@@ -89,8 +89,10 @@ DevContainers is Microsofts extensions to VSCode that allow you to build within 
 ```sh
 devcontainer up --workspace-folder .
 devcontainer exec --workspace-folder . cargo build --target aarch64-unknown-linux-gnu --package my-app --release
-# Repeat as many times as you like
-devcontainer down --
+# Repeat as many times as you like, then
+docker ps
+# This will give you the devcontainer docker instance runing
+docker stop 
 ```
 ## Uninstall Colima
 
