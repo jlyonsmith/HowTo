@@ -55,6 +55,49 @@ sudo -E duplicity collection-status file:///home/user-data/backup/encrypted
 ```
 
 _(If you use an external target like S3 or B2, swap `file:///...` with your target URL layout)._ [1](https://discourse.mailinabox.email/t/duplicity-backup-configuration/12390)
+
+## Redirect Root URL
+
+To automatically redirect your **Mail-in-a-Box** root URL (e.g., `box.example.com` or `mail.example.com`) directly to the webmail login screen (`/mail`), you can use a hidden native feature that allows custom **nginx** configurations. [1](https://discourse.mailinabox.email/t/how-to-301-redirection/9273/3), [2](https://zechendorf.com/2023/08/06/mailinabox-domain-redirect)
+
+The cleanest way to achieve this is by adding a custom Nginx configuration file for your subdomain.
+
+Step 1: Create the Custom Configuration File
+
+Log into your server via SSH and create a configuration file named exactly after your mail subdomain inside the user data directory. [1](https://zechendorf.com/2023/08/06/mailinabox-domain-redirect)
+
+For example, if your mail URL is `box.example.com`, run:
+
+```bash
+sudo nano /home/user-data/www/box.example.com.conf
+```
+
+_(Replace `box.example.com` with your actual mail subdomain.)_
+
+Step 2: Add the Redirect Directive
+
+Paste the following code into the file: [[1](https://zechendorf.com/2023/08/06/mailinabox-domain-redirect)]
+
+```nginx
+location = / {
+    return 301 https://$host/mail/;
+}
+```
+
+_Note: Using `location = /` ensures that only the root domain is redirected, preventing it from interfering with your admin panel (`/admin`) or underlying API assets._
+
+Save and close the file (in Nano, press `Ctrl+O`, `Enter`, then `Ctrl+X`).
+
+Step 3: Rebuild the Configuration and Restart Nginx
+
+For the changes to take effect, you must tell Mail-in-a-Box to regenerate its web routing configuration and then restart the webserver: [1](https://zechendorf.com/2023/08/06/mailinabox-domain-redirect)
+
+```bash
+sudo ~/mailinabox/tools/web_update
+sudo systemctl restart nginx
+```
+
+Now, when you navigate to your root mail URL, it will immediately pass a **301 Permanent Redirect** to the webmail page. [1](https://discourse.mailinabox.email/t/how-to-301-redirection/9273/3), [2](https://zechendorf.com/2023/08/06/mailinabox-domain-redirect)
 ## References
 
 - [Mail-in-a-box Duplicity Issue Nov-2025](https://discourse.mailinabox.email/t/duplicity-oops-they-did-it-again/16051)
