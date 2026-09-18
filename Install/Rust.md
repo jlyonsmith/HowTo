@@ -184,3 +184,6 @@ Filter items from an iterator - `iter1.filter(|&item| item != 0)`
 - [lazy_static](https://docs.rs/lazy_static/1.1.1/lazy_static/)
 - [regex](https://docs.rs/regex/1.4.2/regex/index.html)
 
+## Blog Articles
+
+- [New Traits Solver](https://blog.rust-lang.org/2026/08/21/enabling-next-solver-on-nightly/)
