@@ -65,17 +65,15 @@ To run `flutter` commands anywhere in your terminal, add it to your shell config
 **For Bash (`~/.bashrc`):**
 
 ```bash
-echo 'export PATH="$HOME/development/flutter/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
+export PATH="$HOME/development/flutter/bin:$PATH"
 ```
 
 Use code with caution.
 
-**For Zsh (`~/.zshrc`):**
+**For Fish (`~/.config/fish/config.fish`):**
 
 ```bash
-echo 'export PATH="$HOME/development/flutter/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+fish_add_path "$HOME/development/flutter/bin:$PATH"'
 ```
 
 Use code with caution.
