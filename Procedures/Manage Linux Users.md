@@ -66,6 +66,7 @@ rm -r /home/temp
 getent passwd
 ```
 ## Adding Service Groups and Users
+
 ```bash
 sudo groupadd --system <group-name>
 sudo useradd --no-create-home -shell /sbin/nologin --system -G <group-name> <user-name>
