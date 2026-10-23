@@ -27,13 +27,11 @@ sudo /root/mailinabox/management/backup.py
 
 1. Force a Full Backup Test [1](https://www.digitalocean.com/community/tutorials/how-to-use-duplicity-with-gpg-to-securely-automate-backups-on-ubuntu)
 
-By default, the script takes incremental backups. If you want to force a **full backup** immediately to test your connection to local storage or an external cloud bucket, append the `--full` flag: [[1](https://discourse.mailinabox.email/t/backups-steps-and-requirements/11953), [2](https://discourse.mailinabox.email/t/duplicity-backup-configuration/12390), [3](https://www.techtarget.com/searchdatabackup/tutorial/How-to-use-the-duplicity-backup-tool)]
+By default, the script takes incremental backups. If you want to force a **full backup** immediately to test your connection to local storage or an external cloud bucket, append the `--full` flag: [1](https://discourse.mailinabox.email/t/backups-steps-and-requirements/11953), [2](https://discourse.mailinabox.email/t/duplicity-backup-configuration/12390), [3](https://www.techtarget.com/searchdatabackup/tutorial/How-to-use-the-duplicity-backup-tool)
 
 ```bash
 sudo /root/mailinabox/management/backup.py --full
 ```
-
-Use code with caution.
 
 2. Check the Status in the Control Panel
 
