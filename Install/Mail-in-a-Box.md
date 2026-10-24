@@ -1,4 +1,4 @@
-# Installing Mail-in-a-Box
+# Installing
 
 [Read the instructions](https://mailinabox.email/)
 
@@ -38,7 +38,7 @@ sudo /root/mailinabox/management/backup.py --full
 After running the script, log into your Mail-in-a-Box web admin dashboard (usually `https://box.yourdomain.com/admin`). [1](https://mailinabox.email/maintenance.html)
 
 - Navigate to **System > Backup Status**.
-- Verify that the timestamp matches your test run, and that no errors are listed. [[1](https://dme-libraries.s3.ap-southeast-1.amazonaws.com/End+user+portal+guide.pdf), [2](https://pattersonsupport.custhelp.com/app/answers/detail/a_id/15765/~/pattlock---manually-run-an-eaglesoft-backup-set)]
+- Verify that the timestamp matches your test run, and that no errors are listed. [1](https://dme-libraries.s3.ap-southeast-1.amazonaws.com/End+user+portal+guide.pdf), [2](https://pattersonsupport.custhelp.com/app/answers/detail/a_id/15765/~/pattlock---manually-run-an-eaglesoft-backup-set)
 
 3. Test a Simulated Restore (Dry Run) [[1](https://www.infiniroot.com/blog/1038/email-migration-transfer-sync-using-imap-mailbox-imapsync)]
 
