@@ -1,8 +1,6 @@
-# Install Gitea
+## Install
 
 [Gitea](https://gitea.io/) is a clean & functional self-hosted Git service.  Think GitHub, BitBucket or GitLabs but without the monthly payments.
-
-## Installation
 
 Create a clean Ubuntu 20.04 instance and lock it down.
 
