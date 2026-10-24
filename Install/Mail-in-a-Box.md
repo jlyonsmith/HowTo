@@ -1,9 +1,8 @@
 # Installing
 
-[Read the instructions](https://mailinabox.email/)
+Go ahead and [Read the instructions](https://mailinabox.email)
 
-Basically, run `curl -s https://mailinabox.email/setup.sh | sudo -E bash` after setting up your Ubuntu box.
-
+tl;dr: run `curl -s https://mailinabox.email/setup.sh | sudo -E bash` after setting up your Ubuntu box.
 ## Configuring S3 Backups
 
 In AWS console configure:
