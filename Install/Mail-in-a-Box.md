@@ -5,13 +5,13 @@ Go ahead and [Read the instructions](https://mailinabox.email)
 tl;dr: run `curl -s https://mailinabox.email/setup.sh | sudo -E bash` after setting up your Ubuntu box.
 ## Configuring S3 Backups
 
-In AWS console configure:
+In the AWS console for your account configure:
 
 - A backup group with an inline policy (see below)
 - A backup user in that group
-- An general purpose S3 backup bucket
+- An general purpose S3 backup bucket with public access disabled (`YOUR_S3_BUCKET`)
 
-The recommended inline policy is:
+The recommended inline policy for the user is:
 
 ```json
 {
@@ -38,22 +38,15 @@ The recommended inline policy is:
 
 ```
 
-Create an access key and secret access key for the user. Create a `~/.aws/credentials` file on the system:
+Install AWS CLI.  The recommended way is 
 
-```toml
-[default]
-aws_access_key_id = $ACCESS_KEY
-aws_secret_access_key = $SECRET_KEY
+```sh
+curl -fsSL https://awscli.amazonaws.com/v2/install.sh | bash
 ```
 
-And set the region for the `default` user in the `~/.aws/config` file:
+See the [AWS Install Instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions) for more details.
 
-```toml
-[default]
-region = $REGION
-```
-
-Install AWS CLI with `apt install awscli`, then test with `aws s3 ls $BUCKET_NAME`.
+Create an access key and secret access key for the user. Run `aws configure` to set the access key, token and region.
 
 If that works, select the region, paste `{{BUCKET_NAME}}/{{FOLDER_NAME}}`, access id and secret access id into the Mail-in-a-Box backup page and if all is well, you'll get an OK message and backups will start happening to S3.
 
