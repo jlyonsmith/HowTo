@@ -117,6 +117,10 @@ chown root:root /usr/local/bin/gitea
 chmod +x /usr/local/bin/gitea
 systemctl restart gitea
 ```
+
+## Backup
+
+See [[Restic Backup Software]].
 ## References
 
 - [How to Install Gitea on Ubuntu](https://linuxize.com/post/how-to-install-gitea-on-ubuntu-18-04/)
