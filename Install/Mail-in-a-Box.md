@@ -58,34 +58,25 @@ sudo /root/mailinabox/management/backup.py
 
 ### Testing & Verifying Your Backups
 
-1. Force a Full Backup Test [1](https://www.digitalocean.com/community/tutorials/how-to-use-duplicity-with-gpg-to-securely-automate-backups-on-ubuntu)
-
-By default, the script takes incremental backups. If you want to force a **full backup** immediately to test your connection to local storage or an external cloud bucket, append the `--full` flag: [1](https://discourse.mailinabox.email/t/backups-steps-and-requirements/11953), [2](https://discourse.mailinabox.email/t/duplicity-backup-configuration/12390), [3](https://www.techtarget.com/searchdatabackup/tutorial/How-to-use-the-duplicity-backup-tool)
-
+By default, the backup script makes incremental backups. If you want to force a **full backup** immediately to test your connection to local storage or an external cloud bucket, append the `--full` flag:
 ```bash
 sudo /root/mailinabox/management/backup.py --full
 ```
 
-2. Check the Status in the Control Panel
-
-After running the script, log into your Mail-in-a-Box web admin dashboard (usually `https://box.yourdomain.com/admin`). [1](https://mailinabox.email/maintenance.html)
+After running the script, log into your Mail-in-a-Box web admin dashboard (usually `https://box.yourdomain.com/admin`).
 
 - Navigate to **System > Backup Status**.
-- Verify that the timestamp matches your test run, and that no errors are listed. [1](https://dme-libraries.s3.ap-southeast-1.amazonaws.com/End+user+portal+guide.pdf), [2](https://pattersonsupport.custhelp.com/app/answers/detail/a_id/15765/~/pattlock---manually-run-an-eaglesoft-backup-set)
+- Verify that the timestamp matches your test run, and that no errors are listed.
 
-3. Test a Simulated Restore (Dry Run) [[1](https://www.infiniroot.com/blog/1038/email-migration-transfer-sync-using-imap-mailbox-imapsync)]
-
-You can test if Duplicity can read and decrypt your files without actually rewriting any system data. First, expose your backup secret key to the environment, and then run a verification command: [1](https://discourse.mailinabox.email/t/restore-duplicity-files/7368), [2](https://mikeneumann.net/tech/build-and-restore-a-miab-server/)
+You can test if Duplicity can read and decrypt your files without actually rewriting any system data. First, expose your backup secret key to the environment, and then run a verification command:
 
 ```bash
 # Load your backup secret passphrase
 export PASSPHRASE=$(sudo cat /home/user-data/backup/secret_key.txt)
 
 # Verify the backup repository status
-sudo -E duplicity collection-status file:///home/user-data/backup/encrypted
+sudo -E duplicity collection-status s3:///BUCKET_NAME
 ```
-
-_(If you use an external target like S3 or B2, swap `file:///...` with your target URL layout)._ [1](https://discourse.mailinabox.email/t/duplicity-backup-configuration/12390)
 
 ## Redirect Root URL
 
