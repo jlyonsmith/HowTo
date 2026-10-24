@@ -81,7 +81,13 @@ This will initialize the repository for use.
 
 ### Do a Test Backup
 
-Do a test backup with `restic backup`.  Then do a `restic snapshots` and ensure your backup looks correct (don't forget to set the necessary environment variables as mentioned above.)
+Do a test backup with 
+
+```
+restic backup --verbose --one-file-system --files-from /home/git/.config/files-to-backup
+```
+
+ Then do a `restic snapshots` and ensure your backup looks correct (don't forget to set the necessary environment variables as mentioned above.)
 
 ## Configure for Specific User
 
