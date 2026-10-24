@@ -11,9 +11,8 @@ apt install restic
 First, configure an S3 bucket, create a backup user and get the access & secret access keys.
 
 1. Create the bucket, no versioning, ACL's or encryption needed
-2. Create a backup IAM group and give it an inline policy like below
-3. Create a backup user and assign them to the group
-4. Add AWS credentials for the user and copy them down
+2. Create a backup user and give them the inline policy below
+3. Add AWS credentials for the user and export them to a `.csv`
 
 ```json
 {
@@ -179,7 +178,7 @@ set +a
 
 ## Configuring for System Backups
 
-Systems backups will run as `root` and follow the exact same steps as above, only you don't need to add `--user` the `systemctl` commands,  `.timer` files will go in the `/etc/systemd/system/` directory, and configuration files will go under `/root` or wherever the `root` users home directory is.
+Systems backups will run as `root` and follow the exact same steps as above, only you don't need to add `--user` to the `systemctl` commands,  `.timer` files will go in the `/etc/systemd/system/` directory, and configuration files will go under `/root` or wherever the `root` users home directory is.
 
 ## References
 
