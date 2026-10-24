@@ -9,7 +9,7 @@ In the AWS console for your account configure:
 
 - A backup group with an inline policy (see below)
 - A backup user in that group
-- An general purpose S3 backup bucket with public access disabled (`YOUR_S3_BUCKET`)
+- An general purpose S3 backup bucket with public access disabled (`BUCKET_NAME`)
 
 The recommended inline policy for the user is:
 
@@ -29,8 +29,8 @@ The recommended inline policy for the user is:
         "s3:GetBucketLocation"
       ],
       "Resource": [
-        "arn:aws:s3:::YOUR_S3_BUCKET/*",
-        "arn:aws:s3:::YOUR_S3_BUCKET"
+        "arn:aws:s3:::BUCKET_NAME/*",
+        "arn:aws:s3:::BUCKET_NAME"
       ]
     }
   ]
@@ -48,7 +48,7 @@ See the [AWS Install Instructions](https://docs.aws.amazon.com/cli/latest/usergu
 
 Create an access key and secret access key for the user. Run `aws configure` to set the access key, token and region.
 
-If that works, select the region, paste `{{BUCKET_NAME}}/{{FOLDER_NAME}}`, access id and secret access id into the Mail-in-a-Box backup page and if all is well, you'll get an OK message and backups will start happening to S3.
+If that works, select the region, paste `{{BUCKET_NAME}}/` (you need the trailing slash to indicate the root of the bucket), access id and secret access id into the Mail-in-a-Box backup page and if all is well, you'll get an OK message and backups will start happening to S3.
 
 To manually trigger and test the built-in [Duplicity](https://mailinabox.email/maintenance.html) backup script in Mail-in-a-Box (MIAB), run the following command as `root` or using `sudo` via SSH: [1](https://www.hosting.fr/en/helpdesk/anleitungen/server/personal-mail-server-with-mailinabox/), [2](https://mailinabox.email/maintenance.html)
 
