@@ -54,7 +54,7 @@ Create a file `~/.config/files-to-backup` containing what you want to back up, e
 
 ### Configure Restic Environment
 
-Create a file `~/.config/restic-environment` with the desired backup schedule and other information:
+Create a file `~/.config/restic-backup.conf` with the desired backup schedule and other information:
 
 ```conf
 RETENTION_DAYS=7
@@ -71,7 +71,7 @@ Generate a `RESTIC_PASSWORD` with your favorite password generator and paste in 
 
 ### Initialize the Repo on S3
 
-Run `export $(grep -v '^#' .config/restic-environment | xargs)` in your shell to get the needed environment variables, then run:
+Run `export $(grep -v '^#' .config/restic-backup.conf | xargs)` in your shell to get the needed environment variables, then run:
 
 ```bash
 restic init
