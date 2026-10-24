@@ -10,7 +10,7 @@ In AWS console configure:
 
 - A backup group with an inline policy (see below)
 - A backup user in that group
-- An S3 backup bucket
+- An general purpose S3 backup bucket
 - A folder in the bucket (called anything - `backups` will do)
 
 The recommended inline policy is:
