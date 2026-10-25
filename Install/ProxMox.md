@@ -192,6 +192,21 @@ Update documentation and add reverse DNS entries.
 
 To kill a VM from the CLI  `qm list` to get the ID, then `qm shutdown {{VMID}} --forceStop`.
 
+## Enable or Disable `root` User in GUI
+
+To enable the `root` user in the GUI `/etc/pve/user.cfg` and change the line:
+
+```
+user:root@pam:0:0::::::
+```
+
+to 
+
+```
+user:root@pam:1:0::::::
+```
+
+Disable it after doing what you need to do.
 ## References
 
 - [Certificate Management - Official ProxMox](https://pve.proxmox.com/wiki/Certificate_Management)
